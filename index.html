@@ -537,6 +537,43 @@ function filterActividades(){
 }
 
 // ===== DETALLE =====
+function openEventoDetalle(idx){
+  const e = DATA.EVENTOS[idx];
+  if(!e) return;
+  const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const fecha=(e.FechaInicio||'').split('/');
+  const fechaStr = fecha[0] ? `${fecha[0]} de ${meses[(parseInt(fecha[1])-1)]||''} ${fecha[2]||''}` : '—';
+  const gratis=e.Gratis==='Si'||e.Gratis==='SI';
+  const cols=['g3','g1','g6','g5','g4','g2'];
+  const grad = cols[idx%cols.length];
+
+  const hero = document.getElementById('detailHero');
+  hero.className = 'dhero '+grad;
+  hero.innerHTML = `<span class="dhero-emoji">🎪</span><div class="dbk" onclick="goBack()">←</div><div class="dfv">🤍</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
+
+  document.getElementById('detailBody').innerHTML=`
+    <div class="dtr"><div class="dtit">${e.Nombre}</div></div>
+    <div class="dloc">📍 ${e.Lugar||'Capilla del Monte'}</div>
+    <div class="dtags">
+      <div class="dtag">📅 ${fechaStr}</div>
+      <div class="dtag">🕗 ${e.Horario||'—'}</div>
+      <div class="dtag">${gratis?'✅ Gratis':'💰 $'+(e.Costo||0).toLocaleString()}</div>
+    </div>
+    <div class="igrid">
+      <div class="icard"><div class="iico">📅</div><div class="ilbl">Fecha</div><div class="ival" style="font-size:13px">${fechaStr}</div></div>
+      <div class="icard"><div class="iico">🕗</div><div class="ilbl">Horario</div><div class="ival">${e.Horario||'—'}</div></div>
+      <div class="icard"><div class="iico">📍</div><div class="ilbl">Lugar</div><div class="ival" style="font-size:12px">${e.Lugar||'—'}</div></div>
+      <div class="icard"><div class="iico">💰</div><div class="ilbl">Entrada</div><div class="ival ${gratis?'baja':''}">${gratis?'Gratis':'$'+(e.Costo||0).toLocaleString()}</div></div>
+    </div>
+    <div class="dsec">Sobre este evento</div>
+    <div class="ddesc">${e.Descripcion||'Sin descripción.'}</div>
+    <div class="dsec">Organizador</div>
+    <div class="ddesc">👤 ${e.Organizador||'—'}</div>
+    <button class="dcta" onclick="abrirFormulario()">➕ Sumar mi propio evento</button>
+    <button class="dcta2" onclick="compartir('${e.Nombre}')">📤 Compartir evento</button>`;
+
+  goTo('detail');
+}
 function openDetalle(id){
   const a = DATA.ACTIVIDADES.find(x=>x.ID==id) || DATA.ACTIVIDADES[id] || DATA.ACTIVIDADES[0];
   if(!a) return;
@@ -613,13 +650,14 @@ function renderEventos(){
       const dia=fecha[0]||'—', mes=mesesCortos[(parseInt(fecha[1])-1)]||'—';
       const cols=['v','t','p'];
       const gratis=e.Gratis==='Si'||e.Gratis==='SI';
-      return `<div class="ev-card">
+      return `<div class="ev-card" onclick="openEventoDetalle(${i})" style="cursor:pointer">
         <div class="ev-date ${cols[i%3]}"><div class="ev-dd">${dia}</div><div class="ev-mm">${mes}</div></div>
         <div class="ev-info">
           <div class="ev-name">${e.Nombre}</div>
           <div class="ev-detail">🕗 ${e.Horario||'—'} · ${e.Lugar||e.Organizador||'—'}</div>
           <div class="ev-price ${gratis?'free':''}">${gratis?'Gratis':'$'+(e.Costo||0).toLocaleString()}</div>
         </div>
+        <div style="color:#ccc;font-size:18px;padding-left:4px">›</div>
       </div>`;
     }).join('')}`;
 }
@@ -655,4 +693,5 @@ cargarDatos();
 </script>
 </body>
 </html>
+
 
