@@ -465,9 +465,7 @@ async function cargarDatos(){
     DATA = { ...FALLBACK };
   }
   document.getElementById('loadingScreen').style.display = 'none';
-  const yaVio = localStorage.getItem('capilla_visited');
-  if(!yaVio){ localStorage.setItem('capilla_visited','1'); goTo('instalar'); }
-  else { goTo('splash'); }
+  goTo('splash');
 }
 
 // ===== NAVEGACIÓN =====
@@ -657,3 +655,4 @@ cargarDatos();
 </script>
 </body>
 </html>
+
