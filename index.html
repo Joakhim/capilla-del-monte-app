@@ -6,21 +6,47 @@
 <meta name="theme-color" content="#2D6A4F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Capilla del Monte</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--v:#2D6A4F;--vl:#52B788;--t:#C77D4A;--cr:#F5F0E8;--n:#1A1A2E;--g:#6B7280;--w:#fff;--sh:rgba(0,0,0,0.09)}
+:root{--v:#2D6A4F;--vl:#52B788;--t:#C77D4A;--cr:#F5F0E8;--n:#1A1A2E;--g:#6B7280;--w:#fff;--sh:rgba(0,0,0,0.09);--red:#C0392B}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:#1a1a1a}
 body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-items:center}
-#app{width:390px;height:100dvh;max-height:844px;background:var(--cr);overflow:hidden;position:relative;box-shadow:0 0 60px rgba(0,0,0,.5)}
-@media(max-width:430px){#app{width:100vw;height:100dvh;max-height:none;box-shadow:none}}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s}
+#app{width:390px;height:844px;background:var(--cr);overflow:hidden;position:relative;box-shadow:0 0 60px rgba(0,0,0,0.5)}
+@media(max-width:430px){#app{width:100vw;height:100vh}}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s;will-change:transform}
 .screen.hidden{transform:translateX(100%);pointer-events:none}
 .screen.back{transform:translateX(-30%);opacity:.5;pointer-events:none}
 
+/* INSTALAR */
+#instalar{background:var(--v);align-items:center;justify-content:flex-end;overflow:hidden;padding-bottom:0}
+.inst-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 10%,rgba(82,183,136,.4) 0%,transparent 55%),radial-gradient(ellipse at 20% 85%,rgba(199,125,74,.3) 0%,transparent 50%),linear-gradient(155deg,#1B4332,#2D6A4F 55%,#1B4332)}
+.inst-mtn{position:absolute;bottom:200px;left:0;right:0;height:200px;opacity:.1}
+.inst-card{position:relative;z-index:2;background:var(--cr);border-radius:32px 32px 0 0;padding:28px 24px 40px;width:100%}
+.inst-pill{width:40px;height:4px;background:#DDD;border-radius:2px;margin:0 auto 24px}
+.inst-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.inst-ico{width:60px;height:60px;background:var(--v);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.inst-top-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--n);margin-bottom:2px}
+.inst-top-sub{font-size:13px;color:var(--g)}
+.inst-tabs{display:flex;gap:8px;margin-bottom:18px}
+.inst-tab{flex:1;padding:10px;border-radius:12px;border:2px solid #E8E0D5;background:#fff;font-size:13px;font-weight:600;color:var(--g);cursor:pointer;text-align:center;transition:all .2s}
+.inst-tab.on{border-color:var(--v);color:var(--v);background:rgba(45,106,79,.06)}
+.inst-steps{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+.inst-step{display:flex;align-items:flex-start;gap:13px}
+.inst-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px}
+.inst-num.v{background:var(--v)}.inst-num.t{background:var(--t)}.inst-num.n{background:var(--n)}
+.inst-step-title{font-weight:700;font-size:15px;color:var(--n);margin-bottom:2px}
+.inst-step-desc{font-size:13px;color:var(--g);line-height:1.5}
+.inst-step-desc b{color:var(--n)}
+.inst-android{display:block}.inst-iphone{display:none}
+.inst-btn{background:var(--v);color:#fff;border:none;padding:17px;border-radius:17px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 20px rgba(45,106,79,.3);transition:transform .15s}
+.inst-btn:active{transform:scale(.98)}
+.inst-skip{text-align:center;margin-top:14px;font-size:13px;color:var(--g);cursor:pointer}
+.inst-skip span{text-decoration:underline}
+
 /* SPLASH */
 #splash{background:var(--v);align-items:center;justify-content:center;overflow:hidden}
-.sp-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 15%,rgba(82,183,136,.45),transparent 55%),radial-gradient(ellipse at 25% 85%,rgba(199,125,74,.35),transparent 50%),linear-gradient(155deg,#1B4332,#2D6A4F 55%,#1B4332)}
+.sp-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 15%,rgba(82,183,136,.45) 0%,transparent 55%),radial-gradient(ellipse at 25% 85%,rgba(199,125,74,.35) 0%,transparent 50%),linear-gradient(155deg,#1B4332 0%,#2D6A4F 55%,#1B4332 100%)}
 .sp-mtn{position:absolute;bottom:0;left:0;right:0;height:280px;opacity:.1}
 .sp-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 40px;text-align:center}
 .sp-ico{width:84px;height:84px;background:rgba(255,255,255,.12);border-radius:26px;display:flex;align-items:center;justify-content:center;font-size:40px;border:1.5px solid rgba(255,255,255,.2);margin-bottom:6px}
@@ -35,208 +61,223 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 
 /* HOME */
 #home{background:var(--cr)}
-.hdr{background:var(--v);padding:16px 22px 26px;border-radius:0 0 30px 30px;position:relative;overflow:hidden;flex-shrink:0}
+.hdr{background:var(--v);padding:16px 22px 28px;border-radius:0 0 32px 32px;position:relative;overflow:hidden;flex-shrink:0}
 .hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%}
-.hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;position:relative;z-index:1}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;position:relative;z-index:1}
 .hloc{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.75);font-size:13px;font-weight:500}
 .hav{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer}
-.hgreet{font-family:'Playfair Display',serif;font-size:25px;color:#fff;font-weight:700;line-height:1.2;margin-bottom:3px;position:relative;z-index:1}
-.hdate{color:rgba(255,255,255,.6);font-size:12px;margin-bottom:16px;position:relative;z-index:1}
-.wpill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);padding:7px 14px;border-radius:50px;position:relative;z-index:1}
+.hgreet{font-family:'Playfair Display',serif;font-size:26px;color:#fff;font-weight:700;line-height:1.2;margin-bottom:3px;position:relative;z-index:1}
+.hdate{color:rgba(255,255,255,.6);font-size:12px;margin-bottom:18px;position:relative;z-index:1}
+.wpill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);padding:8px 15px;border-radius:50px;position:relative;z-index:1}
 .wpill span{color:#fff;font-size:13px;font-weight:500}
-.srch{margin:14px 18px 0;background:#fff;border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:9px;box-shadow:0 4px 16px var(--sh);flex-shrink:0}
+.srch{margin:16px 18px 0;background:#fff;border-radius:15px;padding:13px 15px;display:flex;align-items:center;gap:9px;box-shadow:0 4px 16px var(--sh);flex-shrink:0}
 .srch span{color:var(--g);font-size:14px}
 .srch input{border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--n);flex:1;background:transparent}
-.scroll-area{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:72px}
+.scroll-area{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:80px}
 .scroll-area::-webkit-scrollbar{display:none}
-.sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:18px 18px 10px}
-.sec-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--n)}
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:20px 18px 10px}
+.sec-t{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--n)}
 .ver{font-size:13px;font-weight:600;color:var(--v);cursor:pointer}
+
+/* CATEGORÍAS — ahora con scroll horizontal y todas las cats */
 .cats{display:flex;gap:9px;padding:0 18px 2px;overflow-x:auto;scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
-.cat{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:66px;padding:11px 7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px var(--sh);border:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0}
+.cat{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:68px;padding:12px 8px;background:#fff;border-radius:15px;box-shadow:0 2px 8px var(--sh);border:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0}
 .cat.on{background:var(--v);border-color:var(--v)}
-.cat .ci{font-size:21px}
+.cat .ci{font-size:22px}
 .cat .cl{font-size:10px;font-weight:600;color:var(--g);text-align:center;line-height:1.2}
 .cat.on .cl{color:rgba(255,255,255,.9)}
+
 .hscr{display:flex;gap:13px;padding:4px 18px 6px;overflow-x:auto;scrollbar-width:none}
 .hscr::-webkit-scrollbar{display:none}
-.acard{min-width:196px;background:#fff;border-radius:19px;overflow:hidden;box-shadow:0 4px 16px var(--sh);flex-shrink:0;cursor:pointer;transition:transform .2s}
+.acard{min-width:200px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 16px var(--sh);flex-shrink:0;cursor:pointer;transition:transform .2s}
 .acard:active{transform:scale(.97)}
-.aimg{height:115px;position:relative;display:flex;align-items:center;justify-content:center;font-size:46px;overflow:hidden}
-.aimg img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.aimg-emoji{position:relative;z-index:1}
+.aimg{height:118px;position:relative;display:flex;align-items:center;justify-content:center;font-size:48px}
 .g1{background:linear-gradient(135deg,#1B4332,#52B788)}
 .g2{background:linear-gradient(135deg,#1a3a5c,#1565C0)}
 .g3{background:linear-gradient(135deg,#7B3F00,#C77D4A)}
 .g4{background:linear-gradient(135deg,#4A0E0E,#C62828)}
 .g5{background:linear-gradient(135deg,#1a4a2e,#2E7D32)}
 .g6{background:linear-gradient(135deg,#3d1a78,#7B1FA2)}
-.abadge{position:absolute;top:9px;right:9px;background:rgba(255,255,255,.92);border-radius:50px;padding:3px 9px;font-size:11px;font-weight:700;z-index:2}
+.g7{background:linear-gradient(135deg,#1a3a4a,#00695C)}
+.g8{background:linear-gradient(135deg,#1a3050,#1976D2)}
+.g9{background:linear-gradient(135deg,#4a1a00,#E65100)}
+.abadge{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.92);border-radius:50px;padding:3px 10px;font-size:11px;font-weight:700}
 .abadge.popular{color:var(--v)}.abadge.gratis{color:#1565C0}.abadge.hoy{color:var(--t)}
-.abody{padding:11px 13px 13px}
-.aname{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--n);margin-bottom:3px}
-.ameta{color:var(--g);font-size:12px;margin-bottom:7px}
+.abody{padding:12px 14px 14px}
+.aname{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--n);margin-bottom:3px}
+.ameta{color:var(--g);font-size:12px;margin-bottom:8px}
 .tags{display:flex;gap:4px;flex-wrap:wrap}
 .tag{background:var(--cr);color:var(--v);border-radius:50px;padding:3px 8px;font-size:10px;font-weight:600}
-.evrow{margin:0 18px 10px;background:#fff;border-radius:14px;padding:12px 13px;display:flex;gap:12px;align-items:center;box-shadow:0 2px 8px var(--sh);cursor:pointer;transition:transform .15s}
+.evrow{margin:0 18px 10px;background:#fff;border-radius:15px;padding:13px 14px;display:flex;gap:13px;align-items:center;box-shadow:0 2px 8px var(--sh);cursor:pointer;transition:transform .15s}
 .evrow:active{transform:scale(.98)}
-.evbox{min-width:46px;height:50px;background:var(--v);border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.evbox{min-width:48px;height:52px;background:var(--v);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
 .evbox.t{background:var(--t)}.evbox.p{background:#7B1FA2}
-.evd{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;line-height:1}
+.evd{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1}
 .evm{font-size:9px;letter-spacing:1px;text-transform:uppercase;opacity:.8}
-.evinfo{flex:1;min-width:0}
-.evname{font-weight:600;font-size:13px;color:var(--n);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.evdet{font-size:11px;color:var(--g)}
-.evp{font-weight:700;font-size:12px;color:var(--t);flex-shrink:0}
+.evinfo{flex:1}
+.evname{font-weight:600;font-size:14px;color:var(--n);margin-bottom:2px}
+.evdet{font-size:12px;color:var(--g)}
+.evp{font-weight:700;font-size:13px;color:var(--t)}
 .evp.free{color:var(--v)}
-.banner-evento{margin:8px 18px 16px;background:linear-gradient(135deg,var(--t),#e8914a);border-radius:17px;padding:15px 17px;display:flex;align-items:center;gap:13px;cursor:pointer;box-shadow:0 6px 20px rgba(199,125,74,.3);transition:transform .15s}
+.banner-evento{margin:8px 18px 4px;background:linear-gradient(135deg,var(--t),#e8914a);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 6px 20px rgba(199,125,74,.35);transition:transform .15s}
 .banner-evento:active{transform:scale(.98)}
-.banner-ico{font-size:34px;flex-shrink:0}
+.banner-ico{font-size:36px;flex-shrink:0}
 .banner-txt{flex:1}
-.banner-titulo{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
-.banner-sub{font-size:11px;color:rgba(255,255,255,.85);line-height:1.4}
-.banner-arrow{font-size:18px;color:rgba(255,255,255,.8)}
+.banner-titulo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
+.banner-sub{font-size:12px;color:rgba(255,255,255,.85);line-height:1.4}
+.banner-arrow{font-size:20px;color:rgba(255,255,255,.8)}
 
-/* NAVBAR */
-.navbar{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid rgba(0,0,0,.06);padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));display:flex;justify-content:space-around;z-index:100}
-.ni{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--g);cursor:pointer;padding:5px 12px;border-radius:12px;transition:color .2s}
+/* NAVBAR — vuelve a Inicio/Explorar/Eventos/Favoritos */
+.navbar{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid rgba(0,0,0,.06);padding:10px 0 20px;display:flex;justify-content:space-around;z-index:100}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--g);cursor:pointer;padding:4px 12px;border-radius:12px;transition:color .2s}
 .ni.on{color:var(--v)}
-.niico{font-size:21px;position:relative}
+.niico{font-size:22px;position:relative}
 .ndot{position:absolute;top:-1px;right:-3px;width:8px;height:8px;background:var(--t);border-radius:50%;border:2px solid #fff}
 
 /* DETALLE */
 #detail{background:var(--cr)}
-.dhero{height:270px;position:relative;display:flex;align-items:center;justify-content:center;font-size:78px;overflow:hidden;flex-shrink:0}
-.dhero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--cr));pointer-events:none;z-index:1}
-.dhero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.dhero-emoji{position:relative;z-index:1}
-.dbk,.dfv{position:absolute;top:18px;width:40px;height:40px;background:rgba(255,255,255,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;z-index:10;cursor:pointer;backdrop-filter:blur(8px);transition:transform .15s}
-.dbk{left:16px}.dfv{right:16px}
-.dbk:active,.dfv:active{transform:scale(.9)}
-.dpht{position:absolute;bottom:18px;right:16px;display:flex;gap:5px;z-index:10}
+.dhero{height:280px;position:relative;display:flex;align-items:center;justify-content:center;font-size:80px;overflow:hidden;flex-shrink:0}
+.dhero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(transparent,var(--cr));pointer-events:none}
+.dbk{position:absolute;top:18px;left:16px;width:40px;height:40px;background:rgba(255,255,255,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:10;cursor:pointer;backdrop-filter:blur(8px)}
+.dfv{position:absolute;top:18px;right:16px;width:40px;height:40px;background:rgba(255,255,255,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:10;cursor:pointer;backdrop-filter:blur(8px)}
+.dpht{position:absolute;bottom:20px;right:16px;display:flex;gap:5px;z-index:10}
 .pd{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}
 .pd.on{background:#fff;width:18px;border-radius:3px}
 .dbody{flex:1;overflow-y:auto;padding:0 18px 24px;scrollbar-width:none}
 .dbody::-webkit-scrollbar{display:none}
 .dtr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;padding-top:2px}
-.dtit{font-family:'Playfair Display',serif;font-size:27px;font-weight:900;color:var(--n);line-height:1.1;flex:1}
-.drat{display:flex;align-items:center;gap:3px;background:#FFF8E7;padding:6px 10px;border-radius:10px;font-size:13px;font-weight:700;color:#E8A400;margin-left:10px;margin-top:4px;flex-shrink:0}
-.dloc{color:var(--g);font-size:13px;margin-bottom:14px}
-.dtags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.dtag{background:#fff;border-radius:50px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--n);box-shadow:0 2px 6px var(--sh)}
-.igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
-.icard{background:#fff;border-radius:13px;padding:13px;box-shadow:0 2px 8px var(--sh)}
-.iico{font-size:19px;margin-bottom:5px}
+.dtit{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--n);line-height:1.1;flex:1}
+.drat{display:flex;align-items:center;gap:3px;background:#FFF8E7;padding:6px 11px;border-radius:10px;font-size:13px;font-weight:700;color:#E8A400;margin-left:10px;margin-top:5px;flex-shrink:0}
+.dloc{color:var(--g);font-size:13px;margin-bottom:16px}
+.dtags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.dtag{background:#fff;border-radius:50px;padding:7px 13px;font-size:12px;font-weight:600;color:var(--n);box-shadow:0 2px 6px var(--sh)}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.icard{background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 8px var(--sh)}
+.iico{font-size:20px;margin-bottom:5px}
 .ilbl{font-size:10px;color:var(--g);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:2px}
 .ival{font-size:14px;font-weight:700;color:var(--n)}
 .ival.alta{color:#E53935}.ival.media{color:#E8A400}.ival.baja{color:var(--v)}
-.dsec{font-weight:700;font-size:15px;color:var(--n);margin-bottom:7px}
-.ddesc{font-size:14px;color:#4A5568;line-height:1.75;margin-bottom:20px}
-.mmap{background:linear-gradient(135deg,#c8e6c9,#a5d6a7);border-radius:15px;height:125px;margin-bottom:18px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.dsec{font-weight:700;font-size:16px;color:var(--n);margin-bottom:8px}
+.ddesc{font-size:14px;color:#4A5568;line-height:1.75;margin-bottom:22px}
+.mmap{background:linear-gradient(135deg,#c8e6c9,#a5d6a7);border-radius:16px;height:130px;margin-bottom:20px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .mgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px);background-size:22px 22px}
-.mpin{position:relative;z-index:2;font-size:30px}
-.mlbl{position:absolute;bottom:10px;right:10px;background:#fff;border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--v);box-shadow:0 2px 8px var(--sh)}
-.dcta{background:var(--v);color:#fff;border:none;padding:16px;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;width:100%;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 20px rgba(45,106,79,.3);transition:transform .15s}
+.mpin{position:relative;z-index:2;font-size:32px}
+.mlbl{position:absolute;bottom:10px;right:10px;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--v);box-shadow:0 2px 8px var(--sh)}
+.dcta{background:var(--v);color:#fff;border:none;padding:17px;border-radius:17px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;width:100%;margin-bottom:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 20px rgba(45,106,79,.3);transition:transform .15s}
 .dcta:active{transform:scale(.98)}
-.dcta2{background:#fff;color:var(--v);border:2px solid var(--v);padding:14px;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:12px}
+.dcta2{background:#fff;color:var(--v);border:2px solid var(--v);padding:15px;border-radius:17px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:14px}
 
 /* EXPLORAR */
 #explore{background:var(--cr)}
-.exhdr{padding:18px 18px 10px;flex-shrink:0}
-.extit{font-family:'Playfair Display',serif;font-size:27px;font-weight:900;color:var(--n);margin-bottom:3px}
+.exhdr{padding:20px 18px 12px;flex-shrink:0}
+.extit{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--n);margin-bottom:3px}
 .exsub{font-size:13px;color:var(--g)}
-.fltrs{display:flex;gap:7px;padding:0 18px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.fltrs{display:flex;gap:7px;padding:0 18px 14px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
 .fltrs::-webkit-scrollbar{display:none}
-.chip{white-space:nowrap;padding:7px 15px;border-radius:50px;border:2px solid #ddd;background:#fff;font-size:13px;font-weight:600;color:var(--g);cursor:pointer;transition:all .2s;flex-shrink:0}
+.chip{white-space:nowrap;padding:8px 16px;border-radius:50px;border:2px solid #ddd;background:#fff;font-size:13px;font-weight:600;color:var(--g);cursor:pointer;transition:all .2s;flex-shrink:0}
 .chip.on{background:var(--v);border-color:var(--v);color:#fff}
-.expgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:0 18px 80px}
-.ecard{background:#fff;border-radius:17px;overflow:hidden;box-shadow:0 4px 12px var(--sh);cursor:pointer;transition:transform .2s}
+.expgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 18px 90px}
+.ecard{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 12px var(--sh);cursor:pointer;transition:transform .2s}
 .ecard:active{transform:scale(.97)}
-.ecard.feat{grid-column:1/-1;display:flex;height:98px}
-.ecimg{height:108px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden}
-.ecimg img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.ecimg-emoji{position:relative;z-index:1}
-.ecard.feat .ecimg{width:108px;height:100%;flex-shrink:0}
-.ebadge{position:absolute;top:7px;left:7px;color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:50px;z-index:2}
+.ecard.feat{grid-column:1/-1;display:flex;height:100px}
+.ecimg{height:110px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
+.ecard.feat .ecimg{width:110px;height:100%;flex-shrink:0}
+.ebadge{position:absolute;top:7px;left:7px;color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:50px}
 .ecbody{padding:10px 12px 12px}
-.ecard.feat .ecbody{padding:12px 13px;display:flex;flex-direction:column;justify-content:center}
+.ecard.feat .ecbody{padding:12px 14px;display:flex;flex-direction:column;justify-content:center}
 .ecname{font-weight:700;font-size:13px;color:var(--n);margin-bottom:3px;line-height:1.3}
 .ecmeta{font-size:11px;color:var(--g)}
 
 /* EVENTOS */
 #eventos{background:var(--cr)}
-.ev-hdr{background:var(--v);padding:16px 22px 26px;border-radius:0 0 30px 30px;flex-shrink:0;position:relative;overflow:hidden}
+.ev-hdr{background:var(--v);padding:16px 22px 28px;border-radius:0 0 32px 32px;flex-shrink:0;position:relative;overflow:hidden}
 .ev-hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%}
-.ev-title{font-family:'Playfair Display',serif;font-size:25px;font-weight:900;color:#fff;margin-bottom:3px;position:relative;z-index:1}
-.ev-sub{font-size:12px;color:rgba(255,255,255,.65);position:relative;z-index:1}
-.ev-banner{margin:16px 18px 0;background:linear-gradient(135deg,var(--t),#e8914a);border-radius:17px;padding:16px;cursor:pointer;box-shadow:0 6px 20px rgba(199,125,74,.3);transition:transform .15s;position:relative;overflow:hidden}
+.ev-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:4px;position:relative;z-index:1}
+.ev-sub{font-size:13px;color:rgba(255,255,255,.65);position:relative;z-index:1}
+.ev-banner{margin:18px 18px 0;background:linear-gradient(135deg,var(--t),#e8914a);border-radius:18px;padding:18px;cursor:pointer;box-shadow:0 6px 20px rgba(199,125,74,.35);transition:transform .15s;position:relative;overflow:hidden}
 .ev-banner:active{transform:scale(.98)}
-.ev-banner::before{content:'🎪';position:absolute;right:-8px;bottom:-8px;font-size:70px;opacity:.15}
-.ev-banner-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
-.ev-banner-sub{font-size:12px;color:rgba(255,255,255,.88);line-height:1.5;margin-bottom:12px}
-.ev-banner-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;padding:8px 16px;border-radius:50px;font-size:12px;font-weight:700}
-.ev-list{flex:1;overflow-y:auto;scrollbar-width:none;padding:0 18px 80px}
+.ev-banner::before{content:'🎪';position:absolute;right:-10px;bottom:-10px;font-size:80px;opacity:.15}
+.ev-banner-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:5px}
+.ev-banner-sub{font-size:13px;color:rgba(255,255,255,.88);line-height:1.5;margin-bottom:14px}
+.ev-banner-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;padding:9px 18px;border-radius:50px;font-size:13px;font-weight:700}
+.ev-list{flex:1;overflow-y:auto;scrollbar-width:none;padding:0 18px 90px}
 .ev-list::-webkit-scrollbar{display:none}
-.ev-sec{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--n);padding:16px 0 8px}
-.ev-card{background:#fff;border-radius:15px;padding:13px;margin-bottom:10px;box-shadow:0 2px 10px var(--sh);display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .15s}
-.ev-card:active{transform:scale(.98)}
-.ev-date{min-width:50px;height:54px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.ev-sec{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--n);padding:18px 0 10px}
+.ev-card{background:#fff;border-radius:16px;padding:15px;margin-bottom:11px;box-shadow:0 2px 10px var(--sh);display:flex;gap:13px;align-items:center}
+.ev-date{min-width:52px;height:56px;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
 .ev-date.v{background:var(--v)}.ev-date.t{background:var(--t)}.ev-date.p{background:#7B1FA2}
-.ev-dd{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;line-height:1}
+.ev-dd{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1}
 .ev-mm{font-size:9px;letter-spacing:1px;text-transform:uppercase;opacity:.85}
-.ev-info{flex:1;min-width:0}
-.ev-name{font-weight:700;font-size:13px;color:var(--n);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ev-detail{font-size:11px;color:var(--g);margin-bottom:4px}
+.ev-info{flex:1}
+.ev-name{font-weight:700;font-size:14px;color:var(--n);margin-bottom:3px}
+.ev-detail{font-size:12px;color:var(--g);margin-bottom:5px}
 .ev-price{font-size:12px;font-weight:700;color:var(--t)}
 .ev-price.free{color:var(--v)}
 
 /* FAVORITOS */
 #favoritos{background:var(--cr)}
-.fav-hdr{background:var(--v);padding:16px 22px 26px;border-radius:0 0 30px 30px;flex-shrink:0}
-.fav-title{font-family:'Playfair Display',serif;font-size:25px;font-weight:900;color:#fff;margin-bottom:3px}
-.fav-sub{font-size:12px;color:rgba(255,255,255,.65)}
-.fav-list{flex:1;overflow-y:auto;padding:12px 18px 80px;scrollbar-width:none}
+.fav-hdr{background:var(--v);padding:16px 22px 28px;border-radius:0 0 32px 32px;flex-shrink:0;position:relative;overflow:hidden}
+.fav-hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%}
+.fav-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;margin-bottom:4px;position:relative;z-index:1}
+.fav-sub{font-size:13px;color:rgba(255,255,255,.65);position:relative;z-index:1}
+.fav-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;padding:40px 30px;text-align:center}
+.fav-empty-ico{font-size:60px;margin-bottom:8px}
+.fav-empty-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--n)}
+.fav-empty-sub{font-size:14px;color:var(--g);line-height:1.6}
+.fav-btn{margin-top:8px;background:var(--v);color:#fff;border:none;padding:14px 32px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(45,106,79,.3)}
+.fav-list{flex:1;overflow-y:auto;scrollbar-width:none;padding:16px 18px 90px}
 .fav-list::-webkit-scrollbar{display:none}
-.fav-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;color:var(--g);text-align:center;padding:40px}
-.fav-empty-ico{font-size:56px;opacity:.4}
-.fav-empty-txt{font-size:15px;font-weight:600;color:var(--g)}
-.fav-empty-sub{font-size:13px;color:var(--g);opacity:.8}
-.fav-card{background:#fff;border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 2px 10px var(--sh);display:flex;gap:13px;align-items:center;cursor:pointer;transition:transform .15s}
+.fav-card{background:#fff;border-radius:16px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 10px var(--sh);display:flex;cursor:pointer;transition:transform .15s}
 .fav-card:active{transform:scale(.98)}
-.fav-card-ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.fav-card-name{font-weight:700;font-size:14px;color:var(--n);margin-bottom:2px}
-.fav-card-meta{font-size:12px;color:var(--g)}
-.fav-card-del{font-size:18px;cursor:pointer;padding:4px;flex-shrink:0}
+.fav-card-img{width:90px;height:90px;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
+.fav-card-body{padding:12px 14px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.fav-card-name{font-weight:700;font-size:14px;color:var(--n);margin-bottom:4px}
+.fav-card-meta{font-size:12px;color:var(--g);margin-bottom:6px}
+.fav-card-tag{display:inline-block;background:var(--cr);color:var(--v);border-radius:50px;padding:3px 8px;font-size:10px;font-weight:600}
+.fav-remove{padding:12px;display:flex;align-items:center;color:var(--g);font-size:18px;cursor:pointer}
 
-/* SALUD */
-#salud{background:var(--cr)}
-.salud-hdr{background:linear-gradient(135deg,#B71C1C,#E53935);padding:16px 22px 26px;border-radius:0 0 30px 30px;flex-shrink:0;position:relative;overflow:hidden}
-.salud-hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%}
-.salud-title{font-family:'Playfair Display',serif;font-size:25px;font-weight:900;color:#fff;margin-bottom:3px;position:relative;z-index:1}
-.salud-sub{font-size:12px;color:rgba(255,255,255,.7);position:relative;z-index:1}
-.wsp-btn{background:#25D366;color:#fff;border:none;padding:16px;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;width:100%;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 20px rgba(37,211,102,.3);transition:transform .15s}
-.wsp-btn:active{transform:scale(.98)}
-
-/* LOADING */
-.loading-screen{position:absolute;inset:0;background:var(--cr);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:50}
-.spinner{width:36px;height:36px;border:3px solid rgba(45,106,79,.2);border-top-color:var(--v);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-txt{font-size:14px;color:var(--g);font-weight:500}
-
-/* TOAST */
-.toast{position:absolute;bottom:85px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--n);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;white-space:nowrap;z-index:200;pointer-events:none}
+.toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--n);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;white-space:nowrap;z-index:200;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- LOADING -->
-  <div class="loading-screen" id="loadingScreen">
-    <div style="width:70px;height:70px;background:var(--v);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px">🏔️</div>
-    <div class="spinner"></div>
-    <div class="loading-txt">Cargando Capilla del Monte...</div>
+  <!-- INSTALAR -->
+  <div class="screen" id="instalar">
+    <div class="inst-bg"></div>
+    <svg class="inst-mtn" viewBox="0 0 390 200" fill="none"><path d="M0 200 L80 80 L135 120 L205 30 L270 100 L320 55 L390 95 L390 200Z" fill="white"/></svg>
+    <div class="inst-card">
+      <div class="inst-pill"></div>
+      <div class="inst-top">
+        <div class="inst-ico">🏔️</div>
+        <div>
+          <div class="inst-top-title">Instalá la app</div>
+          <div class="inst-top-sub">Capilla del Monte · Gratis</div>
+        </div>
+      </div>
+      <div class="inst-tabs">
+        <div class="inst-tab on" onclick="switchTab('android',this)">🤖 Android</div>
+        <div class="inst-tab" onclick="switchTab('iphone',this)">🍎 iPhone</div>
+      </div>
+      <div id="steps-android" class="inst-android">
+        <div class="inst-steps">
+          <div class="inst-step"><div class="inst-num v">1</div><div><div class="inst-step-title">Abrí en Chrome</div><div class="inst-step-desc">Usá <b>Google Chrome</b> en tu Android</div></div></div>
+          <div class="inst-step"><div class="inst-num t">2</div><div><div class="inst-step-title">Tocá el banner</div><div class="inst-step-desc">Aparece abajo: <b>"Agregar a pantalla de inicio"</b></div></div></div>
+          <div class="inst-step"><div class="inst-num n">3</div><div><div class="inst-step-title">¡Listo!</div><div class="inst-step-desc">La app queda en tu pantalla de inicio 🎉</div></div></div>
+        </div>
+      </div>
+      <div id="steps-iphone" class="inst-iphone">
+        <div class="inst-steps">
+          <div class="inst-step"><div class="inst-num v">1</div><div><div class="inst-step-title">Abrí en Safari</div><div class="inst-step-desc">Tiene que ser <b>Safari</b> en iPhone</div></div></div>
+          <div class="inst-step"><div class="inst-num t">2</div><div><div class="inst-step-title">Tocá Compartir 📤</div><div class="inst-step-desc">El ícono está <b>abajo al centro</b></div></div></div>
+          <div class="inst-step"><div class="inst-num n">3</div><div><div class="inst-step-title">"Agregar a inicio" ➕</div><div class="inst-step-desc">Buscá <b>"Agregar a pantalla de inicio"</b></div></div></div>
+        </div>
+      </div>
+      <button class="inst-btn" onclick="goTo('splash')">🏔️ Entrar a la app</button>
+      <div class="inst-skip" onclick="goTo('splash')"><span>Omitir por ahora</span></div>
+    </div>
   </div>
 
   <!-- SPLASH -->
@@ -261,7 +302,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
     <div class="hdr">
       <div class="hdr-top">
         <div class="hloc">📍 Capilla del Monte</div>
-        <div class="hav" onclick="navTo('favoritos')">❤️</div>
+        <div class="hav">👤</div>
       </div>
       <div class="hgreet" id="greeting">¡Buen día!</div>
       <div class="hdate" id="hdate"></div>
@@ -285,10 +326,10 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
       </div>
     </div>
     <div class="navbar">
-      <div class="ni on" onclick="navTo('home')"><div class="niico">🏠</div><div>Inicio</div></div>
-      <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><div>Explorar</div></div>
-      <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><div>Eventos</div></div>
-      <div class="ni" onclick="navTo('salud')"><div class="niico">🏥</div><div>Salud</div></div>
+      <div class="ni on" id="nav-home" onclick="navTo('home')"><div class="niico">🏠</div><div>Inicio</div></div>
+      <div class="ni" id="nav-explore" onclick="navTo('explore')"><div class="niico">🗺️</div><div>Explorar</div></div>
+      <div class="ni" id="nav-eventos" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><div>Eventos</div></div>
+      <div class="ni" id="nav-favoritos" onclick="navTo('favoritos')"><div class="niico">❤️</div><div>Guardados</div></div>
     </div>
   </div>
 
@@ -312,7 +353,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
       <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><div>Inicio</div></div>
       <div class="ni on" onclick="navTo('explore')"><div class="niico">🗺️</div><div>Explorar</div></div>
       <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><div>Eventos</div></div>
-      <div class="ni" onclick="navTo('salud')"><div class="niico">🏥</div><div>Salud</div></div>
+      <div class="ni" onclick="navTo('favoritos')"><div class="niico">❤️</div><div>Guardados</div></div>
     </div>
   </div>
 
@@ -323,61 +364,51 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
         <div class="hloc">📅 Agenda</div>
         <div class="hav" onclick="goBack()">←</div>
       </div>
-      <div class="ev-title">Eventos en Capilla</div>
-      <div class="ev-sub" id="eventosSub">Cargando...</div>
+      <div class="ev-title">Eventos en<br>Capilla</div>
+      <div class="ev-sub">Marzo 2026 · 4 eventos</div>
     </div>
     <div class="ev-banner" onclick="abrirFormulario()">
       <div class="ev-banner-title">¿Organizás un evento?</div>
       <div class="ev-banner-sub">Sumalo gratis y llegá a cientos de turistas</div>
       <div class="ev-banner-btn">➕ Sumar mi evento</div>
     </div>
-    <div class="ev-list" id="eventosFullList"></div>
+    <div class="ev-list">
+      <div class="ev-sec">Hoy</div>
+      <div class="ev-card"><div class="ev-date v"><div class="ev-dd">5</div><div class="ev-mm">MAR</div></div><div class="ev-info"><div class="ev-name">Show de Folklore en Vivo</div><div class="ev-detail">🕗 21:00 · Bar El Cerro</div><div class="ev-price">$3.500</div></div></div>
+      <div class="ev-card"><div class="ev-date t"><div class="ev-dd">5</div><div class="ev-mm">MAR</div></div><div class="ev-info"><div class="ev-name">Feria de Luna Llena</div><div class="ev-detail">🕖 19:00 · Plaza San Martín</div><div class="ev-price free">Gratis</div></div></div>
+      <div class="ev-sec">Esta semana</div>
+      <div class="ev-card"><div class="ev-date p"><div class="ev-dd">7</div><div class="ev-mm">MAR</div></div><div class="ev-info"><div class="ev-name">Festival Gastronómico</div><div class="ev-detail">🕛 12:00 · Costanera · 2 días</div><div class="ev-price free">Gratis</div></div></div>
+      <div class="ev-card"><div class="ev-date v"><div class="ev-dd">8</div><div class="ev-mm">MAR</div></div><div class="ev-info"><div class="ev-name">Taller de Yoga Outdoor</div><div class="ev-detail">🕗 08:00 · Parque Municipal</div><div class="ev-price">$2.500</div></div></div>
+    </div>
     <div class="navbar">
       <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><div>Inicio</div></div>
       <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><div>Explorar</div></div>
-      <div class="ni on"><div class="niico">📅</div><div>Eventos</div></div>
-      <div class="ni" onclick="navTo('salud')"><div class="niico">🏥</div><div>Salud</div></div>
+      <div class="ni on" onclick="navTo('eventos')"><div class="niico">📅</div><div>Eventos</div></div>
+      <div class="ni" onclick="navTo('favoritos')"><div class="niico">❤️</div><div>Guardados</div></div>
     </div>
   </div>
 
   <!-- FAVORITOS -->
   <div class="screen hidden" id="favoritos">
     <div class="fav-hdr">
-      <div class="hdr-top">
+      <div class="hdr-top" style="position:relative;z-index:1">
         <div class="hloc">❤️ Guardados</div>
         <div class="hav" onclick="goBack()">←</div>
       </div>
-      <div class="fav-title">Tus favoritos</div>
-      <div class="fav-sub" id="favSub">0 actividades guardadas</div>
+      <div class="fav-title">Tus lugares<br>guardados</div>
+      <div class="fav-sub" id="favCount">0 lugares guardados</div>
     </div>
-    <div id="favContent" style="flex:1;display:flex;flex-direction:column;overflow:hidden"></div>
-    <div class="navbar">
-      <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><div>Inicio</div></div>
-      <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><div>Explorar</div></div>
-      <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><div>Eventos</div></div>
-      <div class="ni" onclick="navTo('salud')"><div class="niico">🏥</div><div>Salud</div></div>
-    </div>
-  </div>
-
-  <!-- SALUD -->
-  <div class="screen hidden" id="salud">
-    <div class="salud-hdr">
-      <div class="hdr-top" style="position:relative;z-index:1">
-        <div class="hloc">🏥 Salud</div>
-        <div class="hav" onclick="goBack()">←</div>
-      </div>
-      <div class="salud-title">Servicios de salud</div>
-      <div class="salud-sub" id="saludCount">Cargando...</div>
-    </div>
-    <div class="fltrs" id="saludFiltros" style="padding-top:12px"></div>
-    <div class="scroll-area" style="padding-bottom:80px">
-      <div id="saludList" style="padding:12px 18px 0"></div>
+    <div id="favContent" class="fav-empty">
+      <div class="fav-empty-ico">🗺️</div>
+      <div class="fav-empty-title">Todavía no guardaste nada</div>
+      <div class="fav-empty-sub">Explorá las actividades y tocá el ❤️ para guardar tus favoritos</div>
+      <button class="fav-btn" onclick="goTo('explore')">Explorar actividades</button>
     </div>
     <div class="navbar">
       <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><div>Inicio</div></div>
       <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><div>Explorar</div></div>
       <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><div>Eventos</div></div>
-      <div class="ni on"><div class="niico">🏥</div><div>Salud</div></div>
+      <div class="ni on" onclick="navTo('favoritos')"><div class="niico">❤️</div><div>Guardados</div></div>
     </div>
   </div>
 
@@ -386,258 +417,146 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 
 <script>
 const FORM_URL="https://docs.google.com/forms/d/e/1FAIpQLScX9lSY_aVwa7CNz2x23tdPNnDYuk6QvlsTE6GNcq4h2U7x2A/viewform";
-const API_URL="https://script.google.com/macros/s/AKfycbyBuR9kZ3FAOeXWhEK9ArID0WusRJiS9X-FISrbDdvIXDKq9i5k5dtCDlN-rhw95UPhHA/exec";
 
-const FALLBACK_ACTIVIDADES=[
-  {ID:1,Nombre:"Cerro Uritorco",Categoria:"Trekking",Descripcion:"El pico más alto de las Sierras Chicas con 1.979 msnm. Lugar energético especial con vistas panorámicas del Valle de Punilla.",Costo:5000,Gratis:"No",Duracion:"5-7 horas",Dificultad:"Alta",Horario:"7:00 — 13:00",Latitud:-30.8539,Longitud:-64.5272,Tags:"trekking,fotos,naturaleza,energía",Foto:"",Activo:"SI"},
-  {ID:2,Nombre:"Cascada Los Manantiales",Categoria:"Naturaleza",Descripcion:"Hermosa cascada rodeada de vegetación serrana. Caminata fácil de 2km apta para toda la familia.",Costo:0,Gratis:"Si",Duracion:"3 horas",Dificultad:"Baja",Horario:"9:00 — 18:00",Latitud:-30.8701,Longitud:-64.5198,Tags:"agua,naturaleza,familia,fotos",Foto:"",Activo:"SI"},
-  {ID:3,Nombre:"Feria Artesanal Plaza",Categoria:"Feria",Descripcion:"Feria de artesanos locales en la plaza principal. Tejidos, cerámica, cuero y gastronomía regional.",Costo:0,Gratis:"Si",Duracion:"Libre",Dificultad:"Baja",Horario:"18:00 — 24:00",Latitud:-30.8612,Longitud:-64.5241,Tags:"feria,compras,familia,comida",Foto:"",Activo:"SI"},
-  {ID:4,Nombre:"Los Terrones",Categoria:"Trekking",Descripcion:"Formaciones rocosas únicas de más de 10 millones de años. Paisaje ideal para fotografías.",Costo:3000,Gratis:"No",Duracion:"4 horas",Dificultad:"Media",Horario:"8:00 — 17:00",Latitud:-30.9012,Longitud:-64.5534,Tags:"trekking,fotos,naturaleza,aventura",Foto:"",Activo:"SI"},
-  {ID:5,Nombre:"Río Calabalumba",Categoria:"Naturaleza",Descripcion:"Río serrano perfecto para bañarse y disfrutar. Muy popular en verano.",Costo:0,Gratis:"Si",Duracion:"Libre",Dificultad:"Baja",Horario:"9:00 — 19:00",Latitud:-30.8445,Longitud:-64.5189,Tags:"agua,familia,aventura,fotos",Foto:"",Activo:"SI"},
-  {ID:6,Nombre:"Cerro La Pantalla",Categoria:"Trekking",Descripcion:"Mediana dificultad con vistas espectaculares. Ideal sin el desafío del Uritorco.",Costo:0,Gratis:"Si",Duracion:"3 horas",Dificultad:"Media",Horario:"7:00 — 15:00",Latitud:-30.8523,Longitud:-64.5301,Tags:"trekking,naturaleza,fotos,energía",Foto:"",Activo:"SI"},
-  {ID:7,Nombre:"Escalada en Roca",Categoria:"Aventura",Descripcion:"Actividad guiada de escalada en paredes rocosas. Equipo incluido, apto principiantes.",Costo:8000,Gratis:"No",Duracion:"4 horas",Dificultad:"Alta",Horario:"9:00 — 13:00",Latitud:-30.8678,Longitud:-64.5412,Tags:"aventura,adrenalina,guiado",Foto:"",Activo:"SI"},
-  {ID:8,Nombre:"Meditación al Amanecer",Categoria:"Espiritual",Descripcion:"Sesión grupal de meditación al amanecer en el Cerro Pan de Azúcar.",Costo:2000,Gratis:"No",Duracion:"2 horas",Dificultad:"Baja",Horario:"6:00 — 8:00",Latitud:-30.8590,Longitud:-64.5267,Tags:"espiritual,energía,naturaleza",Foto:"",Activo:"SI"},
+// DATOS — ahora con Gastronomía y Alojamiento incluidos
+const actividades=[
+  {id:1,nombre:"Cerro Uritorco",categoria:"Trekking",descripcion:"El pico más alto de las Sierras Chicas con 1.979 msnm. Considerado lugar energético especial. El ascenso dura entre 3 y 4 horas con vistas panorámicas del Valle de Punilla.",costo:5000,gratis:false,duracion:"5-7 horas",dificultad:"Alta",horario:"7:00 — 13:00",latitud:-30.8539,longitud:-64.5272,tags:["trekking","fotos","naturaleza","energía"],gradiente:"g1",emoji:"🏔️",badge:"popular"},
+  {id:2,nombre:"Cascada Los Manantiales",categoria:"Naturaleza",descripcion:"Hermosa cascada rodeada de vegetación serrana. Caminata fácil de 2km apta para toda la familia.",costo:0,gratis:true,duracion:"3 horas",dificultad:"Baja",horario:"9:00 — 18:00",latitud:-30.8701,longitud:-64.5198,tags:["agua","naturaleza","familia","fotos"],gradiente:"g2",emoji:"💧",badge:"gratis"},
+  {id:3,nombre:"Feria Artesanal Plaza",categoria:"Feria",descripcion:"Feria de artesanos locales en la plaza principal. Tejidos, cerámica, cuero y gastronomía regional.",costo:0,gratis:true,duracion:"Libre",dificultad:"Baja",horario:"18:00 — 24:00",latitud:-30.8612,longitud:-64.5241,tags:["feria","compras","familia","comida"],gradiente:"g3",emoji:"🛍️",badge:"hoy"},
+  {id:4,nombre:"Los Terrones",categoria:"Trekking",descripcion:"Formaciones rocosas únicas de más de 10 millones de años. Paisaje ideal para fotografías y caminatas.",costo:3000,gratis:false,duracion:"4 horas",dificultad:"Media",horario:"8:00 — 17:00",latitud:-30.9012,longitud:-64.5534,tags:["trekking","fotos","naturaleza","aventura"],gradiente:"g5",emoji:"🪨",badge:""},
+  {id:5,nombre:"Río Calabalumba",categoria:"Naturaleza",descripcion:"Río serrano perfecto para bañarse y disfrutar la naturaleza. Muy popular en verano.",costo:0,gratis:true,duracion:"Libre",dificultad:"Baja",horario:"9:00 — 19:00",latitud:-30.8445,longitud:-64.5189,tags:["agua","familia","aventura","fotos"],gradiente:"g2",emoji:"🏊",badge:"gratis"},
+  {id:6,nombre:"Cerro La Pantalla",categoria:"Trekking",descripcion:"Cerro de mediana dificultad con vistas espectaculares. Ideal para una buena caminata serrana.",costo:0,gratis:true,duracion:"3 horas",dificultad:"Media",horario:"7:00 — 15:00",latitud:-30.8523,longitud:-64.5301,tags:["trekking","naturaleza","fotos","energía"],gradiente:"g1",emoji:"⛰️",badge:""},
+  {id:7,nombre:"Escalada en Roca",categoria:"Aventura",descripcion:"Actividad guiada de escalada en paredes rocosas. Equipo incluido, apto para principiantes.",costo:8000,gratis:false,duracion:"4 horas",dificultad:"Alta",horario:"9:00 — 13:00",latitud:-30.8678,longitud:-64.5412,tags:["aventura","adrenalina","guiado"],gradiente:"g4",emoji:"🧗",badge:""},
+  {id:8,nombre:"Meditación al Amanecer",categoria:"Espiritual",descripcion:"Sesión grupal de meditación al amanecer en el Cerro Pan de Azúcar. Experiencia única.",costo:2000,gratis:false,duracion:"2 horas",dificultad:"Baja",horario:"6:00 — 8:00",latitud:-30.8590,longitud:-64.5267,tags:["espiritual","energía","naturaleza"],gradiente:"g6",emoji:"🧘",badge:""},
+  // GASTRONOMÍA
+  {id:9,nombre:"La Posta del Cerro",categoria:"Gastronomía",descripcion:"Parrilla tradicional con vista a la montaña. Especialidad en asado y empanadas caseras cordobesas.",costo:0,gratis:false,duracion:"Libre",dificultad:"Baja",horario:"12:00 — 23:00",latitud:-30.8615,longitud:-64.5238,tags:["parrilla","comida","vista"],gradiente:"g9",emoji:"🍖",badge:""},
+  {id:10,nombre:"El Rincón Vegano",categoria:"Gastronomía",descripcion:"Opciones 100% vegetarianas y veganas, jugos naturales y tortas caseras.",costo:0,gratis:false,duracion:"Libre",dificultad:"Baja",horario:"9:00 — 20:00",latitud:-30.8620,longitud:-64.5251,tags:["vegano","saludable","café"],gradiente:"g5",emoji:"🥗",badge:""},
+  {id:11,nombre:"Café de la Plaza",categoria:"Gastronomía",descripcion:"Café pintoresco frente a la plaza. Ideal para desayunar con facturas y medialunas.",costo:0,gratis:false,duracion:"Libre",dificultad:"Baja",horario:"8:00 — 21:00",latitud:-30.8611,longitud:-64.5243,tags:["café","desayuno","plaza"],gradiente:"g3",emoji:"☕",badge:""},
+  {id:12,nombre:"Resto Bar La Cumbre",categoria:"Gastronomía",descripcion:"Bar con buena carta de tragos y picadas. Música en vivo los fines de semana.",costo:0,gratis:false,duracion:"Libre",dificultad:"Baja",horario:"18:00 — 02:00",latitud:-30.8633,longitud:-64.5229,tags:["bar","noche","música"],gradiente:"g7",emoji:"🍻",badge:""},
+  // ALOJAMIENTOS
+  {id:13,nombre:"Cabañas Los Sueños",categoria:"Alojamiento",descripcion:"Cabañas de madera rodeadas de árboles con vista a la sierra. Tranquilidad total.",costo:25000,gratis:false,duracion:"Por noche",dificultad:"Baja",horario:"Check-in 14hs",latitud:-30.8501,longitud:-64.5289,tags:["cabaña","wifi","pileta"],gradiente:"g5",emoji:"🏡",badge:""},
+  {id:14,nombre:"Hostel El Mochilero",categoria:"Alojamiento",descripcion:"Hostel económico ideal para viajeros. Ambiente social, cocina compartida y mucha onda.",costo:6000,gratis:false,duracion:"Por noche",dificultad:"Baja",horario:"Check-in 12hs",latitud:-30.8625,longitud:-64.5255,tags:["hostel","wifi","económico"],gradiente:"g2",emoji:"🛏️",badge:""},
+  {id:15,nombre:"Hotel Serrano",categoria:"Alojamiento",descripcion:"Hotel céntrico con todas las comodidades. A pasos de la plaza y los principales atractivos.",costo:35000,gratis:false,duracion:"Por noche",dificultad:"Baja",horario:"Check-in 14hs",latitud:-30.8610,longitud:-64.5240,tags:["hotel","desayuno","wifi"],gradiente:"g8",emoji:"🏨",badge:""},
+  {id:16,nombre:"Camping El Río",categoria:"Alojamiento",descripcion:"Camping a orillas del río con sanitarios, asadores y sombra natural. El más popular del verano.",costo:3000,gratis:false,duracion:"Por noche",dificultad:"Baja",horario:"Abierto todo el día",latitud:-30.8720,longitud:-64.5180,tags:["camping","río","naturaleza"],gradiente:"g1",emoji:"⛺",badge:""},
+  // SALUD (datos de tu planilla)
+  {id:17,nombre:"Hospital Local",categoria:"Salud",descripcion:"Hospital público de Capilla del Monte con guardia permanente las 24 horas.",costo:0,gratis:true,duracion:"24 horas",dificultad:"Baja",horario:"24hs",latitud:-30.8600,longitud:-64.5240,tags:["salud","guardia","urgencias"],gradiente:"g4",emoji:"🏥",badge:""},
+  {id:18,nombre:"Farmacia del Centro",categoria:"Salud",descripcion:"Farmacia céntrica con amplia variedad de medicamentos y atención profesional.",costo:0,gratis:false,duracion:"Libre",dificultad:"Baja",horario:"8:00 — 22:00",latitud:-30.8612,longitud:-64.5242,tags:["farmacia","salud","medicamentos"],gradiente:"g4",emoji:"💊",badge:""},
 ];
 
-const GRADIENTES=["g1","g2","g3","g4","g5","g6","g1","g2"];
-const EMOJIS={Trekking:"🏔️",Naturaleza:"🌿",Feria:"🛍️",Aventura:"🧗",Espiritual:"🧘",Gastronomia:"🍽️",Alojamiento:"🏨",Cerro:"🏔️",Cascada:"💧",Hospital:"🏥","Clínica":"🏥","Clínica médica":"🏥","Odontología":"🦷","Farmacia":"💊","Psicología":"🧠","Veterinaria":"🐾"};
-const CATEGORIAS=[{key:"Todo",emoji:"🗺️"},{key:"Trekking",emoji:"🥾"},{key:"Naturaleza",emoji:"🌿"},{key:"Feria",emoji:"🛍️"},{key:"Aventura",emoji:"🧗"},{key:"Espiritual",emoji:"🔮"},{key:"Salud",emoji:"🏥"}];
-const SALUD_COLORES={Hospital:"g4","Clínica":"g2","Clínica médica":"g2","Odontología":"g2","Farmacia":"g5","Psicología":"g6","Veterinaria":"g5"};
-const SALUD_TIPOS=["Todos","Hospital","Clínica","Odontología","Farmacia","Psicología","Veterinaria"];
+// CATEGORÍAS — ahora completas
+const categorias=[
+  {key:"Todo",emoji:"🗺️"},
+  {key:"Trekking",emoji:"🥾"},
+  {key:"Naturaleza",emoji:"🌿"},
+  {key:"Feria",emoji:"🛍️"},
+  {key:"Aventura",emoji:"🧗"},
+  {key:"Espiritual",emoji:"🔮"},
+  {key:"Gastronomía",emoji:"🍽️"},
+  {key:"Alojamiento",emoji:"🏨"},
+  {key:"Salud",emoji:"🏥"},
+];
 
-let currentScreen='loading',prevScreen='home',selectedCat='Todo',currentActividad=null,filterExplore='Todo',filtroSalud='Todos';
-let DATA={ACTIVIDADES:[],EVENTOS:[],SALUD:[]};
+let currentScreen='instalar',prevScreen='home',selectedCat='Todo',currentActividad=null,favs=new Set(),filterExplore='Todo';
 
-// ===== FAVORITOS =====
-function getFavs(){try{return JSON.parse(localStorage.getItem('capilla_favs')||'[]');}catch(e){return[];}}
-function saveFavs(arr){try{localStorage.setItem('capilla_favs',JSON.stringify(arr));}catch(e){}}
-function isFav(id){return getFavs().includes(Number(id));}
-function toggleFavById(id){const f=getFavs();const i=f.indexOf(Number(id));if(i>=0){f.splice(i,1);saveFavs(f);return false;}else{f.push(Number(id));saveFavs(f);return true;}}
-
-// ===== CARGA DE DATOS =====
-async function cargarDatos(){
-  try{
-    const res=await fetch(API_URL);
-    const data=await res.json();
-    DATA.ACTIVIDADES=data.ACTIVIDADES||FALLBACK_ACTIVIDADES;
-    DATA.EVENTOS=data.EVENTOS||[];
-    DATA.SALUD=data.SALUD||[];
-  }catch(e){
-    DATA.ACTIVIDADES=FALLBACK_ACTIVIDADES;
-    DATA.EVENTOS=[];
-    DATA.SALUD=[];
-  }
-  document.getElementById('loadingScreen').style.display='none';
-  goTo('splash');
-}
-
-// ===== NAVEGACIÓN =====
 function goTo(s){
   if(s===currentScreen)return;
   const cur=document.getElementById(currentScreen);
   const nxt=document.getElementById(s);
   prevScreen=currentScreen;
-  if(cur){cur.classList.add('back');}
+  cur.classList.add('back');
   nxt.classList.remove('hidden','back');
-  setTimeout(()=>{if(cur){cur.classList.add('hidden');cur.classList.remove('back');}},380);
+  setTimeout(()=>{cur.classList.add('hidden');cur.classList.remove('back');},380);
   currentScreen=s;
   if(s==='home')renderHome();
   if(s==='explore')renderExplore();
   if(s==='favoritos')renderFavoritos();
-  if(s==='eventos')renderEventos();
-  if(s==='salud')renderSalud();
 }
-function goBack(){goTo(prevScreen===currentScreen||prevScreen==='loading'?'home':prevScreen);}
+function goBack(){goTo(prevScreen===currentScreen?'home':prevScreen);}
 function navTo(s){goTo(s);}
 
-// ===== HOME =====
+function switchTab(t,el){
+  document.querySelectorAll('.inst-tab').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('steps-android').style.display=t==='android'?'block':'none';
+  document.getElementById('steps-iphone').style.display=t==='iphone'?'block':'none';
+}
+
 function renderHome(){
   const h=new Date().getHours();
   document.getElementById('greeting').innerHTML=`${h<12?'¡Buenos días!':h<19?'¡Buenas tardes!':'¡Buenas noches!'}<br>¿Qué hacemos hoy?`;
-  const dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const n=new Date();
-  document.getElementById('hdate').textContent=`${dias[n.getDay()]} ${n.getDate()} de ${meses[n.getMonth()]} · ${DATA.ACTIVIDADES.length} actividades`;
-  document.getElementById('catsList').innerHTML=CATEGORIAS.map(c=>`<div class="cat ${selectedCat===c.key?'on':''}" onclick="selectCat('${c.key}')"><div class="ci">${c.emoji}</div><div class="cl">${c.key}</div></div>`).join('');
-  const fil=selectedCat==='Todo'?DATA.ACTIVIDADES:selectedCat==='Salud'?[]:DATA.ACTIVIDADES.filter(a=>a.Categoria===selectedCat);
-  if(selectedCat==='Salud'){goTo('salud');return;}
-  document.getElementById('destacadosList').innerHTML=fil.slice(0,6).map((a,i)=>{
-    const grad=GRADIENTES[i%GRADIENTES.length],emoji=EMOJIS[a.Categoria]||'✨';
-    const foto=a.Foto?`<img src="${a.Foto}" onerror="this.style.display='none'">` : '';
-    return `<div class="acard" onclick="openDetalle(${a.ID||i})"><div class="aimg ${grad}">${foto}<span class="aimg-emoji">${emoji}</span></div><div class="abody"><div class="aname">${a.Nombre}</div><div class="ameta">⏱ ${a.Duracion||'—'} · ${a.Horario||'—'}</div><div class="tags">${(a.Tags||'').split(',').slice(0,2).map(t=>`<div class="tag">${t.trim()}</div>`).join('')}</div></div></div>`;
-  }).join('');
-  const hoy=DATA.EVENTOS.slice(0,2);
-  const mesesC=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
-  document.getElementById('eventosList').innerHTML=hoy.map((e,i)=>{
-    const f=(e.FechaInicio||'').split('/');
-    const col=i===0?'':'t';
-    const gratis=e.Gratis==='Si'||e.Gratis==='SI';
-    return `<div class="evrow" onclick="goTo('eventos')"><div class="evbox ${col}"><div class="evd">${f[0]||'—'}</div><div class="evm">${mesesC[(parseInt(f[1])-1)]||'—'}</div></div><div class="evinfo"><div class="evname">${e.Nombre}</div><div class="evdet">🕗 ${e.Horario||'—'} · ${e.Lugar||'—'}</div></div><div class="evp ${gratis?'free':''}">${gratis?'Gratis':'$'+(e.Costo||0).toLocaleString()}</div></div>`;
-  }).join('');
+  const dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],n=new Date();
+  document.getElementById('hdate').textContent=`${dias[n.getDay()]} ${n.getDate()} de ${meses[n.getMonth()]} · ${actividades.length} actividades`;
+  document.getElementById('catsList').innerHTML=categorias.map(c=>`<div class="cat ${selectedCat===c.key?'on':''}" onclick="selectCat('${c.key}')"><div class="ci">${c.emoji}</div><div class="cl">${c.key}</div></div>`).join('');
+  const fil=selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat);
+  document.getElementById('destacadosList').innerHTML=fil.slice(0,6).map(a=>`<div class="acard" onclick="openDetalle(${a.id})"><div class="aimg ${a.gradiente}">${a.emoji}${a.badge?`<div class="abadge ${a.badge}">${a.badge==='popular'?'Popular':a.badge==='gratis'?'Gratis':'Hoy'}</div>`:''}</div><div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">⏱ ${a.duracion} · ${a.horario}</div><div class="tags">${a.tags.slice(0,2).map(t=>`<div class="tag">${t}</div>`).join('')}</div></div></div>`).join('');
+  document.getElementById('eventosList').innerHTML=`<div class="evrow" onclick="goTo('eventos')"><div class="evbox"><div class="evd">5</div><div class="evm">MAR</div></div><div class="evinfo"><div class="evname">Show de Folklore en Vivo</div><div class="evdet">🕗 21:00 · Bar El Cerro</div></div><div class="evp">$3.500</div></div><div class="evrow" onclick="goTo('eventos')"><div class="evbox t"><div class="evd">5</div><div class="evm">MAR</div></div><div class="evinfo"><div class="evname">Feria de Luna Llena</div><div class="evdet">🕖 19:00 · Plaza San Martín</div></div><div class="evp free">Gratis</div></div>`;
 }
-function selectCat(c){selectedCat=c;if(c==='Salud'){goTo('salud');return;}renderHome();}
+
+function selectCat(c){selectedCat=c;renderHome();}
+
 function filterActividades(){
   const q=document.getElementById('searchInput').value.toLowerCase();
   if(!q){renderHome();return;}
-  const f=DATA.ACTIVIDADES.filter(a=>a.Nombre.toLowerCase().includes(q)||(a.Tags||'').toLowerCase().includes(q));
-  document.getElementById('destacadosList').innerHTML=f.length?f.map((a,i)=>{const grad=GRADIENTES[i%GRADIENTES.length],emoji=EMOJIS[a.Categoria]||'✨';return `<div class="acard" onclick="openDetalle(${a.ID||i})"><div class="aimg ${grad}"><span class="aimg-emoji">${emoji}</span></div><div class="abody"><div class="aname">${a.Nombre}</div><div class="ameta">⏱ ${a.Duracion||'—'}</div><div class="tags">${(a.Tags||'').split(',').slice(0,2).map(t=>`<div class="tag">${t.trim()}</div>`).join('')}</div></div></div>`;}).join(''):'<div style="padding:20px;color:var(--g);font-size:14px;text-align:center">Sin resultados 🔍</div>';
+  const f=actividades.filter(a=>a.nombre.toLowerCase().includes(q)||a.categoria.toLowerCase().includes(q)||a.tags.some(t=>t.includes(q)));
+  document.getElementById('destacadosList').innerHTML=f.length?f.map(a=>`<div class="acard" onclick="openDetalle(${a.id})"><div class="aimg ${a.gradiente}">${a.emoji}</div><div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">⏱ ${a.duracion}</div><div class="tags">${a.tags.slice(0,2).map(t=>`<div class="tag">${t}</div>`).join('')}</div></div></div>`).join(''):'<div style="padding:20px;color:var(--g);font-size:14px;text-align:center">Sin resultados 🔍</div>';
 }
 
-// ===== DETALLE ACTIVIDAD =====
 function openDetalle(id){
-  const a=DATA.ACTIVIDADES.find(x=>x.ID==id)||DATA.ACTIVIDADES[0];
-  if(!a)return;
-  currentActividad=a;
-  const grad=GRADIENTES[DATA.ACTIVIDADES.indexOf(a)%GRADIENTES.length];
-  const emoji=EMOJIS[a.Categoria]||'✨';
-  const foto=a.Foto?`<img src="${a.Foto}" onerror="this.style.display='none'">` : '';
+  currentActividad=actividades.find(a=>a.id===id);
+  if(!currentActividad)return;
+  const a=currentActividad;
   const hero=document.getElementById('detailHero');
-  hero.className='dhero '+grad;
-  hero.innerHTML=`${foto}<span class="dhero-emoji">${emoji}</span><div class="dbk" onclick="goBack()">←</div><div class="dfv" id="favBtn" onclick="toggleFav()">${isFav(a.ID)?'❤️':'🤍'}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
-  const dc=(a.Dificultad||'').toLowerCase()==='alta'?'alta':(a.Dificultad||'').toLowerCase()==='media'?'media':'baja';
-  const gratis=a.Gratis==='Si'||a.Gratis==='SI';
-  document.getElementById('detailBody').innerHTML=`
-    <div class="dtr"><div class="dtit">${a.Nombre}</div><div class="drat">⭐ 4.8</div></div>
-    <div class="dloc">📍 Capilla del Monte</div>
-    <div class="dtags">${(a.Tags||'').split(',').map(t=>`<div class="dtag">${te(t.trim())} ${t.trim()}</div>`).join('')}</div>
-    <div class="igrid">
-      <div class="icard"><div class="iico">⏱️</div><div class="ilbl">Duración</div><div class="ival">${a.Duracion||'—'}</div></div>
-      <div class="icard"><div class="iico">💰</div><div class="ilbl">Costo</div><div class="ival">${gratis?'Gratis':'$'+(a.Costo||0).toLocaleString()}</div></div>
-      <div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival">${a.Horario||'—'}</div></div>
-      <div class="icard"><div class="iico">💪</div><div class="ilbl">Dificultad</div><div class="ival ${dc}">${a.Dificultad||'—'}</div></div>
-    </div>
-    <div class="dsec">Sobre esta actividad</div>
-    <div class="ddesc">${a.Descripcion||'Sin descripción.'}</div>
-    <div class="dsec">Cómo llegar</div>
-    <div class="mmap" onclick="openMaps(${a.Latitud},${a.Longitud})"><div class="mgrid"></div><div class="mpin">📍</div><div class="mlbl">Abrir en Maps →</div></div>
-    <button class="dcta" onclick="openMaps(${a.Latitud},${a.Longitud})">🗺️ Cómo llegar</button>
-    <button class="dcta2" onclick="compartir('${a.Nombre}')">📤 Compartir actividad</button>`;
-  goTo('detail');
-}
-function toggleFav(){if(!currentActividad)return;const ahora=toggleFavById(currentActividad.ID);document.getElementById('favBtn').textContent=ahora?'❤️':'🤍';showToast(ahora?'¡Guardado en favoritos! ❤️':'Eliminado de guardados');}
-
-// ===== DETALLE EVENTO =====
-function openEventoDetalle(idx){
-  const e=DATA.EVENTOS[idx];
-  if(!e)return;
-  const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const fecha=(e.FechaInicio||'').split('/');
-  const fechaStr=fecha[0]?`${fecha[0]} de ${meses[(parseInt(fecha[1])-1)]||''} ${fecha[2]||''}`:'—';
-  const gratis=e.Gratis==='Si'||e.Gratis==='SI';
-  const cols=['g3','g1','g6','g5','g4','g2'];
-  const hero=document.getElementById('detailHero');
-  hero.className='dhero '+cols[idx%cols.length];
-  hero.innerHTML=`<span class="dhero-emoji">🎪</span><div class="dbk" onclick="goBack()">←</div><div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
-  document.getElementById('detailBody').innerHTML=`
-    <div class="dtr"><div class="dtit">${e.Nombre}</div></div>
-    <div class="dloc">📍 ${e.Lugar||'Capilla del Monte'}</div>
-    <div class="dtags"><div class="dtag">📅 ${fechaStr}</div><div class="dtag">🕗 ${e.Horario||'—'}</div><div class="dtag">${gratis?'✅ Gratis':'💰 $'+(e.Costo||0).toLocaleString()}</div></div>
-    <div class="igrid">
-      <div class="icard"><div class="iico">📅</div><div class="ilbl">Fecha</div><div class="ival" style="font-size:12px">${fechaStr}</div></div>
-      <div class="icard"><div class="iico">🕗</div><div class="ilbl">Horario</div><div class="ival">${e.Horario||'—'}</div></div>
-      <div class="icard"><div class="iico">📍</div><div class="ilbl">Lugar</div><div class="ival" style="font-size:12px">${e.Lugar||'—'}</div></div>
-      <div class="icard"><div class="iico">💰</div><div class="ilbl">Entrada</div><div class="ival ${gratis?'baja':''}">${gratis?'Gratis':'$'+(e.Costo||0).toLocaleString()}</div></div>
-    </div>
-    <div class="dsec">Sobre este evento</div>
-    <div class="ddesc">${e.Descripcion||'Sin descripción.'}</div>
-    <div class="dsec">Organizador</div>
-    <div class="ddesc">👤 ${e.Organizador||'—'}</div>
-    <button class="dcta" onclick="abrirFormulario()">➕ Sumar mi propio evento</button>
-    <button class="dcta2" onclick="compartir('${e.Nombre}')">📤 Compartir evento</button>`;
+  hero.className='dhero '+a.gradiente;
+  hero.innerHTML=`<div style="font-size:80px;position:relative;z-index:1">${a.emoji}</div><div class="dbk" onclick="goBack()">←</div><div class="dfv" id="favBtn" onclick="toggleFav()">${favs.has(a.id)?'❤️':'🤍'}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
+  const dc=a.dificultad==='Alta'?'alta':a.dificultad==='Media'?'media':'baja';
+  document.getElementById('detailBody').innerHTML=`<div class="dtr"><div class="dtit">${a.nombre}</div><div class="drat">⭐ 4.8</div></div><div class="dloc">📍 Capilla del Monte · ${a.categoria}</div><div class="dtags">${a.tags.map(t=>`<div class="dtag">${te(t)} ${t}</div>`).join('')}</div><div class="igrid"><div class="icard"><div class="iico">⏱️</div><div class="ilbl">Duración</div><div class="ival">${a.duracion}</div></div><div class="icard"><div class="iico">💰</div><div class="ilbl">Costo</div><div class="ival">${a.gratis?'Gratis':'$'+a.costo.toLocaleString()}</div></div><div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival">${a.horario}</div></div><div class="icard"><div class="iico">💪</div><div class="ilbl">Dificultad</div><div class="ival ${dc}">${a.dificultad}</div></div></div><div class="dsec">Sobre este lugar</div><div class="ddesc">${a.descripcion}</div><div class="dsec">Cómo llegar</div><div class="mmap" onclick="openMaps(${a.latitud},${a.longitud})"><div class="mgrid"></div><div class="mpin">📍</div><div class="mlbl">Abrir en Maps →</div></div><button class="dcta" onclick="openMaps(${a.latitud},${a.longitud})">🗺️ Cómo llegar</button><button class="dcta2" onclick="showToast('¡Compartido!')">📤 Compartir</button>`;
   goTo('detail');
 }
 
-// ===== FAVORITOS =====
+function te(t){return{trekking:'🥾',fotos:'📸',naturaleza:'🌿',energía:'🔮',agua:'💧',familia:'👨‍👩‍👧',feria:'🛍️',compras:'🛍️',comida:'🍽️',aventura:'🧗',adrenalina:'⚡',guiado:'👥',espiritual:'🧘',parrilla:'🍖',café:'☕',bar:'🍻',vegano:'🥗',hotel:'🏨',cabaña:'🏡',hostel:'🛏️',camping:'⛺',salud:'🏥',farmacia:'💊',guardia:'🚨',wifi:'📶',pileta:'🏊'}[t]||'✨';}
+
+function toggleFav(){
+  if(!currentActividad)return;
+  favs.has(currentActividad.id)?favs.delete(currentActividad.id):favs.add(currentActividad.id);
+  document.getElementById('favBtn').textContent=favs.has(currentActividad.id)?'❤️':'🤍';
+  showToast(favs.has(currentActividad.id)?'¡Guardado en favoritos! ❤️':'Eliminado de guardados');
+}
+
 function renderFavoritos(){
-  const favIds=getFavs();
-  const favs=DATA.ACTIVIDADES.filter(a=>favIds.includes(Number(a.ID)));
-  document.getElementById('favSub').textContent=`${favs.length} actividad${favs.length!==1?'es':''} guardada${favs.length!==1?'s':''}`;
+  const count=favs.size;
+  document.getElementById('favCount').textContent=`${count} lugar${count!==1?'es':''} guardado${count!==1?'s':''}`;
   const cont=document.getElementById('favContent');
-  if(favs.length===0){cont.innerHTML=`<div class="fav-empty"><div class="fav-empty-ico">🤍</div><div class="fav-empty-txt">Todavía no guardaste nada</div><div class="fav-empty-sub">Tocá el corazón en cualquier actividad para guardarla acá</div></div>`;return;}
-  cont.innerHTML=`<div class="fav-list">${favs.map((a,i)=>{const grad=GRADIENTES[i%GRADIENTES.length],emoji=EMOJIS[a.Categoria]||'✨';return `<div class="fav-card" onclick="openDetalle(${a.ID})"><div class="fav-card-ico ${grad}">${emoji}</div><div style="flex:1;min-width:0"><div class="fav-card-name">${a.Nombre}</div><div class="fav-card-meta">${a.Categoria} · ${a.Gratis==='Si'||a.Gratis==='SI'?'Gratis':'$'+(a.Costo||0).toLocaleString()}</div></div><div class="fav-card-del" onclick="event.stopPropagation();quitarFav(${a.ID})">🗑️</div></div>`;}).join('')}</div>`;
-}
-function quitarFav(id){toggleFavById(id);renderFavoritos();showToast('Eliminado de guardados');}
-
-// ===== EVENTOS =====
-function renderEventos(){
-  const mesesC=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
-  document.getElementById('eventosSub').textContent=`${DATA.EVENTOS.length} evento${DATA.EVENTOS.length!==1?'s':''} próximos`;
-  document.getElementById('eventosFullList').innerHTML=`<div class="ev-sec">Próximos eventos</div>${DATA.EVENTOS.map((e,i)=>{const f=(e.FechaInicio||'').split('/');const cols=['v','t','p'];const gratis=e.Gratis==='Si'||e.Gratis==='SI';return `<div class="ev-card" onclick="openEventoDetalle(${i})"><div class="ev-date ${cols[i%3]}"><div class="ev-dd">${f[0]||'—'}</div><div class="ev-mm">${mesesC[(parseInt(f[1])-1)]||'—'}</div></div><div class="ev-info"><div class="ev-name">${e.Nombre}</div><div class="ev-detail">🕗 ${e.Horario||'—'} · ${e.Lugar||e.Organizador||'—'}</div><div class="ev-price ${gratis?'free':''}">${gratis?'Gratis':'$'+(e.Costo||0).toLocaleString()}</div></div><div style="color:#ccc;font-size:18px;padding-left:4px">›</div></div>`;}).join('')}`;
+  if(count===0){
+    cont.className='fav-empty';
+    cont.innerHTML=`<div class="fav-empty-ico">🗺️</div><div class="fav-empty-title">Todavía no guardaste nada</div><div class="fav-empty-sub">Explorá las actividades y tocá el ❤️ para guardar tus favoritos</div><button class="fav-btn" onclick="goTo('explore')">Explorar actividades</button>`;
+  } else {
+    cont.className='fav-list';
+    const favActs=actividades.filter(a=>favs.has(a.id));
+    cont.innerHTML=favActs.map(a=>`<div class="fav-card" onclick="openDetalle(${a.id})"><div class="fav-card-img ${a.gradiente}">${a.emoji}</div><div class="fav-card-body"><div class="fav-card-name">${a.nombre}</div><div class="fav-card-meta">⏱ ${a.duracion} · ${a.horario}</div><span class="fav-card-tag">${a.categoria}</span></div><div class="fav-remove" onclick="event.stopPropagation();removeFav(${a.id})">🗑️</div></div>`).join('');
+  }
 }
 
-// ===== EXPLORAR =====
+function removeFav(id){
+  favs.delete(id);
+  renderFavoritos();
+  showToast('Eliminado de guardados');
+}
+
 function renderExplore(filter){
   if(filter!==undefined)filterExplore=filter;
-  const fil=filterExplore==='Todo'?DATA.ACTIVIDADES:DATA.ACTIVIDADES.filter(a=>a.Categoria===filterExplore);
+  const fil=filterExplore==='Todo'?actividades:actividades.filter(a=>a.categoria===filterExplore);
   document.getElementById('exploreCount').textContent=`${fil.length} lugar${fil.length!==1?'es':''} disponibles`;
-  document.getElementById('filtersList').innerHTML=['Todo',...new Set(DATA.ACTIVIDADES.map(a=>a.Categoria))].map(c=>`<div class="chip ${filterExplore===c?'on':''}" onclick="renderExplore('${c}')">${c}</div>`).join('');
-  document.getElementById('exploreGrid').innerHTML=fil.map((a,i)=>{const grad=GRADIENTES[i%GRADIENTES.length],emoji=EMOJIS[a.Categoria]||'✨';const foto=a.Foto?`<img src="${a.Foto}" onerror="this.style.display='none'">` : '';const gratis=a.Gratis==='Si'||a.Gratis==='SI';return `<div class="ecard ${i===0?'feat':''}" onclick="openDetalle(${a.ID||i})"><div class="ecimg ${grad}">${foto}<span class="ecimg-emoji">${emoji}</span></div><div class="ecbody"><div class="ecname">${a.Nombre}</div><div class="ecmeta">${emoji} ${a.Categoria} · ${gratis?'Gratis':'$'+(a.Costo||0).toLocaleString()}</div></div></div>`;}).join('');
+  const cats=['Todo',...new Set(actividades.map(a=>a.categoria))];
+  document.getElementById('filtersList').innerHTML=cats.map(c=>`<div class="chip ${filterExplore===c?'on':''}" onclick="renderExplore('${c}')">${c}</div>`).join('');
+  document.getElementById('exploreGrid').innerHTML=fil.map((a,i)=>`<div class="ecard ${i===0?'feat':''}" onclick="openDetalle(${a.id})"><div class="ecimg ${a.gradiente}">${a.emoji}${a.badge?`<div class="ebadge" style="background:${a.badge==='gratis'?'#1565C0':a.badge==='hoy'?'var(--t)':'var(--vl)'}">${a.badge.toUpperCase()}</div>`:''}</div><div class="ecbody"><div class="ecname">${a.nombre}</div><div class="ecmeta">${te(a.tags[0])} ${a.categoria} · ${a.gratis?'Gratis':'$'+a.costo.toLocaleString()}</div></div></div>`).join('');
 }
 
-// ===== SALUD =====
-function renderSalud(filtro){
-  if(filtro!==undefined)filtroSalud=filtro;
-  const fil=filtroSalud==='Todos'?DATA.SALUD:DATA.SALUD.filter(s=>s.Tipo===filtroSalud);
-  document.getElementById('saludCount').textContent=`${fil.length} servicio${fil.length!==1?'s':''} disponibles`;
-  document.getElementById('saludFiltros').innerHTML=SALUD_TIPOS.filter(t=>t==='Todos'||DATA.SALUD.some(s=>s.Tipo===t)).map(t=>`<div class="chip ${filtroSalud===t?'on':''}" onclick="renderSalud('${t}')">${t}</div>`).join('');
-  document.getElementById('saludList').innerHTML=fil.length?fil.map((s,i)=>{
-    const grad=SALUD_COLORES[s.Tipo]||'g4',emoji=EMOJIS[s.Tipo]||'🏥';
-    const tieneWsp=s.Whatsapp&&String(s.Whatsapp).trim()!=='';
-    const tieneGuardia=String(s.Guardia).toUpperCase()==='SI';
-    return `<div class="fav-card" onclick="openSaludDetalle(${i})">
-      <div class="fav-card-ico ${grad}" style="font-size:22px">${emoji}</div>
-      <div style="flex:1;min-width:0">
-        <div class="fav-card-name">${s.Nombre}</div>
-        <div class="fav-card-meta">${s.Tipo} · ${s.Horario||'—'}</div>
-        ${tieneGuardia?'<div style="font-size:10px;color:#E53935;font-weight:700;margin-top:2px">🚨 Tiene guardia</div>':''}
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-        ${tieneWsp?`<div onclick="event.stopPropagation();abrirWhatsapp('${s.Whatsapp}')" style="background:#25D366;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">💬</div>`:''}
-        <div style="color:#ccc;font-size:18px">›</div>
-      </div>
-    </div>`;
-  }).join(''):'<div style="padding:40px;text-align:center;color:var(--g);font-size:14px">Cargando servicios de salud...<br><br>Agregá datos en la pestaña SALUD del Sheet</div>';
-}
-
-function openSaludDetalle(idx){
-  const s=DATA.SALUD[idx];
-  if(!s)return;
-  const grad=SALUD_COLORES[s.Tipo]||'g4',emoji=EMOJIS[s.Tipo]||'🏥';
-  const tieneWsp=s.Whatsapp&&String(s.Whatsapp).trim()!=='';
-  const tieneGuardia=String(s.Guardia).toUpperCase()==='SI';
-  const hero=document.getElementById('detailHero');
-  hero.className='dhero '+grad;
-  hero.innerHTML=`<span class="dhero-emoji">${emoji}</span><div class="dbk" onclick="goBack()">←</div><div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
-  document.getElementById('detailBody').innerHTML=`
-    <div class="dtr"><div class="dtit">${s.Nombre}</div></div>
-    <div class="dloc">📍 ${s.Direccion||'Capilla del Monte'}</div>
-    <div class="dtags">
-      <div class="dtag">${emoji} ${s.Tipo}</div>
-      ${tieneGuardia?'<div class="dtag" style="color:#E53935">🚨 Guardia 24hs</div>':''}
-    </div>
-    <div class="igrid">
-      <div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival" style="font-size:12px">${s.Horario||'—'}</div></div>
-      <div class="icard"><div class="iico">📞</div><div class="ilbl">Teléfono</div><div class="ival" style="font-size:12px">${s.Telefono||'—'}</div></div>
-      <div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival" style="font-size:11px">${s.Direccion||'—'}</div></div>
-      <div class="icard"><div class="iico">🚨</div><div class="ilbl">Guardia</div><div class="ival ${tieneGuardia?'alta':'baja'}">${tieneGuardia?'Sí tiene':'No tiene'}</div></div>
-    </div>
-    ${tieneWsp?`<button class="wsp-btn" onclick="abrirWhatsapp('${s.Whatsapp}')">💬 Contactar por WhatsApp</button>`:''}
-    <button class="dcta ${tieneWsp?'dcta2':''}" onclick="llamar('${s.Telefono}')">📞 Llamar ahora</button>
-    <button class="dcta2" onclick="openMaps(${s.Latitud},${s.Longitud})">🗺️ Cómo llegar</button>`;
-  goTo('detail');
-}
-
-// ===== UTILS =====
-function te(t){return{trekking:'🥾',fotos:'📸',naturaleza:'🌿',energía:'🔮',agua:'💧',familia:'👨‍👩‍👧',feria:'🛍️',compras:'🛍️',comida:'🍽️',aventura:'🧗',adrenalina:'⚡',guiado:'👥',espiritual:'🧘',deporte:'🏃'}[t.toLowerCase()]||'✨';}
-function openMaps(lat,lng){if(lat&&lng)window.open(`https://www.google.com/maps?q=${lat},${lng}`,'_blank');}
+function openMaps(lat,lng){window.open(`https://www.google.com/maps?q=${lat},${lng}`,'_blank');}
 function abrirFormulario(){window.open(FORM_URL,'_blank');}
-function abrirWhatsapp(numero){const num=String(numero).replace(/\D/g,'');window.open(`https://wa.me/${num}`,'_blank');}
-function llamar(tel){if(tel)window.open(`tel:${tel}`,'_blank');else showToast('Sin teléfono disponible');}
-function compartir(nombre){if(navigator.share){navigator.share({title:nombre,text:`Mirá esto en Capilla del Monte: ${nombre}`,url:window.location.href});}else{showToast('¡Link copiado!');}}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-// ===== INIT =====
-cargarDatos();
+renderHome();
+renderExplore();
 </script>
 </body>
 </html>
