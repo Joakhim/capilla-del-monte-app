@@ -45,25 +45,33 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .wpill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);padding:8px 15px;border-radius:50px;position:relative;z-index:1}
 .wpill span{color:#fff;font-size:13px;font-weight:500}
 .srch{margin:14px 18px 0;background:#fff;border-radius:15px;padding:12px 15px;display:flex;align-items:center;gap:9px;box-shadow:0 4px 16px var(--sh);flex-shrink:0}
-.srch span{color:var(--g);font-size:14px;flex-shrink:0}
 .srch input{border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--n);flex:1;background:transparent;min-width:0}
-.scroll-area{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:80px}
+.scroll-area{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:85px}
 .scroll-area::-webkit-scrollbar{display:none}
 .sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:18px 18px 10px}
 .sec-t{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--n)}
 .ver{font-size:13px;font-weight:600;color:var(--v);cursor:pointer;flex-shrink:0}
-.cats{display:flex;gap:9px;padding:0 18px 2px;overflow-x:auto;scrollbar-width:none}
+
+/* CATEGORÍAS - FIX iconos cortados */
+.cats{display:flex;gap:8px;padding:2px 18px 4px;overflow-x:auto;scrollbar-width:none}
 .cats::-webkit-scrollbar{display:none}
-.cat{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:64px;padding:11px 6px;background:#fff;border-radius:14px;box-shadow:0 2px 8px var(--sh);border:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0}
+.cat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:62px;padding:12px 6px 10px;background:#fff;border-radius:14px;box-shadow:0 2px 8px var(--sh);border:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0}
 .cat.on{background:var(--v);border-color:var(--v)}
-.cat .ci{font-size:20px;line-height:1}
-.cat .cl{font-size:9px;font-weight:600;color:var(--g);text-align:center;line-height:1.2;white-space:nowrap}
-.cat.on .cl{color:rgba(255,255,255,.9)}
+.cat-ico{font-size:22px;line-height:1;display:block}
+.cat-lbl{font-size:9px;font-weight:600;color:var(--g);text-align:center;line-height:1.2;white-space:nowrap}
+.cat.on .cat-lbl{color:rgba(255,255,255,.9)}
+
+/* CARDS ACTIVIDADES - con imagen real */
 .hscr{display:flex;gap:13px;padding:4px 18px 6px;overflow-x:auto;scrollbar-width:none}
 .hscr::-webkit-scrollbar{display:none}
 .acard{min-width:190px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 16px var(--sh);flex-shrink:0;cursor:pointer;transition:transform .2s}
 .acard:active{transform:scale(.97)}
-.aimg{height:110px;position:relative;display:flex;align-items:center;justify-content:center;font-size:44px}
+.aimg{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.aimg-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:46px}
+.aimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.aimg-emoji{position:relative;z-index:2;font-size:46px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+/* cuando hay foto, escondemos el emoji */
+.aimg-photo + .aimg-emoji{display:none}
 .g1{background:linear-gradient(135deg,#1B4332,#52B788)}
 .g2{background:linear-gradient(135deg,#1a3a5c,#1565C0)}
 .g3{background:linear-gradient(135deg,#7B3F00,#C77D4A)}
@@ -73,24 +81,27 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .g7{background:linear-gradient(135deg,#1a3a4a,#00695C)}
 .g8{background:linear-gradient(135deg,#1a3050,#1976D2)}
 .g9{background:linear-gradient(135deg,#4a1a00,#E65100)}
-.abadge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.92);border-radius:50px;padding:3px 9px;font-size:10px;font-weight:700}
+.abadge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.93);border-radius:50px;padding:3px 9px;font-size:10px;font-weight:700;z-index:3}
 .abadge.popular{color:var(--v)}.abadge.gratis{color:#1565C0}.abadge.hoy{color:var(--t)}
 .abody{padding:11px 13px 13px}
 .aname{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--n);margin-bottom:3px;line-height:1.2}
 .ameta{color:var(--g);font-size:11px;margin-bottom:7px}
 .tags{display:flex;gap:4px;flex-wrap:wrap}
 .tag{background:var(--cr);color:var(--v);border-radius:50px;padding:2px 7px;font-size:9px;font-weight:600}
+
+/* EVENTO ROWS en home - FIX "NaN INV" → caja de fecha */
 .evrow{margin:0 18px 10px;background:#fff;border-radius:15px;padding:12px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 2px 8px var(--sh);cursor:pointer;transition:transform .15s}
 .evrow:active{transform:scale(.98)}
-.evbox{min-width:46px;height:50px;background:var(--v);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
-.evbox.t{background:var(--t)}.evbox.p{background:#7B1FA2}
-.evd{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;line-height:1}
-.evm{font-size:9px;letter-spacing:1px;text-transform:uppercase;opacity:.8}
+.evfecha{min-width:46px;width:46px;height:50px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.evfecha.c0{background:var(--v)}.evfecha.c1{background:var(--t)}.evfecha.c2{background:#7B1FA2}
+.evfecha-d{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;line-height:1}
+.evfecha-m{font-size:9px;text-transform:uppercase;opacity:.9;letter-spacing:.3px}
 .evinfo{flex:1;min-width:0}
 .evname{font-weight:600;font-size:13px;color:var(--n);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .evdet{font-size:11px;color:var(--g)}
-.evp{font-weight:700;font-size:12px;color:var(--t);flex-shrink:0}
+.evp{font-weight:700;font-size:12px;color:var(--t);flex-shrink:0;margin-left:6px}
 .evp.free{color:var(--v)}
+
 .banner-evento{margin:8px 18px 4px;background:linear-gradient(135deg,var(--t),#e8914a);border-radius:18px;padding:15px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 6px 20px rgba(199,125,74,.35);transition:transform .15s}
 .banner-evento:active{transform:scale(.98)}
 .banner-ico{font-size:32px;flex-shrink:0}
@@ -99,18 +110,22 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .banner-sub{font-size:11px;color:rgba(255,255,255,.85);line-height:1.4}
 .banner-arrow{font-size:18px;color:rgba(255,255,255,.8);flex-shrink:0}
 
-/* NAVBAR */
-.navbar{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid rgba(0,0,0,.06);padding:8px 0 18px;display:flex;justify-content:space-around;z-index:100}
-.ni{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:600;color:var(--g);cursor:pointer;padding:4px 8px;transition:color .2s;flex:1}
+/* NAVBAR - FIX iconos cortados, altura suficiente */
+.navbar{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid rgba(0,0,0,.06);padding:10px 0 20px;display:flex;z-index:100}
+.ni{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;flex:1;color:var(--g);transition:color .2s;min-width:0;padding:0 4px}
 .ni.on{color:var(--v)}
-.niico{font-size:22px;line-height:1;position:relative}
-.ndot{position:absolute;top:-1px;right:-3px;width:7px;height:7px;background:var(--t);border-radius:50%;border:2px solid #fff}
-.ni span{font-size:10px;font-weight:600;white-space:nowrap}
+.ni-ico{font-size:24px;line-height:1.3;position:relative;display:block;text-align:center;overflow:visible}
+.ni-lbl{font-size:10px;font-weight:600;white-space:nowrap;line-height:1}
+.ndot{position:absolute;top:0;right:-4px;width:7px;height:7px;background:var(--t);border-radius:50%;border:2px solid #fff;display:block}
 
 /* DETALLE */
 #detail{background:var(--cr)}
-.dhero{height:260px;position:relative;display:flex;align-items:center;justify-content:center;font-size:76px;overflow:hidden;flex-shrink:0}
-.dhero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--cr));pointer-events:none}
+.dhero{height:280px;position:relative;overflow:hidden;flex-shrink:0}
+.dhero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px}
+.dhero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.dhero-emoji{position:relative;z-index:2;font-size:80px;text-shadow:0 4px 16px rgba(0,0,0,.4)}
+.dhero-photo + .dhero-emoji{display:none}
+.dhero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--cr));z-index:3;pointer-events:none}
 .dbk{position:absolute;top:18px;left:16px;width:40px;height:40px;background:rgba(255,255,255,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:10;cursor:pointer;backdrop-filter:blur(8px)}
 .dfv{position:absolute;top:18px;right:16px;width:40px;height:40px;background:rgba(255,255,255,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:10;cursor:pointer;backdrop-filter:blur(8px)}
 .dpht{position:absolute;bottom:18px;right:16px;display:flex;gap:5px;z-index:10}
@@ -126,7 +141,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .dtag{background:#fff;border-radius:50px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--n);box-shadow:0 2px 6px var(--sh)}
 .igrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
 .icard{background:#fff;border-radius:14px;padding:13px;box-shadow:0 2px 8px var(--sh)}
-.iico{font-size:19px;margin-bottom:4px}
+.iico{font-size:20px;margin-bottom:4px}
 .ilbl{font-size:10px;color:var(--g);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:2px}
 .ival{font-size:13px;font-weight:700;color:var(--n)}
 .ival.alta{color:#E53935}.ival.media{color:#E8A400}.ival.baja{color:var(--v)}
@@ -135,7 +150,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .mmap{background:linear-gradient(135deg,#c8e6c9,#a5d6a7);border-radius:16px;height:120px;margin-bottom:18px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .mgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px);background-size:22px 22px}
 .mpin{position:relative;z-index:2;font-size:30px}
-.mlbl{position:absolute;bottom:10px;right:10px;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--v);box-shadow:0 2px 8px var(--sh)}
+.mlbl{position:absolute;bottom:10px;right:10px;background:#fff;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--v)}
 .dcta{background:var(--v);color:#fff;border:none;padding:16px;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;width:100%;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 20px rgba(45,106,79,.3);transition:transform .15s}
 .dcta:active{transform:scale(.98)}
 .dcta2{background:#fff;color:var(--v);border:2px solid var(--v);padding:14px;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:14px}
@@ -152,10 +167,14 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .expgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:0 18px 90px}
 .ecard{background:#fff;border-radius:17px;overflow:hidden;box-shadow:0 4px 12px var(--sh);cursor:pointer;transition:transform .2s}
 .ecard:active{transform:scale(.97)}
-.ecard.feat{grid-column:1/-1;display:flex;height:95px}
-.ecimg{height:105px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative}
-.ecard.feat .ecimg{width:105px;height:100%;flex-shrink:0}
-.ebadge{position:absolute;top:7px;left:7px;color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:50px}
+.ecard.feat{grid-column:1/-1;display:flex;height:100px}
+.ecimg{height:108px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ecimg-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px}
+.ecimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ecimg-emoji{position:relative;z-index:2;font-size:36px;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+.ecimg-photo + .ecimg-emoji{display:none}
+.ecard.feat .ecimg{width:110px;height:100%;flex-shrink:0}
+.ebadge{position:absolute;top:7px;left:7px;color:#fff;font-size:9px;font-weight:700;padding:3px 7px;border-radius:50px;z-index:3}
 .ecbody{padding:9px 11px 11px}
 .ecard.feat .ecbody{padding:11px 13px;display:flex;flex-direction:column;justify-content:center}
 .ecname{font-weight:700;font-size:13px;color:var(--n);margin-bottom:3px;line-height:1.3}
@@ -176,17 +195,17 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .ev-list{flex:1;overflow-y:auto;scrollbar-width:none;padding:0 18px 90px}
 .ev-list::-webkit-scrollbar{display:none}
 .ev-sec{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--n);padding:16px 0 10px}
+/* Evento card - caja de fecha, NO imagen */
 .ev-card{background:#fff;border-radius:15px;padding:13px;margin-bottom:10px;box-shadow:0 2px 10px var(--sh);display:flex;gap:12px;align-items:center}
-.ev-date{min-width:50px;height:54px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
-.ev-date.v{background:var(--v)}.ev-date.t{background:var(--t)}.ev-date.p{background:#7B1FA2}
-.ev-dd{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;line-height:1}
-.ev-mm{font-size:9px;letter-spacing:1px;text-transform:uppercase;opacity:.85}
+.ev-datebox{min-width:50px;width:50px;height:56px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.ev-datebox.c0{background:var(--v)}.ev-datebox.c1{background:var(--t)}.ev-datebox.c2{background:#7B1FA2}.ev-datebox.c3{background:#00695C}.ev-datebox.c4{background:#E65100}
+.ev-dd{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1}
+.ev-mm{font-size:9px;text-transform:uppercase;letter-spacing:.5px;opacity:.9}
 .ev-info{flex:1;min-width:0}
 .ev-name{font-weight:700;font-size:13px;color:var(--n);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ev-detail{font-size:11px;color:var(--g);margin-bottom:4px}
 .ev-price{font-size:12px;font-weight:700;color:var(--t)}
 .ev-price.free{color:var(--v)}
-.ev-loading{padding:30px;text-align:center;color:var(--g);font-size:14px}
 
 /* FAVORITOS */
 #favoritos{background:var(--cr)}
@@ -203,18 +222,16 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .fav-list::-webkit-scrollbar{display:none}
 .fav-card{background:#fff;border-radius:15px;margin-bottom:11px;overflow:hidden;box-shadow:0 2px 10px var(--sh);display:flex;cursor:pointer;transition:transform .15s}
 .fav-card:active{transform:scale(.98)}
-.fav-card-img{width:86px;height:86px;display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0}
+.fav-cimg{width:86px;height:86px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.fav-cimg-bg{position:absolute;inset:0}
+.fav-cimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.fav-cimg-emoji{position:relative;z-index:2;font-size:34px}
+.fav-cimg-photo + .fav-cimg-emoji{display:none}
 .fav-card-body{padding:11px 12px;flex:1;display:flex;flex-direction:column;justify-content:center;min-width:0}
 .fav-card-name{font-weight:700;font-size:13px;color:var(--n);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fav-card-meta{font-size:11px;color:var(--g);margin-bottom:5px}
 .fav-card-tag{display:inline-block;background:var(--cr);color:var(--v);border-radius:50px;padding:2px 8px;font-size:10px;font-weight:600}
 .fav-remove{padding:12px;display:flex;align-items:center;color:var(--g);font-size:17px;cursor:pointer;flex-shrink:0}
-
-/* LOADING SPINNER */
-.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:14px}
-.spinner{width:36px;height:36px;border:3px solid rgba(45,106,79,.2);border-top-color:var(--v);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-txt{font-size:14px;color:var(--g)}
 
 .toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--n);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;white-space:nowrap;z-index:200;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -223,439 +240,420 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 <body>
 <div id="app">
 
-  <!-- SPLASH -->
-  <div class="screen" id="splash">
-    <div class="sp-bg"></div>
-    <svg class="sp-mtn" viewBox="0 0 390 280" fill="none">
-      <path d="M0 280 L80 140 L135 185 L205 75 L270 148 L320 98 L390 155 L390 280Z" fill="white"/>
-      <path d="M0 280 L60 205 L120 240 L190 160 L250 208 L298 168 L390 215 L390 280Z" fill="white" opacity=".4"/>
-    </svg>
-    <div class="sp-content">
-      <div class="sp-ico">🏔️</div>
-      <div class="sp-title">Capilla<br>del Monte</div>
-      <div class="sp-sub">Córdoba · Argentina</div>
-      <div class="sp-tag">Descubrí todo lo que podés hacer hoy en la ciudad</div>
-      <button class="sp-btn" onclick="iniciar()">Explorar ahora →</button>
-      <div class="sp-dots"><div class="sd on"></div><div class="sd"></div><div class="sd"></div></div>
-    </div>
+<!-- SPLASH -->
+<div class="screen" id="splash">
+  <div class="sp-bg"></div>
+  <svg class="sp-mtn" viewBox="0 0 390 280" fill="none">
+    <path d="M0 280 L80 140 L135 185 L205 75 L270 148 L320 98 L390 155 L390 280Z" fill="white"/>
+    <path d="M0 280 L60 205 L120 240 L190 160 L250 208 L298 168 L390 215 L390 280Z" fill="white" opacity=".4"/>
+  </svg>
+  <div class="sp-content">
+    <div class="sp-ico">🏔️</div>
+    <div class="sp-title">Capilla<br>del Monte</div>
+    <div class="sp-sub">Córdoba · Argentina</div>
+    <div class="sp-tag">Descubrí todo lo que podés hacer hoy en la ciudad</div>
+    <button class="sp-btn" onclick="iniciar()">Explorar ahora →</button>
+    <div class="sp-dots"><div class="sd on"></div><div class="sd"></div><div class="sd"></div></div>
   </div>
+</div>
 
-  <!-- HOME -->
-  <div class="screen hidden" id="home">
-    <div class="hdr">
-      <div class="hdr-top">
-        <div class="hloc">📍 Capilla del Monte</div>
-        <div class="hav">👤</div>
+<!-- HOME -->
+<div class="screen hidden" id="home">
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hloc">📍 Capilla del Monte</div>
+      <div class="hav">👤</div>
+    </div>
+    <div class="hgreet" id="greeting"></div>
+    <div class="hdate" id="hdate"></div>
+    <div class="wpill"><span id="climaIcon">🌤️</span><span id="climaText">Cargando clima...</span></div>
+  </div>
+  <div class="srch">
+    <span style="font-size:16px;flex-shrink:0">🔍</span>
+    <input type="text" placeholder="Buscar actividades..." id="searchInput" oninput="filterActividades()">
+  </div>
+  <div class="scroll-area">
+    <div class="sec-hdr"><div class="sec-t">Categorías</div></div>
+    <div class="cats" id="catsList"></div>
+    <div class="sec-hdr"><div class="sec-t">Destacados hoy</div><div class="ver" onclick="goTo('explore')">Ver todos</div></div>
+    <div class="hscr" id="destacadosList"></div>
+    <div class="sec-hdr"><div class="sec-t">Eventos hoy</div><div class="ver" onclick="goTo('eventos')">Ver más</div></div>
+    <div id="eventosList"></div>
+    <div class="banner-evento" onclick="abrirFormulario()">
+      <div class="banner-ico">🎪</div>
+      <div class="banner-txt">
+        <div class="banner-titulo">¿Tenés un evento?</div>
+        <div class="banner-sub">Sumalo gratis y llegá a todos los turistas</div>
       </div>
-      <div class="hgreet" id="greeting">¡Buen día!</div>
-      <div class="hdate" id="hdate"></div>
-      <div class="wpill"><span id="climaIcon">🌤️</span><span id="climaText">Cargando clima...</span></div>
-    </div>
-    <div class="srch"><span>🔍</span><input type="text" placeholder="Buscar actividades..." id="searchInput" oninput="filterActividades()"></div>
-    <div class="scroll-area">
-      <div class="sec-hdr"><div class="sec-t">Categorías</div></div>
-      <div class="cats" id="catsList"></div>
-      <div class="sec-hdr"><div class="sec-t">Destacados hoy</div><div class="ver" onclick="goTo('explore')">Ver todos</div></div>
-      <div class="hscr" id="destacadosList"></div>
-      <div class="sec-hdr"><div class="sec-t">Eventos hoy</div><div class="ver" onclick="goTo('eventos')">Ver más</div></div>
-      <div id="eventosList"></div>
-      <div class="banner-evento" onclick="abrirFormulario()">
-        <div class="banner-ico">🎪</div>
-        <div class="banner-txt">
-          <div class="banner-titulo">¿Tenés un evento?</div>
-          <div class="banner-sub">Sumalo gratis y llegá a todos los turistas</div>
-        </div>
-        <div class="banner-arrow">→</div>
-      </div>
-    </div>
-    <div class="navbar">
-      <div class="ni on" onclick="navTo('home')"><div class="niico">🏠</div><span>Inicio</span></div>
-      <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><span>Explorar</span></div>
-      <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><span>Eventos</span></div>
-      <div class="ni" onclick="navTo('favoritos')"><div class="niico">❤️</div><span>Guardados</span></div>
+      <div class="banner-arrow">→</div>
     </div>
   </div>
-
-  <!-- DETALLE -->
-  <div class="screen hidden" id="detail">
-    <div class="dhero" id="detailHero"></div>
-    <div class="dbody" id="detailBody"></div>
+  <div class="navbar">
+    <div class="ni on" onclick="navTo('home')"><span class="ni-ico">🏠</span><span class="ni-lbl">Inicio</span></div>
+    <div class="ni" onclick="navTo('explore')"><span class="ni-ico">🗺️</span><span class="ni-lbl">Explorar</span></div>
+    <div class="ni" onclick="navTo('eventos')"><span class="ni-ico">📅<span class="ndot"></span></span><span class="ni-lbl">Eventos</span></div>
+    <div class="ni" onclick="navTo('favoritos')"><span class="ni-ico">❤️</span><span class="ni-lbl">Guardados</span></div>
   </div>
+</div>
 
-  <!-- EXPLORAR -->
-  <div class="screen hidden" id="explore">
-    <div class="exhdr">
-      <div class="extit">Explorá<br>Capilla 🗺️</div>
-      <div class="exsub" id="exploreCount"></div>
-    </div>
-    <div class="fltrs" id="filtersList"></div>
-    <div class="scroll-area" style="padding-bottom:0">
-      <div class="expgrid" id="exploreGrid"></div>
-    </div>
-    <div class="navbar">
-      <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><span>Inicio</span></div>
-      <div class="ni on" onclick="navTo('explore')"><div class="niico">🗺️</div><span>Explorar</span></div>
-      <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><span>Eventos</span></div>
-      <div class="ni" onclick="navTo('favoritos')"><div class="niico">❤️</div><span>Guardados</span></div>
-    </div>
+<!-- DETALLE -->
+<div class="screen hidden" id="detail">
+  <div class="dhero" id="detailHero"></div>
+  <div class="dbody" id="detailBody"></div>
+</div>
+
+<!-- EXPLORAR -->
+<div class="screen hidden" id="explore">
+  <div class="exhdr">
+    <div class="extit">Explorá<br>Capilla 🗺️</div>
+    <div class="exsub" id="exploreCount"></div>
   </div>
-
-  <!-- EVENTOS -->
-  <div class="screen hidden" id="eventos">
-    <div class="ev-hdr">
-      <div class="hdr-top" style="position:relative;z-index:1">
-        <div class="hloc">📅 Agenda</div>
-        <div class="hav" onclick="goBack()">←</div>
-      </div>
-      <div class="ev-title">Eventos en Capilla</div>
-      <div class="ev-sub" id="eventosSub">Cargando...</div>
-    </div>
-    <div class="ev-banner" onclick="abrirFormulario()">
-      <div class="ev-banner-title">¿Organizás un evento?</div>
-      <div class="ev-banner-sub">Sumalo gratis y llegá a cientos de turistas</div>
-      <div class="ev-banner-btn">➕ Sumar mi evento</div>
-    </div>
-    <div class="ev-list" id="eventosListFull"></div>
-    <div class="navbar">
-      <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><span>Inicio</span></div>
-      <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><span>Explorar</span></div>
-      <div class="ni on" onclick="navTo('eventos')"><div class="niico">📅</div><span>Eventos</span></div>
-      <div class="ni" onclick="navTo('favoritos')"><div class="niico">❤️</div><span>Guardados</span></div>
-    </div>
+  <div class="fltrs" id="filtersList"></div>
+  <div class="scroll-area" style="padding-bottom:0">
+    <div class="expgrid" id="exploreGrid"></div>
   </div>
-
-  <!-- FAVORITOS -->
-  <div class="screen hidden" id="favoritos">
-    <div class="fav-hdr">
-      <div class="hdr-top" style="position:relative;z-index:1">
-        <div class="hloc">❤️ Guardados</div>
-        <div class="hav" onclick="goBack()">←</div>
-      </div>
-      <div class="fav-title">Tus lugares<br>guardados</div>
-      <div class="fav-sub" id="favCount">0 lugares guardados</div>
-    </div>
-    <div id="favContent"></div>
-    <div class="navbar">
-      <div class="ni" onclick="navTo('home')"><div class="niico">🏠</div><span>Inicio</span></div>
-      <div class="ni" onclick="navTo('explore')"><div class="niico">🗺️</div><span>Explorar</span></div>
-      <div class="ni" onclick="navTo('eventos')"><div class="niico">📅<span class="ndot"></span></div><span>Eventos</span></div>
-      <div class="ni on" onclick="navTo('favoritos')"><div class="niico">❤️</div><span>Guardados</span></div>
-    </div>
+  <div class="navbar">
+    <div class="ni" onclick="navTo('home')"><span class="ni-ico">🏠</span><span class="ni-lbl">Inicio</span></div>
+    <div class="ni on" onclick="navTo('explore')"><span class="ni-ico">🗺️</span><span class="ni-lbl">Explorar</span></div>
+    <div class="ni" onclick="navTo('eventos')"><span class="ni-ico">📅<span class="ndot"></span></span><span class="ni-lbl">Eventos</span></div>
+    <div class="ni" onclick="navTo('favoritos')"><span class="ni-ico">❤️</span><span class="ni-lbl">Guardados</span></div>
   </div>
+</div>
 
-  <div class="toast" id="toast"></div>
+<!-- EVENTOS -->
+<div class="screen hidden" id="eventos">
+  <div class="ev-hdr">
+    <div class="hdr-top" style="position:relative;z-index:1">
+      <div class="hloc">📅 Agenda</div>
+      <div class="hav" onclick="goBack()">←</div>
+    </div>
+    <div class="ev-title">Eventos en Capilla</div>
+    <div class="ev-sub" id="eventosSub">Cargando...</div>
+  </div>
+  <div class="ev-banner" onclick="abrirFormulario()">
+    <div class="ev-banner-title">¿Organizás un evento?</div>
+    <div class="ev-banner-sub">Sumalo gratis y llegá a cientos de turistas</div>
+    <div class="ev-banner-btn">➕ Sumar mi evento</div>
+  </div>
+  <div class="ev-list" id="eventosListFull"></div>
+  <div class="navbar">
+    <div class="ni" onclick="navTo('home')"><span class="ni-ico">🏠</span><span class="ni-lbl">Inicio</span></div>
+    <div class="ni" onclick="navTo('explore')"><span class="ni-ico">🗺️</span><span class="ni-lbl">Explorar</span></div>
+    <div class="ni on" onclick="navTo('eventos')"><span class="ni-ico">📅</span><span class="ni-lbl">Eventos</span></div>
+    <div class="ni" onclick="navTo('favoritos')"><span class="ni-ico">❤️</span><span class="ni-lbl">Guardados</span></div>
+  </div>
+</div>
+
+<!-- FAVORITOS -->
+<div class="screen hidden" id="favoritos">
+  <div class="fav-hdr">
+    <div class="hdr-top" style="position:relative;z-index:1">
+      <div class="hloc">❤️ Guardados</div>
+      <div class="hav" onclick="goBack()">←</div>
+    </div>
+    <div class="fav-title">Tus lugares<br>guardados</div>
+    <div class="fav-sub" id="favCount">0 lugares guardados</div>
+  </div>
+  <div id="favContent"></div>
+  <div class="navbar">
+    <div class="ni" onclick="navTo('home')"><span class="ni-ico">🏠</span><span class="ni-lbl">Inicio</span></div>
+    <div class="ni" onclick="navTo('explore')"><span class="ni-ico">🗺️</span><span class="ni-lbl">Explorar</span></div>
+    <div class="ni" onclick="navTo('eventos')"><span class="ni-ico">📅<span class="ndot"></span></span><span class="ni-lbl">Eventos</span></div>
+    <div class="ni on" onclick="navTo('favoritos')"><span class="ni-ico">❤️</span><span class="ni-lbl">Guardados</span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 </div>
 
 <script>
 const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScX9lSY_aVwa7CNz2x23tdPNnDYuk6QvlsTE6GNcq4h2U7x2A/viewform";
-const SHEET_BASE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTB-JGfbYK8h-BirV0UlpDoPQEyqQIOA4v7UbZYVOaCDPM05vDI73zOlOgutwUbE9NrfN--LcOi7fGa/pub";
-const GIDS = {
-  actividades: 0,
-  eventos: 160474669,
-  gastronomia: 1387579489,
-  alojamientos: 912812701,
-  salud: 447915446
-};
+const SHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTB-JGfbYK8h-BirV0UlpDoPQEyqQIOA4v7UbZYVOaCDPM05vDI73zOlOgutwUbE9NrfN--LcOi7fGa/pub";
+const GIDS = { actividades:0, eventos:160474669, gastronomia:1387579489, alojamientos:912812701, salud:447915446 };
 
-// Gradientes y emojis por categoría
-const catConfig = {
-  "Trekking":    {gradiente:"g1", emoji:"🥾"},
-  "Naturaleza":  {gradiente:"g2", emoji:"🌿"},
-  "Feria":       {gradiente:"g3", emoji:"🛍️"},
-  "Aventura":    {gradiente:"g4", emoji:"🧗"},
-  "Espiritual":  {gradiente:"g6", emoji:"🔮"},
-  "Gastronomía": {gradiente:"g9", emoji:"🍽️"},
-  "Alojamiento": {gradiente:"g5", emoji:"🏨"},
-  "Salud":       {gradiente:"g4", emoji:"🏥"},
+const CAT_CFG = {
+  "Trekking":    {g:"g1", e:"🥾"},
+  "Naturaleza":  {g:"g2", e:"🌿"},
+  "Feria":       {g:"g3", e:"🛍️"},
+  "Aventura":    {g:"g4", e:"🧗"},
+  "Espiritual":  {g:"g6", e:"🔮"},
+  "Gastronomía": {g:"g9", e:"🍽️"},
+  "Alojamiento": {g:"g5", e:"🏨"},
+  "Salud":       {g:"g4", e:"🏥"},
 };
-
-const categorias = [
-  {key:"Todo",emoji:"🗺️"},
-  {key:"Trekking",emoji:"🥾"},
-  {key:"Naturaleza",emoji:"🌿"},
-  {key:"Feria",emoji:"🛍️"},
-  {key:"Aventura",emoji:"🧗"},
-  {key:"Espiritual",emoji:"🔮"},
-  {key:"Gastronomía",emoji:"🍽️"},
-  {key:"Alojamiento",emoji:"🏨"},
-  {key:"Salud",emoji:"🏥"},
+const CATS = [
+  {k:"Todo",e:"🗺️"},{k:"Trekking",e:"🥾"},{k:"Naturaleza",e:"🌿"},
+  {k:"Feria",e:"🛍️"},{k:"Aventura",e:"🧗"},{k:"Espiritual",e:"🔮"},
+  {k:"Gastronomía",e:"🍽️"},{k:"Alojamiento",e:"🏨"},{k:"Salud",e:"🏥"},
 ];
 
-// Estado global
-let actividades = [];
-let eventos = [];
-let currentScreen = 'splash';
-let prevScreen = 'home';
-let selectedCat = 'Todo';
-let currentActividad = null;
-let favs = new Set();
-let filterExplore = 'Todo';
+let actividades=[], eventos=[];
+let currentScreen='splash', prevScreen='home';
+let selectedCat='Todo', filterExplore='Todo';
+let currentActividad=null, favs=new Set();
 
-// ============ CSV PARSER ============
+// ─── CSV PARSER ───────────────────────────────────────
 function parseCSV(text) {
-  const lines = text.trim().split('\n');
+  const lines = text.trim().split(/\r?\n/);
   if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g,'').trim());
+  const headers = csvSplit(lines[0]);
   return lines.slice(1).map(line => {
-    const vals = [];
-    let cur = '', inQ = false;
-    for (let c of line) {
-      if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
-      else cur += c;
-    }
-    vals.push(cur.trim());
+    const vals = csvSplit(line);
     const obj = {};
-    headers.forEach((h,i) => obj[h] = (vals[i]||'').replace(/^"|"$/g,'').trim());
+    headers.forEach((h,i) => obj[h] = (vals[i]||'').trim());
     return obj;
-  }).filter(r => Object.values(r).some(v => v));
+  }).filter(r => Object.values(r).some(v=>v));
 }
-
-async function fetchSheet(gid) {
-  const url = `${SHEET_BASE}?gid=${gid}&single=true&output=csv`;
-  const r = await fetch(url);
-  if (!r.ok) throw new Error('Error ' + r.status);
+function csvSplit(line) {
+  const out=[]; let cur='', q=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){if(q&&line[i+1]==='"'){cur+='"';i++;}else q=!q;}
+    else if(c===','&&!q){out.push(cur.trim());cur='';}
+    else cur+=c;
+  }
+  out.push(cur.trim());
+  return out;
+}
+async function fetchCSV(gid) {
+  const r = await fetch(`${SHEET}?gid=${gid}&single=true&output=csv`);
+  if(!r.ok) throw new Error(r.status);
   return parseCSV(await r.text());
 }
 
-// ============ CARGAR DATOS ============
+// ─── FECHA PARSER (soporta todos los formatos) ────────
+function parseFecha(s) {
+  if(!s) return '';
+  s = s.trim();
+  if(/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
+  const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+  if(m) return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;
+  return '';
+}
+
+// ─── NÚMERO LIMPIO ────────────────────────────────────
+function toNum(s) { return parseInt((s||'0').replace(/[^0-9]/g,''))||0; }
+
+// ─── CARGAR SHEETS ────────────────────────────────────
 async function cargarTodo() {
   try {
-    const [rowsAct, rowsEv, rowsGas, rowsAloj, rowsSal] = await Promise.all([
-      fetchSheet(GIDS.actividades),
-      fetchSheet(GIDS.eventos),
-      fetchSheet(GIDS.gastronomia),
-      fetchSheet(GIDS.alojamientos),
-      fetchSheet(GIDS.salud),
+    const [rA,rE,rG,rAl,rS] = await Promise.all([
+      fetchCSV(GIDS.actividades), fetchCSV(GIDS.eventos),
+      fetchCSV(GIDS.gastronomia), fetchCSV(GIDS.alojamientos), fetchCSV(GIDS.salud)
     ]);
 
+    actividades = [];
+
     // ACTIVIDADES
-    actividades = rowsAct
-      .filter(r => r.Nombre && (r.Activo||'').toLowerCase() !== 'no')
-      .map((r,i) => ({
-        id: parseInt(r.ID||i+1),
-        nombre: r.Nombre || '',
-        categoria: r.Categoria || 'Trekking',
-        descripcion: r.Descripcion || '',
-        costo: parseInt(r.Costo)||0,
-        gratis: (r.Gratis||'').toLowerCase()==='si'||parseInt(r.Costo||0)===0,
-        duracion: r.Duracion || 'Libre',
-        dificultad: r.Dificultad || 'Media',
-        horario: r.Horario || '',
-        latitud: parseFloat(r.Latitud)||'-30.8612',
-        longitud: parseFloat(r.Longitud)||'-64.5241',
-        tags: (r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
-        gradiente: catConfig[r.Categoria]?.gradiente || 'g1',
-        emoji: catConfig[r.Categoria]?.emoji || '📍',
-        badge: (r.Tags||'').includes('popular') ? 'popular' : (parseInt(r.Costo||1)===0 ? 'gratis' : ''),
-      }));
-
-    // GASTRONOMÍA → suma a actividades
-    rowsGas.filter(r=>r.Nombre&&(r.Activo||'').toLowerCase()!=='no').forEach((r,i)=>{
+    rA.filter(r=>r.Nombre&&(r.Activo||'Si').toUpperCase()!=='NO').forEach((r,i)=>{
+      const cat = r.Categoria||'Trekking';
+      const cfg = CAT_CFG[cat]||{g:'g1',e:'📍'};
+      const costo = toNum(r.Costo);
       actividades.push({
-        id: 1000+i,
-        nombre: r.Nombre,
-        categoria: 'Gastronomía',
-        descripcion: r.Descripcion||'',
-        costo: parseInt(r.PrecioPromedio)||0,
-        gratis: false,
-        duracion: 'Libre',
-        dificultad: 'Baja',
-        horario: r.Horario||'',
-        latitud: parseFloat(r.Latitud)||'-30.8612',
-        longitud: parseFloat(r.Longitud)||'-64.5241',
-        tags: (r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
-        gradiente: 'g9',
-        emoji: '🍽️',
-        badge: '',
+        id: toNum(r.ID)||i+1, nombre:r.Nombre, categoria:cat,
+        descripcion:r.Descripcion||'', costo,
+        gratis:(r.Gratis||'').toUpperCase()==='SI'||costo===0,
+        duracion:r.Duracion||'Libre', dificultad:r.Dificultad||'Media',
+        horario:r.Horario||'',
+        lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
+        tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
+        foto:r.Foto||'', g:cfg.g, e:cfg.e,
+        badge:(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       });
     });
 
-    // ALOJAMIENTOS → suma a actividades
-    rowsAloj.filter(r=>r.Nombre&&(r.Activo||'').toLowerCase()!=='no').forEach((r,i)=>{
-      const tipos = {Cabaña:'🏡',Hotel:'🏨',Hostel:'🛏️',Camping:'⛺'};
+    // GASTRONOMÍA
+    rG.filter(r=>r.Nombre&&(r.Activo||'Si').toUpperCase()!=='NO').forEach((r,i)=>{
       actividades.push({
-        id: 2000+i,
-        nombre: r.Nombre,
-        categoria: 'Alojamiento',
-        descripcion: r.Descripcion||'',
-        costo: parseInt(r.PrecioDesde)||0,
-        gratis: false,
-        duracion: 'Por noche',
-        dificultad: 'Baja',
-        horario: 'Check-in 14hs',
-        latitud: parseFloat(r.Latitud)||'-30.8612',
-        longitud: parseFloat(r.Longitud)||'-64.5241',
-        tags: (r.Servicios||'').split(',').map(t=>t.trim()).filter(Boolean),
-        gradiente: 'g5',
-        emoji: tipos[r.Tipo]||'🏠',
-        badge: '',
+        id:1000+i, nombre:r.Nombre, categoria:'Gastronomía',
+        descripcion:r.Descripcion||'', costo:toNum(r.PrecioPromedio), gratis:false,
+        duracion:'Libre', dificultad:'Baja', horario:r.Horario||'',
+        lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
+        tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
+        foto:r.Foto||'', g:'g9', e:'🍽️', badge:'',
       });
     });
 
-    // SALUD → suma a actividades
-    rowsSal.filter(r=>r.Nombre&&(r.Activo||'').toLowerCase()!=='no').forEach((r,i)=>{
+    // ALOJAMIENTOS
+    const aloEmoji={Cabaña:'🏡',Hotel:'🏨',Hostel:'🛏️',Camping:'⛺'};
+    rAl.filter(r=>r.Nombre&&(r.Activo||'Si').toUpperCase()!=='NO').forEach((r,i)=>{
       actividades.push({
-        id: 3000+i,
-        nombre: r.Nombre,
-        categoria: 'Salud',
-        descripcion: r.Descripcion||'',
-        costo: 0,
-        gratis: true,
-        duracion: r.Horario||'',
-        dificultad: 'Baja',
-        horario: r.Horario||'',
-        latitud: parseFloat(r.Latitud)||'-30.8612',
-        longitud: parseFloat(r.Longitud)||'-64.5241',
-        tags: (r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
-        gradiente: 'g4',
-        emoji: '🏥',
-        badge: '',
+        id:2000+i, nombre:r.Nombre, categoria:'Alojamiento',
+        descripcion:r.Descripcion||'', costo:toNum(r.PrecioDesde), gratis:false,
+        duracion:'Por noche', dificultad:'Baja', horario:'Check-in 14hs',
+        lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
+        tags:(r.Servicios||'').split(',').map(t=>t.trim()).filter(Boolean),
+        foto:r.Foto||'', g:'g5', e:aloEmoji[r.Tipo]||'🏠', badge:'',
+      });
+    });
+
+    // SALUD
+    rS.filter(r=>r.Nombre&&(r.Activo||'Si').toUpperCase()!=='NO').forEach((r,i)=>{
+      actividades.push({
+        id:3000+i, nombre:r.Nombre, categoria:'Salud',
+        descripcion:r.Descripcion||'', costo:0, gratis:true,
+        duracion:r.Horario||'', dificultad:'Baja', horario:r.Horario||'',
+        lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
+        tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
+        foto:r.Foto||'', g:'g4', e:'🏥', badge:'',
       });
     });
 
     // EVENTOS
-    eventos = rowsEv
-      .filter(r=>r.Nombre&&(r.Activo||'').toLowerCase()!=='no')
-      .map((r,i)=>({
-        id: i,
-        nombre: r.Nombre||'',
-        organizador: r.Organizador||'',
-        fecha: r.FechaInicio||r.Fecha||'',
-        horario: r.Horario||'',
-        lugar: r.Lugar||'',
-        costo: parseInt(r.Costo)||0,
-        gratis: (r.Gratis||'').toLowerCase()==='si'||parseInt(r.Costo||1)===0,
-      }));
+    eventos = rE.filter(r=>r.Nombre&&(r.Activo||'Si').toUpperCase()!=='NO').map((r,i)=>{
+      const costo = toNum(r.Costo);
+      return {
+        id:i, nombre:r.Nombre,
+        fecha:parseFecha(r.FechaInicio||r.Fecha||''),
+        horario:r.Horario||'', lugar:r.Lugar||'',
+        costo, gratis:(r.Gratis||'').toUpperCase()==='SI'||costo===0,
+      };
+    });
 
-    renderHome();
-    renderExplore();
-    renderEventosFull();
+    renderHome(); renderExplore(); renderEventosFull();
 
   } catch(e) {
-    console.error('Error cargando sheet:', e);
-    // Si falla, cargamos datos de respaldo
-    cargarDatosRespaldo();
+    console.error('Sheet error:',e);
+    respaldo();
   }
 }
 
-function cargarDatosRespaldo() {
-  actividades = [
-    {id:1,nombre:"Cerro Uritorco",categoria:"Trekking",descripcion:"El pico más alto de las Sierras Chicas con 1.979 msnm. El ascenso dura entre 3 y 4 horas con vistas panorámicas del Valle de Punilla.",costo:5000,gratis:false,duracion:"5-7 hs",dificultad:"Alta",horario:"7:00 — 13:00",latitud:-30.8539,longitud:-64.5272,tags:["trekking","fotos","naturaleza"],gradiente:"g1",emoji:"🏔️",badge:"popular"},
-    {id:2,nombre:"Cascada Los Manantiales",categoria:"Naturaleza",descripcion:"Hermosa cascada rodeada de vegetación serrana. Caminata fácil de 2km apta para toda la familia.",costo:0,gratis:true,duracion:"3 hs",dificultad:"Baja",horario:"9:00 — 18:00",latitud:-30.8701,longitud:-64.5198,tags:["agua","naturaleza","familia"],gradiente:"g2",emoji:"💧",badge:"gratis"},
-    {id:3,nombre:"Feria Artesanal Plaza",categoria:"Feria",descripcion:"Feria de artesanos locales en la plaza principal.",costo:0,gratis:true,duracion:"Libre",dificultad:"Baja",horario:"18:00 — 24:00",latitud:-30.8612,longitud:-64.5241,tags:["feria","compras","familia"],gradiente:"g3",emoji:"🛍️",badge:"hoy"},
-    {id:4,nombre:"Los Terrones",categoria:"Trekking",descripcion:"Formaciones rocosas únicas de más de 10 millones de años.",costo:3000,gratis:false,duracion:"4 hs",dificultad:"Media",horario:"8:00 — 17:00",latitud:-30.9012,longitud:-64.5534,tags:["trekking","fotos","naturaleza"],gradiente:"g5",emoji:"🪨",badge:""},
-    {id:5,nombre:"Escalada en Roca",categoria:"Aventura",descripcion:"Actividad guiada de escalada. Equipo incluido, apto para principiantes.",costo:8000,gratis:false,duracion:"4 hs",dificultad:"Alta",horario:"9:00 — 13:00",latitud:-30.8678,longitud:-64.5412,tags:["aventura","adrenalina","guiado"],gradiente:"g4",emoji:"🧗",badge:""},
+function respaldo() {
+  actividades=[
+    {id:1,nombre:"Cerro Uritorco",categoria:"Trekking",descripcion:"El pico más alto de las Sierras Chicas con 1.979 msnm.",costo:5000,gratis:false,duracion:"5-7 hs",dificultad:"Alta",horario:"7:00—13:00",lat:-30.8539,lng:-64.5272,tags:["trekking","fotos"],foto:'',g:"g1",e:"🏔️",badge:"popular"},
+    {id:2,nombre:"Cascada Los Manantiales",categoria:"Naturaleza",descripcion:"Cascada serrana ideal para toda la familia.",costo:0,gratis:true,duracion:"3 hs",dificultad:"Baja",horario:"9:00—18:00",lat:-30.8701,lng:-64.5198,tags:["agua","naturaleza"],foto:'',g:"g2",e:"💧",badge:"gratis"},
+    {id:3,nombre:"Feria Artesanal Plaza",categoria:"Feria",descripcion:"Artesanos locales en la plaza principal.",costo:0,gratis:true,duracion:"Libre",dificultad:"Baja",horario:"18:00—24:00",lat:-30.8612,lng:-64.5241,tags:["feria","compras"],foto:'',g:"g3",e:"🛍️",badge:"hoy"},
   ];
-  eventos = [
-    {id:0,nombre:"Show de Folklore",organizador:"Bar El Cerro",fecha:"2026-03-05",horario:"21:00",lugar:"Bar El Cerro",costo:3500,gratis:false},
-    {id:1,nombre:"Feria de Luna Llena",organizador:"Municipalidad",fecha:"2026-03-05",horario:"19:00",lugar:"Plaza San Martín",costo:0,gratis:true},
+  eventos=[
+    {id:0,nombre:"Show de Folklore",fecha:"2026-03-05",horario:"21:00",lugar:"Bar El Cerro",costo:3500,gratis:false},
+    {id:1,nombre:"Feria de Luna Llena",fecha:"2026-03-05",horario:"19:00",lugar:"Plaza San Martín",costo:0,gratis:true},
   ];
-  renderHome();
-  renderExplore();
-  renderEventosFull();
+  renderHome(); renderExplore(); renderEventosFull();
 }
 
-// ============ CLIMA REAL ============
+// ─── CLIMA ────────────────────────────────────────────
 async function cargarClima() {
   try {
     const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-30.8612&longitude=-64.5241&current=temperature_2m,weathercode&timezone=America/Argentina/Cordoba');
     const d = await r.json();
-    const temp = Math.round(d.current.temperature_2m);
-    const {emoji, desc} = climaDesc(d.current.weathercode);
+    const {emoji,desc} = climaDesc(d.current.weathercode);
     document.getElementById('climaIcon').textContent = emoji;
-    document.getElementById('climaText').textContent = `${temp}°C · ${desc}`;
-  } catch(e) {
-    document.getElementById('climaText').textContent = '24°C · Día ideal para salir';
-  }
+    document.getElementById('climaText').textContent = `${Math.round(d.current.temperature_2m)}°C · ${desc}`;
+  } catch(e) { document.getElementById('climaText').textContent = 'Capilla del Monte'; }
+}
+function climaDesc(c) {
+  if(c===0)  return{emoji:'☀️',desc:'Cielo despejado'};
+  if(c<=2)   return{emoji:'🌤️',desc:'Parcialmente nublado'};
+  if(c<=3)   return{emoji:'☁️',desc:'Nublado'};
+  if(c<=48)  return{emoji:'🌫️',desc:'Niebla'};
+  if(c<=67)  return{emoji:'🌧️',desc:'Lluvia'};
+  if(c<=77)  return{emoji:'❄️',desc:'Nieve'};
+  if(c<=82)  return{emoji:'🌦️',desc:'Lluvia intermitente'};
+  return{emoji:'⛈️',desc:'Tormenta'};
 }
 
-function climaDesc(code) {
-  if(code===0) return {emoji:'☀️', desc:'Cielo despejado'};
-  if(code<=2)  return {emoji:'🌤️', desc:'Parcialmente nublado'};
-  if(code<=3)  return {emoji:'☁️', desc:'Nublado'};
-  if(code<=48) return {emoji:'🌫️', desc:'Niebla'};
-  if(code<=67) return {emoji:'🌧️', desc:'Lluvia'};
-  if(code<=77) return {emoji:'❄️', desc:'Nieve'};
-  if(code<=82) return {emoji:'🌦️', desc:'Lluvia intermitente'};
-  if(code<=99) return {emoji:'⛈️', desc:'Tormenta'};
-  return {emoji:'🌤️', desc:'Buen tiempo'};
-}
-
-// ============ NAVEGACIÓN ============
+// ─── NAVEGACIÓN ───────────────────────────────────────
 function goTo(s) {
   if(s===currentScreen) return;
-  const cur = document.getElementById(currentScreen);
-  const nxt = document.getElementById(s);
-  prevScreen = currentScreen;
-  cur.classList.add('back');
-  nxt.classList.remove('hidden','back');
-  setTimeout(()=>{cur.classList.add('hidden');cur.classList.remove('back');}, 380);
-  currentScreen = s;
+  const cur=document.getElementById(currentScreen), nxt=document.getElementById(s);
+  prevScreen=currentScreen;
+  cur.classList.add('back'); nxt.classList.remove('hidden','back');
+  setTimeout(()=>{cur.classList.add('hidden');cur.classList.remove('back');},380);
+  currentScreen=s;
   if(s==='home') renderHome();
   if(s==='explore') renderExplore();
   if(s==='favoritos') renderFavoritos();
   if(s==='eventos') renderEventosFull();
 }
-function goBack() { goTo(prevScreen===currentScreen?'home':prevScreen); }
-function navTo(s) { goTo(s); }
+function goBack(){goTo(prevScreen===currentScreen?'home':prevScreen);}
+function navTo(s){goTo(s);}
 
-// ============ HOME ============
+// ─── IMAGEN helper ────────────────────────────────────
+// Si hay foto URL válida la muestra, si no muestra el emoji sobre el gradiente
+function imgTag(foto, cls) {
+  return foto && foto.startsWith('http')
+    ? `<img class="${cls}" src="${foto}" loading="lazy" onerror="this.remove()">`
+    : '';
+}
+
+// ─── HOME ─────────────────────────────────────────────
 function renderHome() {
-  const h = new Date().getHours();
-  document.getElementById('greeting').innerHTML = `${h<12?'¡Buenos días!':h<19?'¡Buenas tardes!':'¡Buenas noches!'}<br>¿Qué hacemos hoy?`;
+  const h=new Date().getHours();
+  document.getElementById('greeting').innerHTML=`${h<12?'¡Buenos días!':h<19?'¡Buenas tardes!':'¡Buenas noches!'}<br>¿Qué hacemos hoy?`;
   const dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const n = new Date();
-  document.getElementById('hdate').textContent = `${dias[n.getDay()]} ${n.getDate()} de ${meses[n.getMonth()]} · ${actividades.length} actividades`;
-  document.getElementById('catsList').innerHTML = categorias.map(c=>`<div class="cat ${selectedCat===c.key?'on':''}" onclick="selectCat('${c.key}')"><div class="ci">${c.emoji}</div><div class="cl">${c.key}</div></div>`).join('');
-  const fil = selectedCat==='Todo' ? actividades : actividades.filter(a=>a.categoria===selectedCat);
-  document.getElementById('destacadosList').innerHTML = fil.slice(0,6).map(a=>`
+  const n=new Date();
+  document.getElementById('hdate').textContent=`${dias[n.getDay()]} ${n.getDate()} de ${meses[n.getMonth()]} · ${actividades.length} actividades`;
+
+  // Categorías
+  document.getElementById('catsList').innerHTML=CATS.map(c=>`
+    <div class="cat${selectedCat===c.k?' on':''}" onclick="selectCat('${c.k}')">
+      <span class="cat-ico">${c.e}</span>
+      <span class="cat-lbl">${c.k}</span>
+    </div>`).join('');
+
+  // Destacados
+  const fil=selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat);
+  document.getElementById('destacadosList').innerHTML=fil.slice(0,8).map(a=>`
     <div class="acard" onclick="openDetalle(${a.id})">
-      <div class="aimg ${a.gradiente}">${a.emoji}${a.badge?`<div class="abadge ${a.badge}">${a.badge==='popular'?'Popular':a.badge==='gratis'?'Gratis':'Hoy'}</div>`:''}</div>
+      <div class="aimg">
+        <div class="aimg-bg ${a.g}">
+          ${imgTag(a.foto,'aimg-photo')}
+          <span class="aimg-emoji">${a.e}</span>
+        </div>
+        ${a.badge?`<div class="abadge ${a.badge}">${a.badge==='popular'?'Popular':a.badge==='gratis'?'Gratis':'Hoy'}</div>`:''}
+      </div>
       <div class="abody">
         <div class="aname">${a.nombre}</div>
         <div class="ameta">⏱ ${a.duracion}${a.horario?' · '+a.horario:''}</div>
-        <div class="tags">${a.tags.slice(0,2).map(t=>`<div class="tag">${t}</div>`).join('')}</div>
+        <div class="tags">${a.tags.slice(0,2).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       </div>
     </div>`).join('');
 
-  // Eventos del día
-  const hoy = new Date().toISOString().split('T')[0];
-  const evHoy = eventos.filter(e => e.fecha && e.fecha >= hoy).slice(0,3);
-  const colors = ['','t','p'];
-  if(evHoy.length) {
-    document.getElementById('eventosList').innerHTML = evHoy.map((e,i)=>{
-      const fd = e.fecha ? new Date(e.fecha+'T12:00:00') : new Date();
-      const dd = fd.getDate(), mm = fd.toLocaleString('es',{month:'short'}).toUpperCase().slice(0,3);
-      return `<div class="evrow" onclick="goTo('eventos')"><div class="evbox ${colors[i]}"><div class="evd">${dd}</div><div class="evm">${mm}</div></div><div class="evinfo"><div class="evname">${e.nombre}</div><div class="evdet">🕗 ${e.horario} · ${e.lugar}</div></div><div class="evp ${e.gratis?'free':''}">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div></div>`;
-    }).join('');
-  } else {
-    document.getElementById('eventosList').innerHTML = `<div style="padding:12px 18px 4px;font-size:13px;color:var(--g)">No hay eventos cargados aún — ¡sé el primero en sumar uno!</div>`;
-  }
+  // Eventos
+  const hoy=new Date().toISOString().slice(0,10);
+  const evs=eventos.filter(e=>e.fecha>=hoy).slice(0,3);
+  const vc=['c0','c1','c2'];
+  document.getElementById('eventosList').innerHTML=evs.length
+    ? evs.map((e,i)=>{
+        const fd=new Date(e.fecha+'T12:00:00');
+        const dd=isNaN(fd)?'?':fd.getDate();
+        const mm=isNaN(fd)?'???':fd.toLocaleString('es',{month:'short'}).toUpperCase().slice(0,3);
+        return `<div class="evrow" onclick="goTo('eventos')">
+          <div class="evfecha ${vc[i]}"><div class="evfecha-d">${dd}</div><div class="evfecha-m">${mm}</div></div>
+          <div class="evinfo"><div class="evname">${e.nombre}</div><div class="evdet">🕗 ${e.horario} · ${e.lugar}</div></div>
+          <div class="evp${e.gratis?' free':''}">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div>
+        </div>`;}).join('')
+    : `<p style="padding:8px 18px 14px;font-size:13px;color:var(--g)">No hay eventos — ¡sé el primero en sumar uno!</p>`;
 }
-
-function selectCat(c) { selectedCat=c; renderHome(); }
+function selectCat(c){selectedCat=c;renderHome();}
 
 function filterActividades() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
+  const q=document.getElementById('searchInput').value.toLowerCase();
   if(!q){renderHome();return;}
-  const f = actividades.filter(a=>a.nombre.toLowerCase().includes(q)||a.categoria.toLowerCase().includes(q)||a.tags.some(t=>t.toLowerCase().includes(q)));
-  document.getElementById('destacadosList').innerHTML = f.length
-    ? f.map(a=>`<div class="acard" onclick="openDetalle(${a.id})"><div class="aimg ${a.gradiente}">${a.emoji}</div><div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">⏱ ${a.duracion}</div><div class="tags">${a.tags.slice(0,2).map(t=>`<div class="tag">${t}</div>`).join('')}</div></div></div>`).join('')
-    : '<div style="padding:20px;color:var(--g);font-size:14px;text-align:center">Sin resultados 🔍</div>';
+  const f=actividades.filter(a=>a.nombre.toLowerCase().includes(q)||a.categoria.toLowerCase().includes(q)||a.tags.some(t=>t.toLowerCase().includes(q)));
+  document.getElementById('destacadosList').innerHTML=f.length
+    ? f.map(a=>`<div class="acard" onclick="openDetalle(${a.id})">
+        <div class="aimg"><div class="aimg-bg ${a.g}">${imgTag(a.foto,'aimg-photo')}<span class="aimg-emoji">${a.e}</span></div></div>
+        <div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">⏱ ${a.duracion}</div><div class="tags">${a.tags.slice(0,2).map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>
+      </div>`).join('')
+    : '<p style="padding:20px;color:var(--g);font-size:14px;text-align:center">Sin resultados 🔍</p>';
 }
 
-// ============ DETALLE ============
+// ─── DETALLE ──────────────────────────────────────────
 function openDetalle(id) {
-  currentActividad = actividades.find(a=>a.id===id);
+  currentActividad=actividades.find(a=>a.id===id);
   if(!currentActividad) return;
-  const a = currentActividad;
-  const hero = document.getElementById('detailHero');
-  hero.className = 'dhero '+a.gradiente;
-  hero.innerHTML = `<div style="font-size:76px;position:relative;z-index:1">${a.emoji}</div><div class="dbk" onclick="goBack()">←</div><div class="dfv" id="favBtn" onclick="toggleFav()">${favs.has(a.id)?'❤️':'🤍'}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
-  const dc = a.dificultad==='Alta'?'alta':a.dificultad==='Media'?'media':'baja';
-  document.getElementById('detailBody').innerHTML = `
+  const a=currentActividad;
+  const hero=document.getElementById('detailHero');
+  hero.className='dhero '+a.g;
+  hero.innerHTML=`
+    <div class="dhero-bg ${a.g}">${imgTag(a.foto,'dhero-photo')}<span class="dhero-emoji">${a.e}</span></div>
+    <div class="dbk" onclick="goBack()">←</div>
+    <div class="dfv" id="favBtn" onclick="toggleFav()">${favs.has(a.id)?'❤️':'🤍'}</div>
+    <div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
+  const dc=a.dificultad==='Alta'?'alta':a.dificultad==='Media'?'media':'baja';
+  document.getElementById('detailBody').innerHTML=`
     <div class="dtr"><div class="dtit">${a.nombre}</div><div class="drat">⭐ 4.8</div></div>
     <div class="dloc">📍 Capilla del Monte · ${a.categoria}</div>
     <div class="dtags">${a.tags.map(t=>`<div class="dtag">${te(t)} ${t}</div>`).join('')}</div>
@@ -666,107 +664,103 @@ function openDetalle(id) {
       <div class="icard"><div class="iico">💪</div><div class="ilbl">Dificultad</div><div class="ival ${dc}">${a.dificultad}</div></div>
     </div>
     <div class="dsec">Sobre este lugar</div>
-    <div class="ddesc">${a.descripcion||'Sin descripción aún.'}</div>
+    <div class="ddesc">${a.descripcion||'Sin descripción disponible.'}</div>
     <div class="dsec">Cómo llegar</div>
-    <div class="mmap" onclick="openMaps(${a.latitud},${a.longitud})"><div class="mgrid"></div><div class="mpin">📍</div><div class="mlbl">Abrir en Maps →</div></div>
-    <button class="dcta" onclick="openMaps(${a.latitud},${a.longitud})">🗺️ Cómo llegar</button>
+    <div class="mmap" onclick="openMaps(${a.lat},${a.lng})"><div class="mgrid"></div><div class="mpin">📍</div><div class="mlbl">Abrir en Maps →</div></div>
+    <button class="dcta" onclick="openMaps(${a.lat},${a.lng})">🗺️ Cómo llegar</button>
     <button class="dcta2" onclick="showToast('¡Compartido!')">📤 Compartir</button>`;
   goTo('detail');
 }
-
-function te(t) {
-  const m={trekking:'🥾',fotos:'📸',naturaleza:'🌿',energía:'🔮',agua:'💧',familia:'👨‍👩‍👧',feria:'🛍️',compras:'🛍️',comida:'🍽️',aventura:'🧗',adrenalina:'⚡',guiado:'👥',espiritual:'🧘',parrilla:'🍖',café:'☕',bar:'🍻',vegano:'🥗',hotel:'🏨',cabaña:'🏡',hostel:'🛏️',camping:'⛺',salud:'🏥',farmacia:'💊',guardia:'🚨',wifi:'📶',pileta:'🏊',desayuno:'🍳',música:'🎵',noche:'🌙',cocina:'🍳',río:'💧',asadores:'🔥',estacionamiento:'🚗'};
+function te(t){
+  const m={trekking:'🥾',fotos:'📸',naturaleza:'🌿','energía':'🔮',agua:'💧',familia:'👨‍👩‍👧',feria:'🛍️',compras:'🛍️',comida:'🍽️',aventura:'🧗',adrenalina:'⚡',guiado:'👥',espiritual:'🧘',parrilla:'🍖','café':'☕',bar:'🍻',vegano:'🥗',hotel:'🏨','cabaña':'🏡',hostel:'🛏️',camping:'⛺',salud:'🏥',farmacia:'💊',guardia:'🚨',wifi:'📶',pileta:'🏊',desayuno:'🍳','música':'🎵',noche:'🌙','río':'💧',asadores:'🔥',estacionamiento:'🚗',popular:'⭐',vista:'👀'};
   return m[t.toLowerCase()]||'✨';
 }
-
-function toggleFav() {
-  if(!currentActividad) return;
-  favs.has(currentActividad.id) ? favs.delete(currentActividad.id) : favs.add(currentActividad.id);
-  document.getElementById('favBtn').textContent = favs.has(currentActividad.id)?'❤️':'🤍';
-  showToast(favs.has(currentActividad.id)?'¡Guardado en favoritos! ❤️':'Eliminado de guardados');
+function toggleFav(){
+  if(!currentActividad)return;
+  favs.has(currentActividad.id)?favs.delete(currentActividad.id):favs.add(currentActividad.id);
+  document.getElementById('favBtn').textContent=favs.has(currentActividad.id)?'❤️':'🤍';
+  showToast(favs.has(currentActividad.id)?'¡Guardado! ❤️':'Eliminado de guardados');
 }
 
-// ============ FAVORITOS ============
-function renderFavoritos() {
-  const count = favs.size;
-  document.getElementById('favCount').textContent = `${count} lugar${count!==1?'es':''} guardado${count!==1?'s':''}`;
-  const cont = document.getElementById('favContent');
-  if(count===0) {
-    cont.className = 'fav-empty';
-    cont.innerHTML = `<div class="fav-empty-ico">🗺️</div><div class="fav-empty-title">Todavía no guardaste nada</div><div class="fav-empty-sub">Explorá las actividades y tocá el ❤️ para guardar tus favoritos</div><button class="fav-btn" onclick="goTo('explore')">Explorar actividades</button>`;
+// ─── FAVORITOS ────────────────────────────────────────
+function renderFavoritos(){
+  const cnt=favs.size;
+  document.getElementById('favCount').textContent=`${cnt} lugar${cnt!==1?'es':''} guardado${cnt!==1?'s':''}`;
+  const c=document.getElementById('favContent');
+  if(!cnt){
+    c.className='fav-empty';
+    c.innerHTML=`<div class="fav-empty-ico">🗺️</div><div class="fav-empty-title">Todavía no guardaste nada</div><div class="fav-empty-sub">Explorá las actividades y tocá el ❤️ para guardar tus favoritos</div><button class="fav-btn" onclick="goTo('explore')">Explorar actividades</button>`;
   } else {
-    cont.className = 'fav-list';
-    cont.innerHTML = actividades.filter(a=>favs.has(a.id)).map(a=>`
+    c.className='fav-list';
+    c.innerHTML=actividades.filter(a=>favs.has(a.id)).map(a=>`
       <div class="fav-card" onclick="openDetalle(${a.id})">
-        <div class="fav-card-img ${a.gradiente}">${a.emoji}</div>
+        <div class="fav-cimg"><div class="fav-cimg-bg ${a.g}"></div>${imgTag(a.foto,'fav-cimg-photo')}<span class="fav-cimg-emoji">${a.e}</span></div>
         <div class="fav-card-body">
           <div class="fav-card-name">${a.nombre}</div>
-          <div class="fav-card-meta">⏱ ${a.duracion} · ${a.horario||''}</div>
+          <div class="fav-card-meta">⏱ ${a.duracion}${a.horario?' · '+a.horario:''}</div>
           <span class="fav-card-tag">${a.categoria}</span>
         </div>
         <div class="fav-remove" onclick="event.stopPropagation();removeFav(${a.id})">🗑️</div>
       </div>`).join('');
   }
 }
+function removeFav(id){favs.delete(id);renderFavoritos();showToast('Eliminado de guardados');}
 
-function removeFav(id) { favs.delete(id); renderFavoritos(); showToast('Eliminado de guardados'); }
-
-// ============ EXPLORAR ============
-function renderExplore(filter) {
-  if(filter!==undefined) filterExplore = filter;
-  const fil = filterExplore==='Todo' ? actividades : actividades.filter(a=>a.categoria===filterExplore);
-  document.getElementById('exploreCount').textContent = `${fil.length} lugar${fil.length!==1?'es':''} disponibles`;
-  document.getElementById('filtersList').innerHTML = ['Todo',...new Set(actividades.map(a=>a.categoria))].map(c=>`<div class="chip ${filterExplore===c?'on':''}" onclick="renderExplore('${c}')">${c}</div>`).join('');
-  document.getElementById('exploreGrid').innerHTML = fil.map((a,i)=>`
-    <div class="ecard ${i===0?'feat':''}" onclick="openDetalle(${a.id})">
-      <div class="ecimg ${a.gradiente}">${a.emoji}${a.badge?`<div class="ebadge" style="background:${a.badge==='gratis'?'#1565C0':a.badge==='hoy'?'var(--t)':'var(--vl)'}">${a.badge.toUpperCase()}</div>`:''}</div>
-      <div class="ecbody"><div class="ecname">${a.nombre}</div><div class="ecmeta">${te(a.tags[0]||'')} ${a.categoria} · ${a.gratis?'Gratis':'$'+a.costo.toLocaleString()}</div></div>
+// ─── EXPLORAR ─────────────────────────────────────────
+function renderExplore(filter){
+  if(filter!==undefined) filterExplore=filter;
+  const fil=filterExplore==='Todo'?actividades:actividades.filter(a=>a.categoria===filterExplore);
+  document.getElementById('exploreCount').textContent=`${fil.length} lugar${fil.length!==1?'es':''} disponibles`;
+  document.getElementById('filtersList').innerHTML=['Todo',...new Set(actividades.map(a=>a.categoria))].map(c=>`<div class="chip${filterExplore===c?' on':''}" onclick="renderExplore('${c}')">${c}</div>`).join('');
+  document.getElementById('exploreGrid').innerHTML=fil.map((a,i)=>`
+    <div class="ecard${i===0?' feat':''}" onclick="openDetalle(${a.id})">
+      <div class="ecimg">
+        <div class="ecimg-bg ${a.g}">${imgTag(a.foto,'ecimg-photo')}<span class="ecimg-emoji">${a.e}</span></div>
+        ${a.badge?`<div class="ebadge" style="background:${a.badge==='gratis'?'#1565C0':a.badge==='hoy'?'var(--t)':'var(--vl)'}">${a.badge.toUpperCase()}</div>`:''}
+      </div>
+      <div class="ecbody">
+        <div class="ecname">${a.nombre}</div>
+        <div class="ecmeta">${te(a.tags[0]||'')} ${a.categoria} · ${a.gratis?'Gratis':'$'+a.costo.toLocaleString()}</div>
+      </div>
     </div>`).join('');
 }
 
-// ============ EVENTOS FULL ============
-function renderEventosFull() {
-  const hoy = new Date().toISOString().split('T')[0];
-  const proximos = eventos.filter(e=>e.fecha>=hoy).sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  document.getElementById('eventosSub').textContent = `Marzo 2026 · ${proximos.length} evento${proximos.length!==1?'s':''}`;
-  const colors = ['v','t','p'];
-  if(!proximos.length) {
-    document.getElementById('eventosListFull').innerHTML = `<div class="ev-loading">No hay eventos próximos.<br>¡Sé el primero en sumar uno! 🎪</div>`;
-    return;
-  }
-  document.getElementById('eventosListFull').innerHTML = `
-    <div class="ev-sec">Próximos eventos</div>
-    ${proximos.map((e,i)=>{
-      const fd = new Date(e.fecha+'T12:00:00');
-      const dd = fd.getDate(), mm = fd.toLocaleString('es',{month:'short'}).toUpperCase().slice(0,3);
-      return `<div class="ev-card">
-        <div class="ev-date ${colors[i%3]}"><div class="ev-dd">${dd}</div><div class="ev-mm">${mm}</div></div>
-        <div class="ev-info">
-          <div class="ev-name">${e.nombre}</div>
-          <div class="ev-detail">🕗 ${e.horario} · ${e.lugar}</div>
-          <div class="ev-price ${e.gratis?'free':''}">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div>
-        </div>
-      </div>`;
-    }).join('')}`;
+// ─── EVENTOS FULL ─────────────────────────────────────
+function renderEventosFull(){
+  const hoy=new Date().toISOString().slice(0,10);
+  const prox=eventos.filter(e=>e.fecha&&e.fecha>=hoy).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  document.getElementById('eventosSub').textContent=`${prox.length} evento${prox.length!==1?'s':''} próximos`;
+  const cols=['c0','c1','c2','c3','c4'];
+  document.getElementById('eventosListFull').innerHTML=prox.length
+    ? `<div class="ev-sec">Próximos eventos</div>`+prox.map((e,i)=>{
+        const fd=new Date(e.fecha+'T12:00:00');
+        const dd=isNaN(fd.getTime())?'?':fd.getDate();
+        const mm=isNaN(fd.getTime())?'???':fd.toLocaleString('es',{month:'short'}).toUpperCase().slice(0,3);
+        return `<div class="ev-card">
+          <div class="ev-datebox ${cols[i%5]}"><div class="ev-dd">${dd}</div><div class="ev-mm">${mm}</div></div>
+          <div class="ev-info">
+            <div class="ev-name">${e.nombre}</div>
+            <div class="ev-detail">🕗 ${e.horario} · ${e.lugar}</div>
+            <div class="ev-price${e.gratis?' free':''}">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div>
+          </div>
+        </div>`;}).join('')
+    : `<p style="padding:30px;text-align:center;color:var(--g);font-size:14px">No hay eventos próximos.<br>¡Sé el primero en sumar uno! 🎪</p>`;
 }
 
-// ============ HELPERS ============
-function openMaps(lat,lng) { window.open(`https://www.google.com/maps?q=${lat},${lng}`,'_blank'); }
-function abrirFormulario() { window.open(FORM_URL,'_blank'); }
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
+// ─── HELPERS ──────────────────────────────────────────
+function openMaps(lat,lng){window.open(`https://www.google.com/maps?q=${lat},${lng}`,'_blank');}
+function abrirFormulario(){window.open(FORM_URL,'_blank');}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-async function iniciar() {
+async function iniciar(){
   goTo('home');
+  cargarClima();
   await cargarTodo();
 }
-
-// INIT
-cargarClima();
 </script>
 </body>
 </html>
