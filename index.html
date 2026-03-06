@@ -495,7 +495,7 @@ async function cargarTodo() {
         duracion:r.Horario||'', dificultad:'Baja', horario:r.Horario||'',
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
-        foto:'', g:'g4', e:'🏥', badge:'',
+        foto:r.Foto||'', g:'g4', e:'🏥', badge:'',
         guardia:r.Guardia||'', telefono:r.Telefono||'', whatsapp:r.Whatsapp||'',
       });
     });
@@ -793,6 +793,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
