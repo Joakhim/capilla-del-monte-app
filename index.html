@@ -68,7 +68,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .acard:active{transform:scale(.97)}
 .aimg{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .aimg-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:46px}
-.aimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.aimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
 .aimg-emoji{position:relative;z-index:2;font-size:46px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
 /* cuando hay foto, escondemos el emoji */
 .aimg-photo + .aimg-emoji{display:none}
@@ -122,7 +122,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 #detail{background:var(--cr)}
 .dhero{height:280px;position:relative;overflow:hidden;flex-shrink:0}
 .dhero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px}
-.dhero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.dhero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
 .dhero-emoji{position:relative;z-index:2;font-size:80px;text-shadow:0 4px 16px rgba(0,0,0,.4)}
 .dhero-photo + .dhero-emoji{display:none}
 .dhero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--cr));z-index:3;pointer-events:none}
@@ -170,7 +170,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .ecard.feat{grid-column:1/-1;display:flex;height:100px}
 .ecimg{height:108px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .ecimg-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px}
-.ecimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.ecimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
 .ecimg-emoji{position:relative;z-index:2;font-size:36px;text-shadow:0 2px 6px rgba(0,0,0,.3)}
 .ecimg-photo + .ecimg-emoji{display:none}
 .ecard.feat .ecimg{width:110px;height:100%;flex-shrink:0}
@@ -224,7 +224,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .fav-card:active{transform:scale(.98)}
 .fav-cimg{width:86px;height:86px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .fav-cimg-bg{position:absolute;inset:0}
-.fav-cimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.fav-cimg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
 .fav-cimg-emoji{position:relative;z-index:2;font-size:34px}
 .fav-cimg-photo + .fav-cimg-emoji{display:none}
 .fav-card-body{padding:11px 12px;flex:1;display:flex;flex-direction:column;justify-content:center;min-width:0}
@@ -793,6 +793,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
