@@ -266,7 +266,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
     </div>
     <div class="hgreet" id="greeting"></div>
     <div class="hdate" id="hdate"></div>
-    <div class="wpill" style="display:inline-flex"><span>🗺️</span><span id="climaText">Cargando actividades...</span></div>
+    <div class="wpill"><span id="climaIcon">🌤️</span><span id="climaText">Cargando clima...</span></div>
   </div>
   <div class="srch">
     <span style="font-size:16px;flex-shrink:0">🔍</span>
@@ -605,8 +605,9 @@ function renderHome() {
     </div>`).join('');
 
   // Destacados
-  const fil=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat)).filter(a=>a.badge==='destacado');
-  document.getElementById('destacadosList').innerHTML=fil.slice(0,8).map(a=>`
+  const todos=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat));
+  const fil=todos.filter(a=>a.badge==='destacado').length>0?todos.filter(a=>a.badge==='destacado'):todos;
+  document.getElementById('destacadosList').innerHTML=fil.map(a=>`
     <div class="acard" onclick="openDetalle(${a.id})">
       <div class="aimg">
         <div class="aimg-bg ${a.g}">
@@ -830,6 +831,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
