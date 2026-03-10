@@ -266,7 +266,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
     </div>
     <div class="hgreet" id="greeting"></div>
     <div class="hdate" id="hdate"></div>
-    <div class="wpill"><span id="climaIcon">🌤️</span><span id="climaText">Cargando clima...</span></div>
+    <div class="wpill" style="display:inline-flex"><span>🗺️</span><span id="climaText">Cargando actividades...</span></div>
   </div>
   <div class="srch">
     <span style="font-size:16px;flex-shrink:0">🔍</span>
@@ -275,8 +275,10 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
   <div class="scroll-area">
     <div class="sec-hdr"><div class="sec-t">Categorías</div></div>
     <div class="cats" id="catsList"></div>
-    <div class="sec-hdr"><div class="sec-t">Destacados hoy</div><div class="ver" onclick="goTo('explore')">Ver todos</div></div>
+    <div class="sec-hdr"><div class="sec-t">Recomendados</div><div class="ver" onclick="goTo('explore')">Ver todos</div></div>
     <div class="hscr" id="destacadosList"></div>
+    <div class="sec-hdr"><div class="sec-t">Explorá por categoría</div><div class="ver" onclick="goTo('explore')">Ver todo</div></div>
+    <div id="cercaList" style="display:flex;gap:10px;padding:0 18px 6px;overflow-x:auto;scrollbar-width:none"></div>
     <div class="sec-hdr"><div class="sec-t">Eventos hoy</div><div class="ver" onclick="goTo('eventos')">Ver más</div></div>
     <div id="eventosList"></div>
     <div class="banner-evento" onclick="abrirFormulario()">
@@ -593,6 +595,7 @@ function renderHome() {
   const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const n=new Date();
   document.getElementById('hdate').textContent=`${dias[n.getDay()]} ${n.getDate()} de ${meses[n.getMonth()]} · ${actividades.length} actividades`;
+  document.getElementById('climaText').textContent=`${actividades.length} actividades disponibles`;
 
   // Categorías
   document.getElementById('catsList').innerHTML=CATS.map(c=>`
@@ -602,7 +605,7 @@ function renderHome() {
     </div>`).join('');
 
   // Destacados
-  const fil=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat)).sort((a,b)=>(b.badge==='destacado'?1:0)-(a.badge==='destacado'?1:0));
+  const fil=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat)).filter(a=>a.badge==='destacado');
   document.getElementById('destacadosList').innerHTML=fil.slice(0,8).map(a=>`
     <div class="acard" onclick="openDetalle(${a.id})">
       <div class="aimg">
@@ -621,7 +624,7 @@ function renderHome() {
 
   // Eventos
   const hoy=new Date().toISOString().slice(0,10);
-  const evs=eventos.filter(e=>e.fecha>=hoy).slice(0,3);
+  const evs=eventos.filter(e=>e.fecha===hoy).slice(0,3);
   const vc=['c0','c1','c2'];
   document.getElementById('eventosList').innerHTML=evs.length
     ? evs.map((e,i)=>{
@@ -634,6 +637,22 @@ function renderHome() {
           <div class="evp${e.gratis?' free':''}">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div>
         </div>`;}).join('')
     : `<p style="padding:8px 18px 14px;font-size:13px;color:var(--g)">No hay eventos — ¡sé el primero en sumar uno!</p>`;
+  
+    const cats=['Trekking','Gastronomía','Alojamiento','Salud'];
+  document.getElementById('cercaList').innerHTML=cats.map(cat=>{
+    const a=actividades.find(x=>x.categoria===cat);
+    if(!a) return '';
+    return `<div onclick="openDetalle(${a.id})" style="min-width:130px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:pointer;flex-shrink:0">
+      <div class="${a.g}" style="height:70px;display:flex;align-items:center;justify-content:center;font-size:30px;position:relative;overflow:hidden">
+        ${imgTag(a.foto,'aimg-photo')}
+        <span style="position:relative;z-index:2">${a.e}</span>
+      </div>
+      <div style="padding:8px 10px">
+        <div style="font-size:10px;font-weight:700;color:var(--v);text-transform:uppercase;letter-spacing:.5px">${cat}</div>
+        <div style="font-size:12px;font-weight:600;color:var(--n);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.nombre}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 function selectCat(c){selectedCat=c;renderHome();}
 
@@ -811,6 +830,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
