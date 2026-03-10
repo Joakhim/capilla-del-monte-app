@@ -604,9 +604,8 @@ function renderHome() {
 
   // Destacados
   const todos=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat));
-  const fil=todos.filter(a=>a.badge==='destacado').length>0?todos.filter(a=>a.badge==='destacado'):todos;
-  const destacados=fil.filter(a=>a.badge==='destacado');
-  const resto=fil.filter(a=>a.badge!=='destacado');
+  const destacados=todos.filter(a=>a.badge==='destacado');
+  const resto=todos.filter(a=>a.badge!=='destacado');
 
 document.getElementById('destacadosList').innerHTML=
   destacados.map(a=>`
@@ -833,6 +832,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
