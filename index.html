@@ -603,23 +603,41 @@ function renderHome() {
     </div>`).join('');
 
   // Destacados
-  const todos=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat));
-  const fil=todos.filter(a=>a.badge==='destacado').length>0?todos.filter(a=>a.badge==='destacado'):todos;
-  document.getElementById('destacadosList').innerHTML=fil.map(a=>`
+const destacados=fil.filter(a=>a.badge==='destacado');
+const resto=fil.filter(a=>a.badge!=='destacado');
+
+document.getElementById('destacadosList').innerHTML=
+  destacados.map(a=>`
     <div class="acard" onclick="openDetalle(${a.id})">
       <div class="aimg">
         <div class="aimg-bg ${a.g}">
           ${imgTag(a.foto,'aimg-photo')}
           <span class="aimg-emoji">${a.e}</span>
         </div>
-        ${a.badge?`<div class="abadge ${a.badge}">${a.badge==='popular'?'Popular':a.badge==='gratis'?'Gratis':'Hoy'}</div>`:''}
+        <div class="abadge destacado">⭐ Destacado</div>
       </div>
       <div class="abody">
         <div class="aname">${a.nombre}</div>
         <div class="ameta">⏱ ${a.duracion}${a.horario?' · '+a.horario:''}</div>
         <div class="tags">${a.tags.slice(0,2).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       </div>
-    </div>`).join('');
+    </div>`).join('')+
+  (resto.length?`
+    <div style="min-width:100%;padding:4px 0 6px">
+      <div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1px;padding:0 4px 8px">También disponible</div>
+      ${resto.map(a=>`
+        <div onclick="openDetalle(${a.id})" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:9px 11px;margin-bottom:7px;box-shadow:0 2px 6px rgba(0,0,0,.07);cursor:pointer;min-width:280px">
+          <div class="${a.g}" style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;position:relative;overflow:hidden">
+            ${imgTag(a.foto,'aimg-photo')}
+            <span style="position:relative;z-index:2">${a.e}</span>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:600;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.nombre}</div>
+            <div style="font-size:11px;color:var(--g)">${a.gratis?'Gratis':'$'+a.costo.toLocaleString()} · ${a.horario||a.categoria}</div>
+          </div>
+          <span style="color:var(--g);font-size:14px">›</span>
+        </div>`).join('')}
+    </div>`:'');
 
   // Eventos
   const hoy=new Date().toISOString().slice(0,10);
@@ -813,6 +831,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
