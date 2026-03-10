@@ -470,8 +470,8 @@ async function cargarTodo() {
         duracion:'Libre', dificultad:'Baja', horario:r.Horario||'',
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
-        foto:r.Foto||'', g:'g9', e:'🍽️', badge:'',
-        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
+        foto:r.Foto||'', g:'g9', e:'🍽️',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':'',
       });
     });
 
@@ -484,8 +484,8 @@ async function cargarTodo() {
         duracion:'Por noche', dificultad:'Baja', horario:'Check-in 14hs',
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Servicios||'').split(',').map(t=>t.trim()).filter(Boolean),
-        foto:r.Foto||'', g:'g5', e:aloEmoji[r.Tipo]||'🏠', badge:'',
-        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
+        foto:r.Foto||'', g:'g5', e:aloEmoji[r.Tipo]||'🏠',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':'',
       });
     });
 
@@ -497,9 +497,9 @@ async function cargarTodo() {
         duracion:r.Horario||'', dificultad:'Baja', horario:r.Horario||'',
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
-        foto:r.Foto||'', g:'g4', e:'🏥', badge:'',
+        foto:r.Foto||'', g:'g4', e:'🏥',
         guardia:r.Guardia||'', telefono:r.Telefono||'', whatsapp:r.Whatsapp||'',
-        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':'',
       });
     });
 
@@ -511,7 +511,7 @@ async function cargarTodo() {
         fecha:parseFecha(r.FechaInicio||r.Fecha||''),
         horario:r.Horario||'', lugar:r.Lugar||'',
         costo, gratis:(r.Gratis||'').toUpperCase()==='SI'||costo===0,
-        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':'',
       };
     });
 
@@ -811,6 +811,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
