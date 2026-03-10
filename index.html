@@ -82,7 +82,7 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
 .g8{background:linear-gradient(135deg,#1a3050,#1976D2)}
 .g9{background:linear-gradient(135deg,#4a1a00,#E65100)}
 .abadge{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.93);border-radius:50px;padding:3px 9px;font-size:10px;font-weight:700;z-index:3}
-.abadge.popular{color:var(--v)}.abadge.gratis{color:#1565C0}.abadge.hoy{color:var(--t)}
+.abadge.popular{color:var(--v)}.abadge.gratis{color:#1565C0}.abadge.hoy{color:var(--t)}.abadge.destacado{color:#E8A400;background:#FFF8E7}
 .abody{padding:11px 13px 13px}
 .aname{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--n);margin-bottom:3px;line-height:1.2}
 .ameta{color:var(--g);font-size:11px;margin-bottom:7px}
@@ -458,7 +458,7 @@ async function cargarTodo() {
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
         foto:r.Foto||'', g:cfg.g, e:cfg.e,
-        badge:(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       });
     });
 
@@ -471,6 +471,7 @@ async function cargarTodo() {
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
         foto:r.Foto||'', g:'g9', e:'🍽️', badge:'',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       });
     });
 
@@ -484,6 +485,7 @@ async function cargarTodo() {
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Servicios||'').split(',').map(t=>t.trim()).filter(Boolean),
         foto:r.Foto||'', g:'g5', e:aloEmoji[r.Tipo]||'🏠', badge:'',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       });
     });
 
@@ -497,6 +499,7 @@ async function cargarTodo() {
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
         foto:r.Foto||'', g:'g4', e:'🏥', badge:'',
         guardia:r.Guardia||'', telefono:r.Telefono||'', whatsapp:r.Whatsapp||'',
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       });
     });
 
@@ -508,6 +511,7 @@ async function cargarTodo() {
         fecha:parseFecha(r.FechaInicio||r.Fecha||''),
         horario:r.Horario||'', lugar:r.Lugar||'',
         costo, gratis:(r.Gratis||'').toUpperCase()==='SI'||costo===0,
+        badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       };
     });
 
@@ -598,7 +602,7 @@ function renderHome() {
     </div>`).join('');
 
   // Destacados
-  const fil=selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat);
+  const fil=(selectedCat==='Todo'?actividades:actividades.filter(a=>a.categoria===selectedCat)).sort((a,b)=>(b.badge==='destacado'?1:0)-(a.badge==='destacado'?1:0));
   document.getElementById('destacadosList').innerHTML=fil.slice(0,8).map(a=>`
     <div class="acard" onclick="openDetalle(${a.id})">
       <div class="aimg">
@@ -807,6 +811,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
