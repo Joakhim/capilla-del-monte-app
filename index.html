@@ -756,7 +756,7 @@ if(a.categoria==='Salud'){
     <div class="dtags">${a.tags.map(t=>`<div class="dtag">${te(t)} ${t}</div>`).join('')}</div>
     <div class="igrid">
    <div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival">${a.horario||'—'}</div></div>
-a.categoria==='Gastronomía'||a.categoria==='Feria'||a.categoria==='Espiritual'?`
+${a.categoria==='Gastronomía'||a.categoria==='Feria'||a.categoria==='Espiritual'?`
   <div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival">${a.direccion||'—'}</div></div>`:`
   <div class="icard"><div class="iico">💰</div><div class="ilbl">${a.categoria==='Alojamiento'?'Precio desde':'Costo'}</div><div class="ival">${a.gratis?'Gratis':'$'+a.costo.toLocaleString()}</div></div>`}
 ${a.categoria==='Alojamiento'?`
@@ -878,6 +878,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
