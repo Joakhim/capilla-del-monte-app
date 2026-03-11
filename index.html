@@ -364,7 +364,20 @@ body{font-family:'DM Sans',sans-serif;display:flex;justify-content:center;align-
     <div class="ni on" onclick="navTo('favoritos')"><span class="ni-ico">❤️</span><span class="ni-lbl">Guardados</span></div>
   </div>
 </div>
-
+<div id="donaPopup" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:flex-end;justify-content:center">
+  <div style="background:#fff;border-radius:28px 28px 0 0;padding:28px 24px 36px;width:100%;max-width:390px">
+    <div style="text-align:center;font-size:36px;margin-bottom:8px">❤️</div>
+    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1A1A2E;text-align:center;margin-bottom:10px">Hecho con amor para Capilla</div>
+    <div style="font-size:14px;color:#6B7280;line-height:1.7;text-align:center;margin-bottom:20px">Esta app es un proyecto independiente y sin fines de lucro para ayudar a turistas y locales a descubrir todo lo que tiene Capilla del Monte.<br><br>Si te fue útil, cualquier colaboración nos ayuda a mantenerla viva 🙏</div>
+    <div style="background:#F5F0E8;border-radius:14px;padding:14px;margin-bottom:18px;font-size:13px;color:#1A1A2E;line-height:2">
+      📧 joakognr55@gmail.com<br>
+      💬 <a href="https://wa.me/541139018202" style="color:#2D6A4F;font-weight:600">WhatsApp: 11 3901-8202</a><br>
+      💙 Alias MP: <strong>capilladigital.mp</strong>
+    </div>
+    <button onclick="cerrarDona()" style="width:100%;background:#2D6A4F;color:#fff;border:none;padding:15px;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px">¡Con gusto colaboro! 🙌</button>
+    <button onclick="cerrarDona()" style="width:100%;background:transparent;color:#6B7280;border:none;padding:10px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer">Ahora no, gracias</button>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 </div>
 
@@ -874,10 +887,19 @@ async function iniciar(){
   goTo('home');
   cargarClima();
   await cargarTodo();
+  setTimeout(mostrarDona, 60000);
+}
+function mostrarDona(){
+  const p=document.getElementById('donaPopup');
+  p.style.display='flex';
+}
+function cerrarDona(){
+  document.getElementById('donaPopup').style.display='none';
 }
 </script>
 </body>
 </html>
+
 
 
 
