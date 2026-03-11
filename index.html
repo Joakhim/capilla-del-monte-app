@@ -460,6 +460,8 @@ async function cargarTodo() {
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
         foto:r.Foto||'', g:cfg.g, e:cfg.e,
+        direccion:r.Direccion||'',
+        whatsapp:r.Whatsapp||'',
         badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':(r.Tags||'').toLowerCase().includes('popular')?'popular':costo===0?'gratis':'',
       });
     });
@@ -473,6 +475,7 @@ async function cargarTodo() {
         lat:parseFloat(r.Latitud)||-30.8612, lng:parseFloat(r.Longitud)||-64.5241,
         tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
         foto:r.Foto||'', g:'g9', e:'🍽️',
+        direccion:r.Direccion||'',
         badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':'',
       });
     });
@@ -753,13 +756,13 @@ if(a.categoria==='Salud'){
     <div class="dtags">${a.tags.map(t=>`<div class="dtag">${te(t)} ${t}</div>`).join('')}</div>
     <div class="igrid">
    <div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival">${a.horario||'—'}</div></div>
-${a.categoria==='Gastronomía'||a.categoria==='Feria'?`
-  <div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival">${a.descripcion||'—'}</div></div>`:`
+a.categoria==='Gastronomía'||a.categoria==='Feria'||a.categoria==='Espiritual'?`
+  <div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival">${a.direccion||'—'}</div></div>`:`
   <div class="icard"><div class="iico">💰</div><div class="ilbl">${a.categoria==='Alojamiento'?'Precio desde':'Costo'}</div><div class="ival">${a.gratis?'Gratis':'$'+a.costo.toLocaleString()}</div></div>`}
 ${a.categoria==='Alojamiento'?`
-  <div class="icard"><div class="iico">📞</div><div class="ilbl">Teléfono</div><div class="ival">${a.costo>0?'$'+a.costo.toLocaleString()+'/noche':'Consultar'}</div></div>`:`
+  <div class="icard"><div class="iico">📞</div><div class="ilbl">Teléfono</div><div class="ival">${a.telefono||'—'}</div></div>`:`
   <div class="icard"><div class="iico">⏱️</div><div class="ilbl">Duración</div><div class="ival">${a.duracion}</div></div>`}
-${a.categoria!=='Gastronomía'&&a.categoria!=='Feria'&&a.categoria!=='Alojamiento'?`
+${a.categoria!=='Gastronomía'&&a.categoria!=='Feria'&&a.categoria!=='Alojamiento'&&a.categoria!=='Espiritual'?`
   <div class="icard"><div class="iico">💪</div><div class="ilbl">Dificultad</div><div class="ival ${dc}">${a.dificultad}</div></div>`:''}
     </div>
     <div class="dsec">Sobre este lugar</div>
@@ -771,7 +774,8 @@ ${a.categoria!=='Gastronomía'&&a.categoria!=='Feria'&&a.categoria!=='Alojamient
     </iframe>
     <div style="position:absolute;inset:0;z-index:2" onclick="openMaps(${a.lat},${a.lng})"></div>
     </div>
-    <button class="dcta" onclick="openMaps(${a.lat},${a.lng})">🗺️ Cómo llegar</button>
+    ${a.whatsapp?`<button class="dcta" style="background:#25D366;box-shadow:0 8px 20px rgba(37,211,102,.3)" onclick="abrirWsp('${a.whatsapp}')">📲 Contactar por WhatsApp</button>`:''}
+<button class="dcta" onclick="openMaps(${a.lat},${a.lng})">🗺️ Cómo llegar</button>
     <button class="dcta2" onclick="showToast('¡Compartido!')">📤 Compartir</button>`;
   goTo('detail');
 }
@@ -874,6 +878,7 @@ async function iniciar(){
 </script>
 </body>
 </html>
+
 
 
 
