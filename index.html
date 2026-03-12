@@ -526,10 +526,14 @@ async function cargarTodo() {
     eventos = rE.filter(r=>r.Nombre&&(r.Activo||'Si').toUpperCase()!=='NO').map((r,i)=>{
       const costo = toNum(r.Costo);
       return {
-        id:i, nombre:r.Nombre,
+        id:i, nombre:r.Nombre, organizador:r.Organizador||'',
         fecha:parseFecha(r.FechaInicio||r.Fecha||''),
+        fechaFin:parseFecha(r.FechaFin||''),
         horario:r.Horario||'', lugar:r.Lugar||'',
+        descripcion:r.Descripcion||'', telefono:r.Telefono||'',
         costo, gratis:(r.Gratis||'').toUpperCase()==='SI'||costo===0,
+        tags:(r.Tags||'').split(',').map(t=>t.trim()).filter(Boolean),
+        foto:r.Foto||'', direccion:r.Direccion||'',
         badge:(r.Destacado||'').toUpperCase()==='SI'?'destacado':'',
       };
     });
@@ -667,7 +671,7 @@ document.getElementById('destacadosList').innerHTML=destacados.map(a=>`
         const fd=new Date(e.fecha+'T12:00:00');
         const dd=isNaN(fd)?'?':fd.getDate();
         const mm=isNaN(fd)?'???':fd.toLocaleString('es',{month:'short'}).toUpperCase().slice(0,3);
-        return `<div class="evrow" onclick="goTo('eventos')">
+        return `<div class="evrow" onclick="openEvento(${e.id})" style="cursor:pointer">
           <div class="evfecha ${vc[i]}"><div class="evfecha-d">${dd}</div><div class="evfecha-m">${mm}</div></div>
           <div class="evinfo"><div class="evname">${e.nombre}</div><div class="evdet">🕗 ${e.horario} · ${e.lugar}</div></div>
           <div class="evp${e.gratis?' free':''}">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div>
@@ -689,6 +693,39 @@ function filterActividades() {
 }
 
 // ─── DETALLE ──────────────────────────────────────────
+function openEvento(id) {
+  const e = eventos.find(ev=>ev.id===id);
+  if(!e) return;
+  const fd = new Date(e.fecha+'T12:00:00');
+  const fechaStr = isNaN(fd)?e.fecha:fd.toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
+  const hero = document.getElementById('detailHero');
+  hero.className = 'dhero g6';
+  hero.innerHTML = `
+    <div class="dhero-bg g6">${imgTag(e.foto,'dhero-photo')}<span class="dhero-emoji">🎪</span></div>
+    <div class="dbk" onclick="goBack()">←</div>
+    <div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
+  document.getElementById('detailBody').innerHTML = `
+    <div class="dtr"><div class="dtit">${e.nombre}</div></div>
+    <div class="dloc">📍 ${e.lugar||'Capilla del Monte'}</div>
+    <div class="dtags">${e.tags.map(t=>`<div class="dtag">${te(t)} ${t}</div>`).join('')}</div>
+    <div class="igrid">
+      <div class="icard"><div class="iico">📅</div><div class="ilbl">Fecha</div><div class="ival" style="font-size:11px">${fechaStr}</div></div>
+      <div class="icard"><div class="iico">🕗</div><div class="ilbl">Horario</div><div class="ival">${e.horario||'—'}</div></div>
+      <div class="icard"><div class="iico">💰</div><div class="ilbl">Costo</div><div class="ival">${e.gratis?'Gratis':'$'+e.costo.toLocaleString()}</div></div>
+      <div class="icard"><div class="iico">👤</div><div class="ilbl">Organizador</div><div class="ival" style="font-size:11px">${e.organizador||'—'}</div></div>
+    </div>
+    <div class="dsec">Sobre el evento</div>
+    <div class="ddesc">${e.descripcion||'Sin descripción disponible.'}</div>
+    <div class="dsec">Ubicación</div>
+    <div class="mmap" style="padding:0;overflow:hidden;cursor:pointer" onclick="openMaps(${e.lat||'-30.8612'},${e.lng||'-64.5241'})">
+      <iframe width="100%" height="100%" frameborder="0" style="border:0;pointer-events:none"
+        src="https://maps.google.com/maps?q=${e.lugar||'Capilla+del+Monte'}&z=15&output=embed"></iframe>
+      <div style="position:absolute;inset:0;z-index:2"></div>
+    </div>
+    ${e.telefono?`<button class="dcta" style="background:#25D366;box-shadow:0 8px 20px rgba(37,211,102,.3)" onclick="abrirWsp('${e.telefono}')">📲 Contactar por WhatsApp</button>`:''}
+    <button class="dcta2" onclick="showToast('¡Compartido!')">📤 Compartir</button>`;
+  goTo('detail');
+}
 function servicioIco(s){
   const m={
     'pileta':'🏊','piscina':'🏊','wifi':'📶','wi-fi':'📶','desayuno':'🍳',
@@ -857,7 +894,7 @@ function renderEventosFull(){
         const fd=new Date(e.fecha+'T12:00:00');
         const dd=isNaN(fd.getTime())?'?':fd.getDate();
         const mm=isNaN(fd.getTime())?'???':fd.toLocaleString('es',{month:'short'}).toUpperCase().slice(0,3);
-        return `<div class="ev-card">
+        return `<div class="ev-card" onclick="openEvento(${e.id})" style="cursor:pointer">
           <div class="ev-datebox ${cols[i%5]}"><div class="ev-dd">${dd}</div><div class="ev-mm">${mm}</div></div>
           <div class="ev-info">
             <div class="ev-name">${e.nombre}</div>
@@ -899,6 +936,7 @@ function cerrarDona(){
 </script>
 </body>
 </html>
+
 
 
 
