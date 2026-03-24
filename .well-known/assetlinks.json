@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.capilla_del_monte_app.twa",
+        "sha256_cert_fingerprints": ["36:09:12:1C:49:5C:C6:2D:A5:31:71:EC:0B:7D:FD:E7:73:C8:54:DB:DB:8C:6F:5D:C5:03:AF:4C:56:6B:1A:AE"]
+      }
+    }]
