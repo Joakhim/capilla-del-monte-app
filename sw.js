@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capilla-v3';
+const CACHE_NAME = 'capilla-v4';
 const urlsToCache = ['/'];
 
 self.addEventListener('install', event => {
