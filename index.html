@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#2D6A4F">
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,9 +11,9 @@
 <style>
 :root{--v:#2D6A4F;--vl:#52B788;--t:#C77D4A;--cr:#F5F0E8;--n:#1A1A2E;--g:#6B7280;--w:#fff;--sh:rgba(0,0,0,0.09)}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--cr)}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--cr);margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;}
-#app{width:100vw;height:100dvh;background:var(--cr);overflow:hidden;position:relative;}
+#app{width:100%;min-height:100dvh;background:var(--cr);overflow:hidden;position:relative;}
 @media(min-width:600px){body{background:#1a1a1a;display:flex;justify-content:center;align-items:center}#app{width:430px;height:100dvh;max-height:950px;box-shadow:0 0 60px rgba(0,0,0,.5)}}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s}
 .screen.hidden{transform:translateX(100%);pointer-events:none}
