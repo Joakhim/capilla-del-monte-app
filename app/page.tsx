@@ -856,7 +856,7 @@ export default function Home() {
             Si te fue útil, cualquier colaboración nos ayuda a mantenerla viva 🙏
           </div>
           <div style={{ background: "#F5F0E8", borderRadius: "14px", padding: "14px", marginBottom: "18px", fontSize: "13px", color: "#1A1A2E", lineHeight: 2 }}>
-            📧 hola@capilladigital.com<br />
+            📧 capilladigitalapp@gmail.com<br />
             💬 <a href="https://wa.me/541139018202" style={{ color: "#2D6A4F", fontWeight: 600 }}>WhatsApp: 11 3901-8202</a><br />
             💙 Alias MP: <strong>capilladigital.mp</strong>
           </div>
