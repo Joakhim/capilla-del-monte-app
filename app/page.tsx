@@ -48,6 +48,7 @@ export default function Home() {
     let filterExplore = "Todo";
     let currentActividad: any = null;
     let favs = new Set<number>();
+    let depth = 0; // cuántas pantallas "apiladas" hay en el historial
 
     function parseCSV(text: string) {
       const lines = text.trim().split(/\r?\n/);
@@ -353,28 +354,38 @@ export default function Home() {
       return { emoji: "🌤️", desc: "Variable" };
     }
 
-    function goTo(s: string) {
-      if (s === currentScreen) return;
-      const cur = document.getElementById(currentScreen);
-      const nxt = document.getElementById(s);
-      if (!cur || !nxt) return;
-      prevScreen = currentScreen;
-      cur.classList.add("back");
-      nxt.classList.remove("hidden", "back");
-      setTimeout(() => {
-        cur.classList.add("hidden");
-        cur.classList.remove("back");
-      }, 380);
-      currentScreen = s;
-      if (s === "home") renderHome();
-      if (s === "explore") renderExplore();
-      if (s === "favoritos") renderFavoritos();
-      if (s === "eventos") renderEventosFull();
+ function goTo(s: string, fromPop = false) {
+  if (s === currentScreen) return;
+  const cur = document.getElementById(currentScreen);
+  const nxt = document.getElementById(s);
+  if (!cur || !nxt) return;
+  prevScreen = currentScreen;
+  if (!fromPop) {
+    if (currentScreen === "splash") {
+      // splash -> home: home pasa a ser la base, desde ahí "atrás" sale de la app
+      history.replaceState({ ...(history.state || {}), screen: s, d: 0 }, "");
+    } else {
+      depth++;
+      history.pushState({ ...(history.state || {}), screen: s, d: depth }, "");
     }
+  }
+  cur.classList.add("back");
+  nxt.classList.remove("hidden", "back");
+  setTimeout(() => {
+    cur.classList.add("hidden");
+    cur.classList.remove("back");
+  }, 380);
+  currentScreen = s;
+  if (s === "home") renderHome();
+  if (s === "explore") renderExplore();
+  if (s === "favoritos") renderFavoritos();
+  if (s === "eventos") renderEventosFull();
+}
 
-    function goBack() {
-      goTo(prevScreen === currentScreen ? "home" : prevScreen);
-    }
+function goBack() {
+  if (depth > 0) history.back();
+  else goTo("home");
+}
 
     function imgTag(foto: string, cls: string) {
       return foto && foto.startsWith("http")
@@ -671,15 +682,19 @@ export default function Home() {
       setTimeout(() => t.classList.remove("show"), 2200);
     }
 
-    function mostrarDona() {
-      const p = document.getElementById("donaPopup");
-      if (p) p.style.display = "flex";
-    }
+function mostrarDona() {
+  const p = document.getElementById("donaPopup");
+  if (!p || p.style.display === "flex") return;
+  p.style.display = "flex";
+  history.pushState({ ...(history.state || {}), dona: true }, "");
+}
 
-    function cerrarDona() {
-      const p = document.getElementById("donaPopup");
-      if (p) p.style.display = "none";
-    }
+function cerrarDona() {
+  const p = document.getElementById("donaPopup");
+  if (!p || p.style.display === "none") return;
+  p.style.display = "none";
+  if (history.state?.dona) history.back();
+}
 
     async function iniciar() {
       goTo("home");
@@ -687,7 +702,20 @@ export default function Home() {
       await cargarTodo();
       setTimeout(mostrarDona, 60000);
     }
+    
+history.replaceState({ ...(history.state || {}), screen: "splash", d: 0 }, "");
 
+const onPop = (e: PopStateEvent) => {
+  const p = document.getElementById("donaPopup");
+  if (p && p.style.display === "flex") {
+    p.style.display = "none"; // "atrás" cierra el popup primero
+    return;
+  }
+  depth = e.state?.d ?? 0;
+  goTo(e.state?.screen || "home", true);
+};
+window.addEventListener("popstate", onPop);
+    
     // Expose functions to window for inline HTML handlers
     (window as any)._goTo = goTo;
     (window as any)._goBack = goBack;
@@ -705,6 +733,7 @@ export default function Home() {
     (window as any)._cerrarDona = cerrarDona;
     (window as any)._filterActividades = filterActividades;
     (window as any)._iniciar = iniciar;
+    return () => window.removeEventListener("popstate", onPop);
   }, []);
 
   return (
