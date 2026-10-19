@@ -697,7 +697,7 @@ function cerrarDona() {
 }
     
 function donar() {
-  const MP_LINK = "link.mercadopago.com.ar/capilladigitalapp"; // pegá acá tu link de Mercado Pago (si lo tenés)
+  const MP_LINK = "https://link.mercadopago.com.ar/capilladigitalapp"; // pegá acá tu link de Mercado Pago (si lo tenés)
   cerrarDona();
   if (MP_LINK) {
     window.open(MP_LINK, "_blank");
