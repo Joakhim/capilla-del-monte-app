@@ -695,7 +695,17 @@ function cerrarDona() {
   p.style.display = "none";
   if (history.state?.dona) history.back();
 }
-
+    
+function donar() {
+  const MP_LINK = "link.mercadopago.com.ar/capilladigitalapp"; // pegá acá tu link de Mercado Pago (si lo tenés)
+  cerrarDona();
+  if (MP_LINK) {
+    window.open(MP_LINK, "_blank");
+    return;
+  }
+  navigator.clipboard?.writeText("capilladigital.mp");
+  showToast("Alias copiado 💙 Pegalo en Mercado Pago → Transferir");
+}
     async function iniciar() {
       goTo("home");
       cargarClima();
@@ -733,6 +743,7 @@ window.addEventListener("popstate", onPop);
     (window as any)._cerrarDona = cerrarDona;
     (window as any)._filterActividades = filterActividades;
     (window as any)._iniciar = iniciar;
+    (window as any)._donar = donar;
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
@@ -889,7 +900,7 @@ window.addEventListener("popstate", onPop);
             💬 <a href="https://wa.me/541139018202" style={{ color: "#2D6A4F", fontWeight: 600 }}>WhatsApp: 11 3901-8202</a><br />
             💙 Alias MP: <strong>capilladigital.mp</strong>
           </div>
-          <button onClick={() => (window as any)._cerrarDona()} style={{ width: "100%", background: "#2D6A4F", color: "#fff", border: "none", padding: "15px", borderRadius: "14px", fontFamily: "'DM Sans',sans-serif", fontSize: "15px", fontWeight: 700, cursor: "pointer", marginBottom: "10px" }}>¡Con gusto colaboro! 🙌</button>
+          <button onClick={() => (window as any)._donar()} style={{ width: "100%", background: "#2D6A4F", color: "#fff", border: "none", padding: "15px", borderRadius: "14px", fontFamily: "'DM Sans',sans-serif", fontSize: "15px", fontWeight: 700, cursor: "pointer", marginBottom: "10px" }}>¡Con gusto colaboro! 🙌</button>
           <button onClick={() => (window as any)._cerrarDona()} style={{ width: "100%", background: "transparent", color: "#6B7280", border: "none", padding: "10px", fontFamily: "'DM Sans',sans-serif", fontSize: "13px", cursor: "pointer" }}>Ahora no, gracias</button>
         </div>
       </div>
