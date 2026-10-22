@@ -26,6 +26,9 @@ export default function Home() {
       Gastronomía: { g: "g9", e: "🍽️" },
       Alojamiento: { g: "g5", e: "🏨" },
       Salud: { g: "g4", e: "🏥" },
+      Servicios: { g: "g5", e: "🛠️" },
+      Clases: { g: "g6", e: "🎓" },
+      Talleres: { g: "g9", e: "🎨" },
     };
 
     const CATS = [
@@ -38,6 +41,9 @@ export default function Home() {
       { k: "Gastronomía", e: "🍽️" },
       { k: "Alojamiento", e: "🏨" },
       { k: "Salud", e: "🏥" },
+      { k: "Servicios", e: "🛠️" },
+      { k: "Clases", e: "🎓" },
+      { k: "Talleres", e: "🎨" },
     ];
 
     let actividades: any[] = [];
@@ -48,6 +54,14 @@ export default function Home() {
     let filterExplore = "Todo";
     let currentActividad: any = null;
     let favs = new Set<number>();
+    try {
+      const saved = localStorage.getItem("cd_favs");
+      if (saved) favs = new Set<number>(JSON.parse(saved));
+    } catch (e) {}
+    function saveFavs() {
+      try { localStorage.setItem("cd_favs", JSON.stringify([...favs])); } catch (e) {}
+    }
+    let shareTitle = "";
     let depth = 0; // cuántas pantallas "apiladas" hay en el historial
 
     function parseCSV(text: string) {
@@ -433,7 +447,7 @@ function goBack() {
           ${resto.slice(0, 5).map((a: any) => `
             <div onclick="window._openDetalle(${a.id})" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:9px 11px;margin-bottom:7px;box-shadow:0 2px 6px rgba(0,0,0,.07);cursor:pointer">
               <div class="${a.g}" style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;position:relative;overflow:hidden">${imgTag(a.foto, "aimg-photo")}<span style="position:relative;z-index:2">${a.e}</span></div>
-              <div style="flex:1;min-width:0"><div style="font-size:var(--fs-sm);font-weight:600;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.nombre}</div><div style="font-size:var(--fs-xs);color:var(--g)">${a.gratis ? "Gratis" : "$" + a.costo.toLocaleString()} · ${a.horario || a.categoria}</div></div>
+              <div style="flex:1;min-width:0"><div style="font-size:var(--fs-sm);font-weight:600;color:var(--n);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.nombre}</div><div style="font-size:var(--fs-xs);color:var(--g)">${a.horario || a.categoria}</div></div>
               <span style="color:var(--g);font-size:14px">›</span>
             </div>`).join("")}
           ${resto.length > 5 ? `<div onclick="window._goTo('explore')" style="text-align:center;padding:10px;font-size:var(--fs-sm);font-weight:700;color:var(--v);cursor:pointer">Ver todos (${resto.length}) →</div>` : ""}`
@@ -450,7 +464,7 @@ function goBack() {
                 const fd = new Date(e.fecha + "T12:00:00");
                 const dd = isNaN(fd.getTime()) ? "?" : fd.getDate();
                 const mm = isNaN(fd.getTime()) ? "???" : fd.toLocaleString("es", { month: "short" }).toUpperCase().slice(0, 3);
-                return `<div class="evrow" onclick="window._openEvento(${e.id})"><div class="evfecha ${vc[i]}"><div class="evfecha-d">${dd}</div><div class="evfecha-m">${mm}</div></div><div class="evinfo"><div class="evname">${e.nombre}</div><div class="evdet">🕗 ${e.horario} · ${e.lugar}</div></div><div class="evp${e.gratis ? " free" : ""}">${e.gratis ? "Gratis" : "$" + e.costo.toLocaleString()}</div></div>`;
+                return `<div class="evrow" onclick="window._openEvento(${e.id})"><div class="evfecha ${vc[i]}"><div class="evfecha-d">${dd}</div><div class="evfecha-m">${mm}</div></div><div class="evinfo"><div class="evname">${e.nombre}</div><div class="evdet">🕗 ${e.horario} · ${e.lugar}</div></div></div>`;
               })
               .join("")
           : `<p style="padding:8px var(--sp-sm) 14px;font-size:var(--fs-sm);color:var(--g)">No hay eventos — ¡sé el primero en sumar uno!</p>`;
@@ -480,7 +494,7 @@ function goBack() {
           .map(
             (a: any, i: number) => `<div class="ecard${i === 0 ? " feat" : ""}" onclick="window._openDetalle(${a.id})">
             <div class="ecimg"><div class="ecimg-bg ${a.g}">${imgTag(a.foto, "ecimg-photo")}<span class="ecimg-emoji">${a.e}</span></div>${a.badge ? `<div class="ebadge" style="background:${a.badge === "gratis" ? "#1565C0" : a.badge === "hoy" ? "var(--t)" : "var(--vl)"}">${a.badge.toUpperCase()}</div>` : ""}</div>
-            <div class="ecbody"><div class="ecname">${a.nombre}</div><div class="ecmeta">${te(a.tags[0] || "")} ${a.categoria} · ${a.gratis ? "Gratis" : "$" + a.costo.toLocaleString()}</div></div>
+            <div class="ecbody"><div class="ecname">${a.nombre}</div><div class="ecmeta">${te(a.tags[0] || "")} ${a.categoria}</div></div>
           </div>`
           )
           .join("");
@@ -501,7 +515,7 @@ function goBack() {
                 const fd = new Date(e.fecha + "T12:00:00");
                 const dd = isNaN(fd.getTime()) ? "?" : fd.getDate();
                 const mm = isNaN(fd.getTime()) ? "???" : fd.toLocaleString("es", { month: "short" }).toUpperCase().slice(0, 3);
-                return `<div class="ev-card" onclick="window._openEvento(${e.id})" style="cursor:pointer"><div class="ev-datebox ${cols[i % 5]}"><div class="ev-dd">${dd}</div><div class="ev-mm">${mm}</div></div><div class="ev-info"><div class="ev-name">${e.nombre}</div><div class="ev-detail">🕗 ${e.horario} · ${e.lugar}</div><div class="ev-price${e.gratis ? " free" : ""}">${e.gratis ? "Gratis" : "$" + e.costo.toLocaleString()}</div></div></div>`;
+                return `<div class="ev-card" onclick="window._openEvento(${e.id})" style="cursor:pointer"><div class="ev-datebox ${cols[i % 5]}"><div class="ev-dd">${dd}</div><div class="ev-mm">${mm}</div></div><div class="ev-info"><div class="ev-name">${e.nombre}</div><div class="ev-detail">🕗 ${e.horario} · ${e.lugar}</div></div></div>`;
               })
               .join("")
           : `<p style="padding:30px;text-align:center;color:var(--g);font-size:var(--fs-sm)">No hay eventos próximos.<br>¡Sé el primero en sumar uno! 🎪</p>`;
@@ -534,6 +548,7 @@ function goBack() {
     function toggleFav() {
       if (!currentActividad) return;
       favs.has(currentActividad.id) ? favs.delete(currentActividad.id) : favs.add(currentActividad.id);
+      saveFavs();
       const fb = document.getElementById("favBtn");
       if (fb) fb.textContent = favs.has(currentActividad.id) ? "❤️" : "🤍";
       showToast(favs.has(currentActividad.id) ? "¡Guardado! ❤️" : "Eliminado de guardados");
@@ -554,6 +569,7 @@ function goBack() {
     function openEvento(id: number) {
       const e = eventos.find((ev) => ev.id === id);
       if (!e) return;
+      shareTitle = e.nombre;
       const fd = new Date(e.fecha + "T12:00:00");
       const fechaStr = isNaN(fd.getTime()) ? e.fecha : fd.toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long" });
       const hero = document.getElementById("detailHero");
@@ -568,7 +584,6 @@ function goBack() {
         <div class="igrid">
           <div class="icard"><div class="iico">📅</div><div class="ilbl">Fecha</div><div class="ival" style="font-size:var(--fs-xs)">${fechaStr}</div></div>
           <div class="icard"><div class="iico">🕗</div><div class="ilbl">Horario</div><div class="ival">${e.horario || "—"}</div></div>
-          <div class="icard"><div class="iico">💰</div><div class="ilbl">Costo</div><div class="ival">${e.gratis ? "Gratis" : "$" + e.costo.toLocaleString()}</div></div>
           <div class="icard"><div class="iico">👤</div><div class="ilbl">Organizador</div><div class="ival" style="font-size:var(--fs-xs)">${e.organizador || "—"}</div></div>
         </div>
         <div class="dsec">Sobre el evento</div>
@@ -579,7 +594,7 @@ function goBack() {
           <div style="position:absolute;inset:0;z-index:2"></div>
         </div>
         ${e.telefono ? `<button class="dcta" style="background:#25D366;box-shadow:0 8px 20px rgba(37,211,102,.3)" onclick="window._abrirWsp('${e.telefono}')">📲 Contactar por WhatsApp</button>` : ""}
-        <button class="dcta2" onclick="window._showToast('¡Compartido!')">📤 Compartir</button>`;
+        <button class="dcta2" onclick="window._compartir()">📤 Compartir</button>`;
       goTo("detail");
     }
 
@@ -587,6 +602,7 @@ function goBack() {
       currentActividad = actividades.find((a) => a.id === id);
       if (!currentActividad) return;
       const a = currentActividad;
+      shareTitle = a.nombre;
       const hero = document.getElementById("detailHero");
       if (!hero) return;
       hero.className = "dhero " + a.g;
@@ -612,7 +628,7 @@ function goBack() {
           </div>
           ${a.whatsapp ? `<button class="dcta" style="background:#25D366;box-shadow:0 8px 20px rgba(37,211,102,.3)" onclick="window._abrirWsp('${a.whatsapp}')">📲 Contactar por WhatsApp</button>` : ""}
           <button class="dcta2" onclick="window._openMaps(${a.lat},${a.lng})">🗺️ Cómo llegar</button>
-          <button class="dcta2" onclick="window._showToast('¡Compartido!')">📤 Compartir</button>`;
+          <button class="dcta2" onclick="window._compartir()">📤 Compartir</button>`;
         goTo("detail");
         return;
       }
@@ -634,7 +650,7 @@ function goBack() {
           </div>
           <button class="dcta" style="background:#25D366;box-shadow:0 8px 20px rgba(37,211,102,.3)" onclick="window._abrirWsp('${a.whatsapp}')">📲 Contactar por WhatsApp</button>
           <button class="dcta2" onclick="window._openMaps(${a.lat},${a.lng})">🗺️ Cómo llegar</button>
-          <button class="dcta2" onclick="window._showToast('¡Enlace copiado!')">📤 Compartir</button>`;
+          <button class="dcta2" onclick="window._compartir()">📤 Compartir</button>`;
         goTo("detail");
         return;
       }
@@ -644,11 +660,9 @@ function goBack() {
         <div class="dtags">${a.tags.map((t: string) => `<div class="dtag">${te(t)} ${t}</div>`).join("")}</div>
         <div class="igrid">
           <div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival">${a.horario || "—"}</div></div>
-          ${a.categoria === "Gastronomía" || a.categoria === "Feria" || a.categoria === "Espiritual"
-            ? `<div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival">${a.direccion || "—"}</div></div>`
-            : `<div class="icard"><div class="iico">💰</div><div class="ilbl">Costo</div><div class="ival">${a.gratis ? "Gratis" : "$" + a.costo.toLocaleString()}</div></div>`}
+          ${a.direccion ? `<div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival">${a.direccion}</div></div>` : ""}
           <div class="icard"><div class="iico">⏱️</div><div class="ilbl">Duración</div><div class="ival">${a.duracion}</div></div>
-          ${a.categoria !== "Gastronomía" && a.categoria !== "Feria" && a.categoria !== "Espiritual"
+          ${a.categoria === "Trekking"
             ? `<div class="icard"><div class="iico">💪</div><div class="ilbl">Dificultad</div><div class="ival ${dc}">${a.dificultad}</div></div>`
             : ""}
         </div>
@@ -661,8 +675,27 @@ function goBack() {
         </div>
         ${a.whatsapp ? `<button class="dcta" style="background:#25D366;box-shadow:0 8px 20px rgba(37,211,102,.3)" onclick="window._abrirWsp('${a.whatsapp}')">📲 Contactar por WhatsApp</button>` : ""}
         <button class="dcta" onclick="window._openMaps(${a.lat},${a.lng})">🗺️ Cómo llegar</button>
-        <button class="dcta2" onclick="window._showToast('¡Compartido!')">📤 Compartir</button>`;
+        <button class="dcta2" onclick="window._compartir()">📤 Compartir</button>`;
       goTo("detail");
+    }
+
+    async function compartir() {
+      const url = "https://capilladigital.vercel.app"; // TODO: poné acá la URL real de tu app
+      const texto = `${shareTitle ? shareTitle + " - " : ""}Mirá esto en Capilla Digital 🏔️`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: shareTitle || "Capilla Digital", text: texto, url });
+          return;
+        }
+      } catch (err: any) {
+        if (err && err.name === "AbortError") return; // el usuario canceló
+      }
+      try {
+        await navigator.clipboard.writeText(`${texto} ${url}`);
+        showToast("¡Enlace copiado!");
+      } catch (err) {
+        window.open("https://wa.me/?text=" + encodeURIComponent(`${texto} ${url}`), "_blank");
+      }
     }
 
     function abrirWsp(num: string) {
@@ -734,10 +767,11 @@ window.addEventListener("popstate", onPop);
     (window as any)._selectCat = (c: string) => { selectedCat = c; renderHome(); };
     (window as any)._renderExplore = renderExplore;
     (window as any)._toggleFav = toggleFav;
-    (window as any)._removeFav = (id: number) => { favs.delete(id); renderFavoritos(); showToast("Eliminado de guardados"); };
+    (window as any)._removeFav = (id: number) => { favs.delete(id); saveFavs(); renderFavoritos(); showToast("Eliminado de guardados"); };
     (window as any)._abrirWsp = abrirWsp;
     (window as any)._openMaps = openMaps;
     (window as any)._showToast = showToast;
+    (window as any)._compartir = compartir;
     (window as any)._abrirFormulario = () => window.open(FORM_URL, "_blank");
     (window as any)._mostrarDona = mostrarDona;
     (window as any)._cerrarDona = cerrarDona;
@@ -909,3 +943,4 @@ window.addEventListener("popstate", onPop);
     </div>
   );
 }
+
