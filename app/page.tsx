@@ -15,6 +15,10 @@ export default function Home() {
       gastronomia: 1387579489,
       alojamientos: 912812701,
       salud: 447915446,
+      // Pestañas nuevas: reemplazá los 0 por el gid de cada pestaña (lo ves en la URL: ...#gid=123456)
+      servicios: 1577809226,
+      clases: 813742697,
+      talleres: 1034459579,
     };
 
     const CAT_CFG: Record<string, { g: string; e: string }> = {
@@ -121,15 +125,35 @@ export default function Home() {
       return parseInt((s || "0").replace(/[^0-9]/g, "")) || 0;
     }
 
+    // Trae una pestaña extra y la trata como actividades de una categoría fija.
+    // Si el gid es 0 o la pestaña falla, devuelve vacío y la app sigue normal.
+    async function fetchExtra(gid: number, cat: string, idBase: number) {
+      if (!gid) return [];
+      try {
+        const rows = await fetchCSV(gid);
+        return rows.map((r: any, i: number) => ({
+          ...r,
+          Categoria: cat,
+          ID: String(idBase + (toNum(r.ID) || i + 1)),
+        }));
+      } catch (e) {
+        return [];
+      }
+    }
+
     async function cargarTodo() {
       try {
-        const [rA, rE, rG, rAl, rS] = await Promise.all([
+        const [rA0, rE, rG, rAl, rS, rSv, rCl, rTa] = await Promise.all([
           fetchCSV(GIDS.actividades),
           fetchCSV(GIDS.eventos),
           fetchCSV(GIDS.gastronomia),
           fetchCSV(GIDS.alojamientos),
           fetchCSV(GIDS.salud),
+          fetchExtra(GIDS.servicios, "Servicios", 10000),
+          fetchExtra(GIDS.clases, "Clases", 20000),
+          fetchExtra(GIDS.talleres, "Talleres", 30000),
         ]);
+        const rA = rA0.concat(rSv, rCl, rTa);
 
         actividades = [];
 
@@ -943,4 +967,3 @@ window.addEventListener("popstate", onPop);
     </div>
   );
 }
-
