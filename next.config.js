@@ -11,4 +11,4 @@ const nextConfig = {
     NEXT_PUBLIC_BUILD_ID: process.env.VERCEL_GIT_COMMIT_SHA || String(Date.now()),
   },
 };
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
