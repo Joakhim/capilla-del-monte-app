@@ -3,6 +3,26 @@ import "./globals.css";
 import { useEffect } from "react";
 
 export default function Home() {
+    useEffect(() => {
+    const current = process.env.NEXT_PUBLIC_BUILD_ID;
+    async function check() {
+      try {
+        const r = await fetch("/api/version", { cache: "no-store" });
+        const { v } = await r.json();
+        if (v && current && v !== current) {
+          if (sessionStorage.getItem("cd_reloaded") === v) return; // evita loops
+          sessionStorage.setItem("cd_reloaded", v);
+          window.location.replace(window.location.pathname + "?v=" + v);
+        }
+      } catch (e) {}
+    }
+    check();
+    const onVis = () => {
+      if (document.visibilityState === "visible") check();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
   useEffect(() => {
     // All original JS logic
     const FORM_URL =
