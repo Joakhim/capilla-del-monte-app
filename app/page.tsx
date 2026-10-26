@@ -838,7 +838,7 @@ window.addEventListener("popstate", onPop);
           <div className="sp-ico">🏔️</div>
           <div className="sp-title">Capilla<br />del Monte</div>
           <div className="sp-sub">Córdoba · Argentina</div>
-          <div className="sp-tag">Descubrí todo lo que podés hacer hoy en la ciudad</div>
+          <div className="sp-tag">Descubrí todo lo que podés hacer hoy en Capilla</div>
           <button className="sp-btn" onClick={() => (window as any)._iniciar()}>Explorar ahora →</button>
           <div className="sp-dots">
             <div className="sd on"></div>
