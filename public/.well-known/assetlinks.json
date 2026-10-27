@@ -1,14 +1,12 @@
-
 [
   {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
+    "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
       "package_name": "app.vercel.capilla_del_monte_app.twa",
       "sha256_cert_fingerprints": [
-        "5C:CB:C7:CD:2F:0F:BF:8C:29:C2:76:46:45:BD:E5:43:AE:9E:53:49:5E:BF:0C:41:18:EC:C9:3A:49:2F:34:F5"
+        "5C:CB:C7:CD:2F:0F:BF:8C:29:C2:76:46:45:BD:E5:43:AE:9E:53:49:5E:BF:0C:41:18:EC:C9:3A:49:2F:34:F5",
+        "57:A5:C1:8B:AD:E8:6E:A6:E5:B0:E2:11:D8:FF:D7:81:6E:E1:CD:25:EF:B2:AA:88:77:83:89:01:09:53:72:E0"
       ]
     }
   }
