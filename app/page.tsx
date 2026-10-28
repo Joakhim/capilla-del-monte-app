@@ -203,6 +203,7 @@ export default function Home() {
                 .map((t: string) => t.trim())
                 .filter(Boolean),
               foto: r.Foto || "",
+              fotoPos: r.FotoPos || "",
               g: cfg.g,
               e: cfg.e,
               direccion: r.Direccion || "",
@@ -240,6 +241,7 @@ export default function Home() {
                 .map((t: string) => t.trim())
                 .filter(Boolean),
               foto: r.Foto || "",
+              fotoPos: r.FotoPos || "",
               g: "g9",
               e: "🍽️",
               direccion: r.Direccion || "",
@@ -279,6 +281,7 @@ export default function Home() {
                 .map((t: string) => t.trim())
                 .filter(Boolean),
               foto: r.Foto || "",
+              fotoPos: r.FotoPos || "",
               g: "g5",
               e: aloEmoji[r.Tipo] || "🏠",
               telefono: r.Telefono || "",
@@ -312,6 +315,7 @@ export default function Home() {
                 .map((t: string) => t.trim())
                 .filter(Boolean),
               foto: r.Foto || "",
+              fotoPos: r.FotoPos || "",
               g: "g4",
               e: "🏥",
               guardia: r.Guardia || "",
@@ -348,6 +352,7 @@ export default function Home() {
                 .map((t: string) => t.trim())
                 .filter(Boolean),
               foto: r.Foto || "",
+              fotoPos: r.FotoPos || "",
               direccion: r.Direccion || "",
               badge:
                 (r.Destacado || "").toUpperCase() === "SI"
@@ -451,26 +456,20 @@ function goBack() {
         : "";
     }
 
-    // Foto del hero: si su proporción difiere de la del contenedor (ej. flyers verticales),
-    // se muestra completa (contain) sobre un fondo difuminado de la misma imagen.
-    function fitHeroImg(img: HTMLImageElement) {
-      const box = img.parentElement as HTMLElement | null;
-      if (!box || !img.naturalWidth || !img.naturalHeight) return;
-      const boxRatio = box.clientWidth / (box.clientHeight || 1);
-      const imgRatio = img.naturalWidth / img.naturalHeight;
-      if (Math.abs(imgRatio - boxRatio) / boxRatio < 0.15) return; // proporción parecida: queda cover
-      if (getComputedStyle(box).position === "static") box.style.position = "relative";
-      box.style.overflow = "hidden";
-      box.parentElement?.classList.add("dhero-contain");
-      if (!box.querySelector(".dhero-blur")) {
-        const bg = document.createElement("div");
-        bg.className = "dhero-blur";
-        bg.style.cssText = `position:absolute;inset:0;z-index:0;background:url("${img.src}") center/cover no-repeat;filter:blur(24px);transform:scale(1.2);opacity:.65;pointer-events:none`;
-        box.insertBefore(bg, img);
-      }
-      if (getComputedStyle(img).position === "static") img.style.position = "relative";
-      img.style.zIndex = "1";
-      img.style.objectFit = "contain";
+    // Punto de enfoque de la foto del hero (columna FotoPos de la hoja):
+    // "arriba" | "centro" | "abajo" | número 0-100 (vertical) | valor CSS propio
+    function posCss(p?: string) {
+      const v = (p || "").trim().toLowerCase();
+      if (!v || v === "centro") return "center";
+      if (v === "arriba") return "center 0%";
+      if (v === "abajo") return "center 100%";
+      if (/^\d+$/.test(v)) return `center ${Math.min(100, Number(v))}%`;
+      return v.replace(/[^a-z0-9% .-]/g, "");
+    }
+
+    // Botón "Ver completa" sobre el hero (solo si hay foto)
+    function zoomBtn(foto: string) {
+      return foto && foto.startsWith("http") ? `<div class="dzoom">🔍 Ver completa</div>` : "";
     }
 
     // Tocar el hero abre la imagen a pantalla completa
@@ -678,7 +677,7 @@ function goBack() {
       const hero = document.getElementById("detailHero");
       if (!hero) return;
       hero.className = "dhero g6";
-      hero.innerHTML = `<div class="dhero-bg g6">${imgTag(e.foto, "dhero-photo", 'onload="window._fitHeroImg(this)"')}<span class="dhero-emoji">🎪</span></div><div class="dbk" onclick="window._goBack()">←</div><div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
+      hero.innerHTML = `<div class="dhero-bg g6">${imgTag(e.foto, "dhero-photo", `style="object-position:${posCss(e.fotoPos)}"`)}<span class="dhero-emoji">🎪</span></div>${zoomBtn(e.foto)}<div class="dbk" onclick="window._goBack()">←</div><div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
       setupHeroZoom(hero, e.foto);
       const body = document.getElementById("detailBody");
       if (body)
@@ -710,7 +709,7 @@ function goBack() {
       const hero = document.getElementById("detailHero");
       if (!hero) return;
       hero.className = "dhero " + a.g;
-      hero.innerHTML = `<div class="dhero-bg ${a.g}">${imgTag(a.foto, "dhero-photo", 'onload="window._fitHeroImg(this)"')}<span class="dhero-emoji">${a.e}</span></div><div class="dbk" onclick="window._goBack()">←</div><div class="dfv" id="favBtn" onclick="window._toggleFav()">${favs.has(a.id) ? "❤️" : "🤍"}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
+      hero.innerHTML = `<div class="dhero-bg ${a.g}">${imgTag(a.foto, "dhero-photo", `style="object-position:${posCss(a.fotoPos)}"`)}<span class="dhero-emoji">${a.e}</span></div>${zoomBtn(a.foto)}<div class="dbk" onclick="window._goBack()">←</div><div class="dfv" id="favBtn" onclick="window._toggleFav()">${favs.has(a.id) ? "❤️" : "🤍"}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
       setupHeroZoom(hero, a.foto);
       const dc = a.dificultad === "Alta" ? "alta" : a.dificultad === "Media" ? "media" : "baja";
       const body = document.getElementById("detailBody");
@@ -872,7 +871,6 @@ window.addEventListener("popstate", onPop);
     // Expose functions to window for inline HTML handlers
     (window as any)._goTo = goTo;
     (window as any)._goBack = goBack;
-    (window as any)._fitHeroImg = fitHeroImg;
     (window as any)._openDetalle = openDetalle;
     (window as any)._openEvento = openEvento;
     (window as any)._selectCat = (c: string) => { selectedCat = c; renderHome(); };
