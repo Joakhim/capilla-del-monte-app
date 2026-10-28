@@ -606,7 +606,7 @@ body {
 #detail { background: var(--cr); }
 
 .dhero {
-  height: clamp(220px, 55vw, 290px);
+  height: clamp(260px, 75vw, 360px);
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
@@ -651,9 +651,6 @@ body {
   pointer-events: none;
 }
 
-/* Foto mostrada completa (flyers): degradé más corto para no tapar la imagen */
-.dhero.dhero-contain::after { height: 24px; }
-
 .dbk, .dfv {
   position: absolute;
   top: clamp(12px, 3vw, 20px);
@@ -672,6 +669,21 @@ body {
 
 .dbk { left: clamp(12px, 3vw, 18px); }
 .dfv { right: clamp(12px, 3vw, 18px); }
+
+.dzoom {
+  position: absolute;
+  bottom: clamp(12px, 3vw, 20px);
+  left: clamp(12px, 3vw, 18px);
+  z-index: 10;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
 
 .dpht { position: absolute; bottom: clamp(12px, 3vw, 20px); right: clamp(12px, 3vw, 18px); display: flex; gap: 5px; z-index: 10; }
 .pd { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.45); }
