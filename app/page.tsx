@@ -445,10 +445,68 @@ function goBack() {
   else goTo("home");
 }
 
-    function imgTag(foto: string, cls: string) {
+    function imgTag(foto: string, cls: string, extra = "") {
       return foto && foto.startsWith("http")
-        ? `<img class="${cls}" src="${foto}" loading="lazy" onerror="this.remove()">`
+        ? `<img class="${cls}" src="${foto}" loading="lazy" onerror="this.remove()" ${extra}>`
         : "";
+    }
+
+    // Foto del hero: si su proporción difiere de la del contenedor (ej. flyers verticales),
+    // se muestra completa (contain) sobre un fondo difuminado de la misma imagen.
+    function fitHeroImg(img: HTMLImageElement) {
+      const box = img.parentElement as HTMLElement | null;
+      if (!box || !img.naturalWidth || !img.naturalHeight) return;
+      const boxRatio = box.clientWidth / (box.clientHeight || 1);
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      if (Math.abs(imgRatio - boxRatio) / boxRatio < 0.15) return; // proporción parecida: queda cover
+      if (getComputedStyle(box).position === "static") box.style.position = "relative";
+      box.style.overflow = "hidden";
+      if (!box.querySelector(".dhero-blur")) {
+        const bg = document.createElement("div");
+        bg.className = "dhero-blur";
+        bg.style.cssText = `position:absolute;inset:0;z-index:0;background:url("${img.src}") center/cover no-repeat;filter:blur(24px);transform:scale(1.2);opacity:.65;pointer-events:none`;
+        box.insertBefore(bg, img);
+      }
+      if (getComputedStyle(img).position === "static") img.style.position = "relative";
+      img.style.zIndex = "1";
+      img.style.objectFit = "contain";
+    }
+
+    // Tocar el hero abre la imagen a pantalla completa
+    function setupHeroZoom(hero: HTMLElement, foto: string) {
+      const ok = !!foto && foto.startsWith("http");
+      hero.style.cursor = ok ? "zoom-in" : "";
+      hero.onclick = ok
+        ? (ev: MouseEvent) => {
+            if ((ev.target as HTMLElement).closest(".dbk,.dfv")) return; // botones atrás / favorito
+            abrirLightbox(foto);
+          }
+        : null;
+    }
+
+    function abrirLightbox(foto: string) {
+      if (document.getElementById("lightbox")) return;
+      const lb = document.createElement("div");
+      lb.id = "lightbox";
+      lb.style.cssText = "position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)";
+      const im = document.createElement("img");
+      im.src = foto;
+      im.style.cssText = "max-width:100%;max-height:100%;object-fit:contain";
+      const x = document.createElement("div");
+      x.textContent = "✕";
+      x.style.cssText = "position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px";
+      lb.appendChild(im);
+      lb.appendChild(x);
+      lb.onclick = cerrarLightbox;
+      document.body.appendChild(lb);
+      history.pushState({ ...(history.state || {}), lightbox: true }, "");
+    }
+
+    function cerrarLightbox() {
+      const lb = document.getElementById("lightbox");
+      if (!lb) return;
+      lb.remove();
+      if (history.state?.lightbox) history.back();
     }
 
     function renderHome() {
@@ -619,7 +677,8 @@ function goBack() {
       const hero = document.getElementById("detailHero");
       if (!hero) return;
       hero.className = "dhero g6";
-      hero.innerHTML = `<div class="dhero-bg g6">${imgTag(e.foto, "dhero-photo")}<span class="dhero-emoji">🎪</span></div><div class="dbk" onclick="window._goBack()">←</div><div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
+      hero.innerHTML = `<div class="dhero-bg g6">${imgTag(e.foto, "dhero-photo", 'onload="window._fitHeroImg(this)"')}<span class="dhero-emoji">🎪</span></div><div class="dbk" onclick="window._goBack()">←</div><div class="dpht"><div class="pd on"></div><div class="pd"></div></div>`;
+      setupHeroZoom(hero, e.foto);
       const body = document.getElementById("detailBody");
       if (body)
         body.innerHTML = `<div class="dtr"><div class="dtit">${e.nombre}</div></div>
@@ -650,13 +709,14 @@ function goBack() {
       const hero = document.getElementById("detailHero");
       if (!hero) return;
       hero.className = "dhero " + a.g;
-      hero.innerHTML = `<div class="dhero-bg ${a.g}">${imgTag(a.foto, "dhero-photo")}<span class="dhero-emoji">${a.e}</span></div><div class="dbk" onclick="window._goBack()">←</div><div class="dfv" id="favBtn" onclick="window._toggleFav()">${favs.has(a.id) ? "❤️" : "🤍"}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
+      hero.innerHTML = `<div class="dhero-bg ${a.g}">${imgTag(a.foto, "dhero-photo", 'onload="window._fitHeroImg(this)"')}<span class="dhero-emoji">${a.e}</span></div><div class="dbk" onclick="window._goBack()">←</div><div class="dfv" id="favBtn" onclick="window._toggleFav()">${favs.has(a.id) ? "❤️" : "🤍"}</div><div class="dpht"><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>`;
+      setupHeroZoom(hero, a.foto);
       const dc = a.dificultad === "Alta" ? "alta" : a.dificultad === "Media" ? "media" : "baja";
       const body = document.getElementById("detailBody");
       if (!body) return;
 
       if (a.categoria === "Alojamiento") {
-        body.innerHTML = `<div class="dtr"><div class="dtit">${a.nombre}</div><div class="drat">⭐ 4.8</div></div>
+        body.innerHTML = `<div class="dtr"><div class="dtit">${a.nombre}</div></div>
           <div class="dloc">📍 Capilla del Monte · ${a.categoria}</div>
           <div class="dtags">${a.tags.map((t: string) => `<div class="dtag">${servicioIco(t)} ${t}</div>`).join("")}</div>
           <div class="igrid">
@@ -678,7 +738,7 @@ function goBack() {
       }
 
       if (a.categoria === "Salud") {
-        body.innerHTML = `<div class="dtr"><div class="dtit">${a.nombre}</div><div class="drat">⭐ 4.8</div></div>
+        body.innerHTML = `<div class="dtr"><div class="dtit">${a.nombre}</div></div>
           <div class="dloc">📍 ${a.descripcion || "Capilla del Monte"}</div>
           <div class="dtags">${a.tags.map((t: string) => `<div class="dtag">${te(t)} ${t}</div>`).join("")}</div>
           <div class="igrid">
@@ -699,7 +759,7 @@ function goBack() {
         return;
       }
 
-      body.innerHTML = `<div class="dtr"><div class="dtit">${a.nombre}</div><div class="drat">⭐ 4.8</div></div>
+      body.innerHTML = `<div class="dtr"><div class="dtit">${a.nombre}</div></div>
         <div class="dloc">📍 Capilla del Monte · ${a.categoria}</div>
         <div class="dtags">${a.tags.map((t: string) => `<div class="dtag">${te(t)} ${t}</div>`).join("")}</div>
         <div class="igrid">
@@ -798,6 +858,11 @@ const onPop = (e: PopStateEvent) => {
     p.style.display = "none"; // "atrás" cierra el popup primero
     return;
   }
+  const lb = document.getElementById("lightbox");
+  if (lb) {
+    lb.remove(); // "atrás" cierra la imagen ampliada primero
+    return;
+  }
   depth = e.state?.d ?? 0;
   goTo(e.state?.screen || "home", true);
 };
@@ -806,6 +871,7 @@ window.addEventListener("popstate", onPop);
     // Expose functions to window for inline HTML handlers
     (window as any)._goTo = goTo;
     (window as any)._goBack = goBack;
+    (window as any)._fitHeroImg = fitHeroImg;
     (window as any)._openDetalle = openDetalle;
     (window as any)._openEvento = openEvento;
     (window as any)._selectCat = (c: string) => { selectedCat = c; renderHome(); };
