@@ -651,6 +651,9 @@ body {
   pointer-events: none;
 }
 
+/* Foto mostrada completa (flyers): degradé más corto para no tapar la imagen */
+.dhero.dhero-contain::after { height: 24px; }
+
 .dbk, .dfv {
   position: absolute;
   top: clamp(12px, 3vw, 20px);
