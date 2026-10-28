@@ -461,6 +461,7 @@ function goBack() {
       if (Math.abs(imgRatio - boxRatio) / boxRatio < 0.15) return; // proporción parecida: queda cover
       if (getComputedStyle(box).position === "static") box.style.position = "relative";
       box.style.overflow = "hidden";
+      box.parentElement?.classList.add("dhero-contain");
       if (!box.querySelector(".dhero-blur")) {
         const bg = document.createElement("div");
         bg.className = "dhero-blur";
