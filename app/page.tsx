@@ -55,6 +55,10 @@ export default function Home() {
       Talleres: { g: "g9", e: "🎨" },
     };
 
+    // Categorías donde NO se muestra "Duración" (ficha y tarjetas).
+    // Para sacar o devolver el dato en una categoría, agregá o borrá su nombre acá.
+    const SIN_DURACION = ["Gastronomía", "Servicios", "Clases", "Talleres"];
+
     const CATS = [
       { k: "Todo", e: "🗺️" },
       { k: "Trekking", e: "🥾" },
@@ -450,6 +454,12 @@ function goBack() {
   else goTo("home");
 }
 
+    // Línea chica de las tarjetas: "⏱ duración · horario" (sin duración en SIN_DURACION)
+    function metaTxt(a: any, conHorario = true) {
+      if (SIN_DURACION.includes(a.categoria)) return conHorario && a.horario ? `🕖 ${a.horario}` : "";
+      return `⏱ ${a.duracion}${conHorario && a.horario ? " · " + a.horario : ""}`;
+    }
+
     function imgTag(foto: string, cls: string, extra = "") {
       return foto && foto.startsWith("http")
         ? `<img class="${cls}" src="${foto}" loading="lazy" onerror="this.remove()" ${extra}>`
@@ -536,7 +546,7 @@ function goBack() {
           .map(
             (a) => `<div class="acard" onclick="window._openDetalle(${a.id})">
             <div class="aimg"><div class="aimg-bg ${a.g}">${imgTag(a.foto, "aimg-photo")}<span class="aimg-emoji">${a.e}</span></div><div class="abadge destacado">⭐ Destacado</div></div>
-            <div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">⏱ ${a.duracion}${a.horario ? " · " + a.horario : ""}</div><div class="tags">${a.tags.slice(0, 2).map((t: string) => `<span class="tag">${t}</span>`).join("")}</div></div>
+            <div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">${metaTxt(a)}</div><div class="tags">${a.tags.slice(0, 2).map((t: string) => `<span class="tag">${t}</span>`).join("")}</div></div>
           </div>`
           )
           .join("");
@@ -639,7 +649,7 @@ function goBack() {
           .map(
             (a) => `<div class="fav-card" onclick="window._openDetalle(${a.id})">
             <div class="fav-cimg"><div class="fav-cimg-bg ${a.g}"></div>${imgTag(a.foto, "fav-cimg-photo")}<span class="fav-cimg-emoji">${a.e}</span></div>
-            <div class="fav-card-body"><div class="fav-card-name">${a.nombre}</div><div class="fav-card-meta">⏱ ${a.duracion}${a.horario ? " · " + a.horario : ""}</div><span class="fav-card-tag">${a.categoria}</span></div>
+            <div class="fav-card-body"><div class="fav-card-name">${a.nombre}</div><div class="fav-card-meta">${metaTxt(a)}</div><span class="fav-card-tag">${a.categoria}</span></div>
             <div class="fav-remove" onclick="event.stopPropagation();window._removeFav(${a.id})">🗑️</div>
           </div>`
           )
@@ -664,7 +674,7 @@ function goBack() {
       const destEl = document.getElementById("destacadosList");
       if (destEl)
         destEl.innerHTML = f.length
-          ? f.map((a) => `<div class="acard" onclick="window._openDetalle(${a.id})"><div class="aimg"><div class="aimg-bg ${a.g}">${imgTag(a.foto, "aimg-photo")}<span class="aimg-emoji">${a.e}</span></div></div><div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">⏱ ${a.duracion}</div><div class="tags">${a.tags.slice(0, 2).map((t: string) => `<span class="tag">${t}</span>`).join("")}</div></div></div>`).join("")
+          ? f.map((a) => `<div class="acard" onclick="window._openDetalle(${a.id})"><div class="aimg"><div class="aimg-bg ${a.g}">${imgTag(a.foto, "aimg-photo")}<span class="aimg-emoji">${a.e}</span></div></div><div class="abody"><div class="aname">${a.nombre}</div><div class="ameta">${metaTxt(a, false)}</div><div class="tags">${a.tags.slice(0, 2).map((t: string) => `<span class="tag">${t}</span>`).join("")}</div></div></div>`).join("")
           : '<p style="padding:20px;color:var(--g);font-size:var(--fs-sm);text-align:center">Sin resultados 🔍</p>';
     }
 
@@ -765,7 +775,7 @@ function goBack() {
         <div class="igrid">
           <div class="icard"><div class="iico">🕖</div><div class="ilbl">Horario</div><div class="ival">${a.horario || "—"}</div></div>
           ${a.direccion ? `<div class="icard"><div class="iico">📍</div><div class="ilbl">Dirección</div><div class="ival">${a.direccion}</div></div>` : ""}
-          <div class="icard"><div class="iico">⏱️</div><div class="ilbl">Duración</div><div class="ival">${a.duracion}</div></div>
+          ${SIN_DURACION.includes(a.categoria) ? "" : `<div class="icard"><div class="iico">⏱️</div><div class="ilbl">Duración</div><div class="ival">${a.duracion}</div></div>`}
           ${a.categoria === "Trekking"
             ? `<div class="icard"><div class="iico">💪</div><div class="ilbl">Dificultad</div><div class="ival ${dc}">${a.dificultad}</div></div>`
             : ""}
